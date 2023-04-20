@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express';
 const app = express();
-const dotenv = require('dotenv');
-const cors = require('cors');
+import dotenv from 'dotenv';
+import cors from 'cors';
 dotenv.config();
 
 app.use(cors());
@@ -15,4 +15,4 @@ if (process.env.API_PORT) {
 	console.log('server running');
 }
 
-module.exports = app;
+export default app;
