@@ -7,6 +7,7 @@ function App() {
     const url = `${import.meta.env.VITE_REACT_APP_API_URL}/test`;
     const response = await fetch(url);
     const json = await response.json();
+    console.log(response);
     setResult(json);
   }
   return (
