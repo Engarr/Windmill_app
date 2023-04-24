@@ -1,0 +1,73 @@
+.nav {
+  position: sticky;
+  width: 100%;
+  top: 0;
+  margin-bottom: 2em;
+  background-color: var(--white);
+  padding: 10px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.089);
+
+  &__box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    height: 140px;
+    overflow: hidden;
+    transition: height 0.3s;
+    &--logo {
+      position: absolute;
+      height: 150px;
+      top: 50%;
+      left: 50%;
+      cursor: pointer;
+      transform: translate(-50%, -50%);
+      transition: height 0.3s, left 1s;
+    }
+
+    &--icons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 1.7em;
+      transition: font-size 0.3s;
+
+      &-cart,
+      &-account,
+      &-envelope,
+      &-fb {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin: 5px;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+      &-cart:hover,
+      &-account:hover,
+      &-envelope:hover,
+      &-fb:hover {
+        color: var(--main-color);
+      }
+    }
+  }
+  &__top {
+    left: 10%;
+    height: 100px;
+  }
+  &__icons {
+    font-size: 1.2em;
+  }
+  &__height {
+    height: 90px;
+  }
+}

@@ -1,21 +1,22 @@
-import './App.css';
-import { useState } from 'react';
+// import './App.css';
+import {
+  Navigate,
+  createBrowserRouter,
+  RouterProvider,
+} from 'react-router-dom';
+import RootLayout from './pages/Root/Root';
+import HomePage from './pages/Home/HomePage';
 
 function App() {
-  const [result, setResult] = useState('');
-  async function fetchInfo() {
-    const url = `${import.meta.env.VITE_REACT_APP_API_URL}/test`;
-    const response = await fetch(url);
-    const json = await response.json();
-    console.log(response);
-    setResult(json);
-  }
-  return (
-    <div>
-      <button onClick={fetchInfo}>fetch info from api</button>
-      <div>result: {result}</div>
-    </div>
-  );
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <RootLayout />,
+      children: [{ path: '/', element: <HomePage /> }],
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;
