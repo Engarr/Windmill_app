@@ -3,7 +3,7 @@ import classes from './NavBar.module.scss';
 import logo from '../../assets/logo.png';
 import { GiFlour } from 'react-icons/gi';
 import { VscAccount } from 'react-icons/vsc';
-import { FaEnvelope, FaFacebookF } from 'react-icons/fa';
+import { FaEnvelope, FaFacebookF, FaHamburger } from 'react-icons/fa';
 
 const NavBar = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -23,7 +23,6 @@ const NavBar = () => {
   const styleLogoCss = scrollPosition > 0 ? classes.nav__top : '';
   const styleIconsCss = scrollPosition > 0 ? classes.nav__icons : '';
   const styleBoxCss = scrollPosition > 0 ? classes.nav__height : '';
-
 
   return (
     <div className={classes.nav}>
@@ -47,6 +46,9 @@ const NavBar = () => {
           </div>
           <div className={classes['nav__box--icons-cart']}>
             <GiFlour />
+          </div>
+          <div className={classes['nav__box--icons-burger']}>
+            <FaHamburger />
           </div>
         </div>
       </div>

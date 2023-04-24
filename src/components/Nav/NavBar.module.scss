@@ -32,15 +32,18 @@
       justify-content: center;
       align-items: center;
       position: absolute;
-      top: 20px;
+      top: 50%;
+      height: 100%;
       right: 20px;
       font-size: 1.7em;
+      transform: translate(0, -50%);
       transition: font-size 0.3s;
 
       &-cart,
       &-account,
       &-envelope,
-      &-fb {
+      &-fb,
+      &-burger {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -52,10 +55,14 @@
         cursor: pointer;
         transition: color 0.3s;
       }
+      &-burger {
+        display: none;
+      }
       &-cart:hover,
       &-account:hover,
       &-envelope:hover,
-      &-fb:hover {
+      &-fb:hover,
+      &-burger:hover {
         color: var(--main-color);
       }
     }
@@ -69,5 +76,31 @@
   }
   &__height {
     height: 90px;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .nav {
+    &__box {
+      &--logo {
+        left: 20%;
+        height: 100px;
+      }
+
+      &--icons {
+        &-burger {
+          display: flex;
+        }
+        &-envelope,
+        &-fb {
+          display: none;
+        }
+      }
+    }
+    &__top {
+      left: 20%;
+    }
+    &__icons {
+      font-size: 1.7em;
+    }
   }
 }
