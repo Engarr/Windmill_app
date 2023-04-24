@@ -5,10 +5,9 @@ import { FaEnvelope, FaFacebookF } from 'react-icons/fa';
 
 const NavLinks = (props: {
   scrollPosition: number;
-  isMenu: boolean;
+  isMenuVisible: boolean;
   showMenuHandler: () => void;
 }) => {
-    
   return (
     /////<--bigDevices
     <>
@@ -29,7 +28,7 @@ const NavLinks = (props: {
         </ul>
       </div>
       {/* /////<--smallDevices */}
-      {props.isMenu && (
+      {props.isMenuVisible && (
         <div className={classes[`nav__links--small`]}>
           <TfiClose
             className={classes[`nav__links--close`]}
