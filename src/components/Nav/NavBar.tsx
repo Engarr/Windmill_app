@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import NavLinks from '../NavLinks/NavLinks';
 import { GiFlour } from 'react-icons/gi';
@@ -13,13 +12,21 @@ import { RootState } from '../../store/index';
 
 const NavBar = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [animationCss, setanimationCss] = useState('');
   const dispatch = useDispatch();
   const isMenuVisible = useSelector(
     (state: RootState) => state.ui.isMenuVisible
   );
 
   const showMenuHandler = () => {
-    dispatch(uiActions.MenuHandler());
+    if (isMenuVisible) {
+      setTimeout(() => {
+        dispatch(uiActions.MenuHandler());
+      }, 400);
+    } else {
+      dispatch(uiActions.MenuHandler());
+    }
+    setanimationCss(isMenuVisible ? classes.inactive : classes.active);
   };
 
   // The function handleScroll is used to change the styling of the navigation
@@ -57,43 +64,49 @@ const NavBar = () => {
   };
 
   return (
-    <div className={classes.nav}>
-      <div className={`${classes.nav__box} ${styleBoxCss}`}>
-        <div>
-          <a href="#home" onClick={(e) => scrollToSection(e)}>
-            <img
-              src={logo}
-              className={`${classes['nav__box--logo']} ${styleLogoCss}`}
-            />
-          </a>
+    <>
+      <div className={classes.nav}>
+        <div className={`${classes.nav__box} ${styleBoxCss}`}>
+          <div>
+            <a href="#home" onClick={(e) => scrollToSection(e)}>
+              <img
+                src={logo}
+                className={`${classes['nav__box--logo']} ${styleLogoCss}`}
+              />
+            </a>
+          </div>
+
+          <div className={`${classes['nav__box--icons']} ${styleIconsCss}`}>
+            <div className={classes['nav__box--icons-envelope']}>
+              <FaEnvelope />
+            </div>
+            <div className={classes['nav__box--icons-fb']}>
+              <FaFacebookF />
+            </div>
+            <div className={classes['nav__box--icons-account']}>
+              <VscAccount />
+            </div>
+            <div className={classes['nav__box--icons-cart']}>
+              <GiFlour />
+            </div>
+            <div
+              className={classes['nav__box--icons-burger']}
+              onClick={showMenuHandler}
+            >
+              <CiMenuBurger />
+            </div>
+          </div>
         </div>
 
-        <div className={`${classes['nav__box--icons']} ${styleIconsCss}`}>
-          <div className={classes['nav__box--icons-envelope']}>
-            <FaEnvelope />
-          </div>
-          <div className={classes['nav__box--icons-fb']}>
-            <FaFacebookF />
-          </div>
-          <div className={classes['nav__box--icons-account']}>
-            <VscAccount />
-          </div>
-          <div className={classes['nav__box--icons-cart']}>
-            <GiFlour />
-          </div>
-          <div className={classes['nav__box--icons-burger']}>
-            <CiMenuBurger onClick={showMenuHandler} />
-          </div>
-        </div>
+        <NavLinks
+          scrollPosition={scrollPosition}
+          isMenuVisible={isMenuVisible}
+          showMenuHandler={showMenuHandler}
+          scrollToSection={scrollToSection}
+          animationCss={animationCss}
+        />
       </div>
-
-      <NavLinks
-        scrollPosition={scrollPosition}
-        isMenuVisible={isMenuVisible}
-        showMenuHandler={showMenuHandler}
-        scrollToSection={scrollToSection}
-      />
-    </div>
+    </>
   );
 };
 

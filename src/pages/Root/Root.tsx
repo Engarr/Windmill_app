@@ -4,6 +4,7 @@ import NavBar from '../../components/Nav/NavBar';
 const RootLayout = () => {
   return (
     <div className={classes.background}>
+      
       <NavBar />
       <main className={classes.main}>
         <Outlet />

@@ -78,6 +78,37 @@
     height: 90px;
   }
 }
+
+.active {
+  opacity: 1;
+  animation: showAnimation 0.4s ease-out forwards;
+}
+.inactive {
+  opacity: 0;
+  animation: hideAnimation 0.4s ease-in-out forwards;
+}
+@keyframes showAnimation {
+  0% {
+    opacity: 0;
+    transform: translate(150%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0%);
+  }
+}
+@keyframes hideAnimation {
+  0% {
+    opacity: 1;
+    transform: translate(0%);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(150%);
+  }
+}
 @media only screen and (max-width: 1024px) {
   .nav {
     &__box {
