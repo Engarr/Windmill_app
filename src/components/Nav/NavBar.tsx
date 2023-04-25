@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import NavLinks from '../NavLinks/NavLinks';
 import { GiFlour } from 'react-icons/gi';
@@ -6,7 +8,6 @@ import { VscAccount } from 'react-icons/vsc';
 import { FaEnvelope, FaFacebookF } from 'react-icons/fa';
 import { CiMenuBurger } from 'react-icons/ci';
 import classes from './NavBar.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
 import { uiActions } from '../../store/ui-slice';
 import { RootState } from '../../store/index';
 
@@ -21,6 +22,7 @@ const NavBar = () => {
     dispatch(uiActions.MenuHandler());
   };
 
+  // The function handleScroll is used to change the styling of the navigation
   useEffect(() => {
     function handleScroll() {
       const position = window.pageYOffset;
@@ -33,18 +35,37 @@ const NavBar = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [scrollPosition]);
+
   const styleLogoCss = scrollPosition > 0 ? classes.nav__top : '';
   const styleIconsCss = scrollPosition > 0 ? classes.nav__icons : '';
   const styleBoxCss = scrollPosition > 0 ? classes.nav__height : '';
-  console.log(isMenuVisible);
+
+  //the function scrollToSection is used to move the page position to the section selected by the user
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const sectionId = e.currentTarget.getAttribute('href');
+    const sectionElement = document.querySelector(sectionId!);
+    console.log(sectionElement);
+
+    if (sectionElement instanceof HTMLElement) {
+      const sectionPosition = sectionElement.offsetTop;
+      window.scrollTo({
+        top: sectionPosition - 240,
+        behavior: 'smooth',
+      });
+    }
+  };
+
   return (
     <div className={classes.nav}>
       <div className={`${classes.nav__box} ${styleBoxCss}`}>
         <div>
-          <img
-            src={logo}
-            className={`${classes['nav__box--logo']} ${styleLogoCss}`}
-          />
+          <a href="#home" onClick={(e) => scrollToSection(e)}>
+            <img
+              src={logo}
+              className={`${classes['nav__box--logo']} ${styleLogoCss}`}
+            />
+          </a>
         </div>
 
         <div className={`${classes['nav__box--icons']} ${styleIconsCss}`}>
@@ -70,6 +91,7 @@ const NavBar = () => {
         scrollPosition={scrollPosition}
         isMenuVisible={isMenuVisible}
         showMenuHandler={showMenuHandler}
+        scrollToSection={scrollToSection}
       />
     </div>
   );

@@ -1,6 +1,7 @@
 .nav__links--big {
   width: 100%;
   font-family: 'Pacifico', cursive;
+ 
   ul {
     display: flex;
     justify-content: center;
@@ -34,6 +35,9 @@
 }
 .nav__links--small {
   display: none;
+}
+.active a {
+  color: var(--main-color);
 }
 @media only screen and (max-width: 1024px) {
   .nav__links--big {
