@@ -13,7 +13,7 @@ const NavLinks = (props: {
   animationCss: string;
   scrollToSection: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 }) => {
-  const [activeSection, setActiveSection] = useState('');
+  const [activeSection, setActiveSection] = useState('strona-glowna');
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -88,23 +88,32 @@ const NavLinks = (props: {
             />
             <ul>
               <li>
-                <a
-                  href="/home"
+                <HashLink
+                  to="#strona-glowna"
                   onClick={(e) => {
                     props.scrollToSection(e);
+                    props.showMenuHandler();
                   }}
                 >
                   Strona główna
-                </a>
+                </HashLink>
               </li>
               <li>
                 <NavLink to="">Sklep On-line</NavLink>
               </li>
               <li>
-                <NavLink to="">Oferta</NavLink>
+                <HashLink
+                  to="#offert"
+                  onClick={(e) => {
+                    props.scrollToSection(e);
+                    props.showMenuHandler();
+                  }}
+                >
+                  Oferta
+                </HashLink>
               </li>
               <li>
-                <NavLink to="">Kontakt</NavLink>
+                <HashLink to="">Kontakt</HashLink>
               </li>
               <div className={classes[`nav__links--box`]}>
                 <li>

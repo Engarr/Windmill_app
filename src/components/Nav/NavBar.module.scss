@@ -82,6 +82,7 @@
 .active {
   opacity: 1;
   animation: showAnimation 0.4s ease-out forwards;
+  right: 0;
 }
 .inactive {
   opacity: 0;
@@ -90,7 +91,7 @@
 @keyframes showAnimation {
   0% {
     opacity: 0;
-    transform: translate(150%);
+    transform: translate(150%, 0%);
   }
 
   100% {
