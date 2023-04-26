@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import classes from './NavLinks.module.scss';
+import { HashLink } from 'react-router-hash-link';
 import { NavLink } from 'react-router-dom';
 import { TfiClose } from 'react-icons/tfi';
 import { FaEnvelope, FaFacebookF } from 'react-icons/fa';
@@ -21,7 +22,7 @@ const NavLinks = (props: {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
+  ///The function handleScroll is to highlight the active section on the page on which we are located
   const handleScroll = () => {
     const sections = document.querySelectorAll('section');
     const scrollPosition = window.pageYOffset + 150;
@@ -38,35 +39,36 @@ const NavLinks = (props: {
         setActiveSection(section.id);
       }
     });
-  }; ///The function handleScroll is to highlight the active section on the page on which we are located
-  console.log(props.animationCss);
+  };
   return (
     /////<--bigDevices
     <>
       <div className={`${classes[`nav__links--big`]} `}>
         <ul>
-          <li className={activeSection === 'home' ? classes.active : ''}>
-            <a
-              href="#home"
+          <li
+            className={activeSection === 'strona-glowna' ? classes.active : ''}
+          >
+            <HashLink
+              to="#strona-glowna"
               onClick={(e) => {
                 props.scrollToSection(e);
               }}
             >
               Strona główna
-            </a>
+            </HashLink>
           </li>
           <li>
             <NavLink to="">Sklep On-line</NavLink>
           </li>
           <li className={activeSection === 'offert' ? classes.active : ''}>
-            <a
-              href="#offert"
+            <HashLink
+              to="#offert"
               onClick={(e) => {
                 props.scrollToSection(e);
               }}
             >
               Oferta
-            </a>
+            </HashLink>
           </li>
           <li className={activeSection === 'contact' ? classes.active : ''}>
             <a href="#contact">Kontakt</a>

@@ -51,11 +51,12 @@ const NavBar = () => {
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const sectionId = e.currentTarget.getAttribute('href');
-    const sectionElement = document.querySelector(sectionId!);
-    console.log(sectionElement);
+    const cleanedSectionId = sectionId?.slice(1);
+    const sectionElement = document.querySelector(cleanedSectionId!);
 
     if (sectionElement instanceof HTMLElement) {
       const sectionPosition = sectionElement.offsetTop;
+
       window.scrollTo({
         top: sectionPosition - 240,
         behavior: 'smooth',
