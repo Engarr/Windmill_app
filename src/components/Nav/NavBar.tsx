@@ -53,54 +53,52 @@ const NavBar = () => {
 
   const scrollWithOffset = (el: HTMLElement) => {
     const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
-    const yOffset = -250;
-    window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
+    const yOffset = 250;
+    window.scrollTo({ top: yCoordinate - yOffset, behavior: 'smooth' });
   };
 
   return (
-    <>
-      <div className={classes.nav}>
-        <div className={`${classes.nav__box} ${styleBoxCss}`}>
-          <div>
-            <HashLink to="#strona-glowna" scroll={(el) => scrollWithOffset(el)}>
-              <img
-                src={logo}
-                className={`${classes['nav__box--logo']} ${styleLogoCss}`}
-              />
-            </HashLink>
-          </div>
-
-          <div className={`${classes['nav__box--icons']} ${styleIconsCss}`}>
-            <div className={classes['nav__box--icons-envelope']}>
-              <FaEnvelope />
-            </div>
-            <div className={classes['nav__box--icons-fb']}>
-              <FaFacebookF />
-            </div>
-            <div className={classes['nav__box--icons-account']}>
-              <VscAccount />
-            </div>
-            <div className={classes['nav__box--icons-cart']}>
-              <GiFlour />
-            </div>
-            <div
-              className={classes['nav__box--icons-burger']}
-              onClick={showMenuHandler}
-            >
-              <CiMenuBurger />
-            </div>
-          </div>
+    <header className={classes.nav}>
+      <div className={`${classes.nav__box} ${styleBoxCss}`}>
+        <div>
+          <HashLink to="#strona-glowna" scroll={(el) => scrollWithOffset(el)}>
+            <img
+              src={logo}
+              className={`${classes['nav__box--logo']} ${styleLogoCss}`}
+            />
+          </HashLink>
         </div>
 
-        <NavLinks
-          scrollPosition={scrollPosition}
-          isMenuVisible={isMenuVisible}
-          showMenuHandler={showMenuHandler}
-          scrollWithOffset={scrollWithOffset}
-          animationCss={animationCss}
-        />
+        <div className={`${classes['nav__box--icons']} ${styleIconsCss}`}>
+          <div className={classes['nav__box--icons-envelope']}>
+            <FaEnvelope />
+          </div>
+          <div className={classes['nav__box--icons-fb']}>
+            <FaFacebookF />
+          </div>
+          <div className={classes['nav__box--icons-account']}>
+            <VscAccount />
+          </div>
+          <div className={classes['nav__box--icons-cart']}>
+            <GiFlour />
+          </div>
+          <div
+            className={classes['nav__box--icons-burger']}
+            onClick={showMenuHandler}
+          >
+            <CiMenuBurger />
+          </div>
+        </div>
       </div>
-    </>
+
+      <NavLinks
+        scrollPosition={scrollPosition}
+        isMenuVisible={isMenuVisible}
+        showMenuHandler={showMenuHandler}
+        scrollWithOffset={scrollWithOffset}
+        animationCss={animationCss}
+      />
+    </header>
   );
 };
 

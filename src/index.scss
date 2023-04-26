@@ -7,6 +7,9 @@ html {
 }
 body {
   background-image: url('./assets/background-img.jpg');
+  font-family: 'Open Sans', sans-serif 'Pacifico' 'Amatic SC', cursive;
+
+  overflow-x: hidden;
 }
 :root {
   --white: white;
