@@ -1,7 +1,7 @@
 .nav {
   position: sticky;
-  width: 100%;
   top: 0;
+  width: 100%;
   margin-bottom: 2em;
   background-color: var(--white);
   padding: 10px 20px;
@@ -81,33 +81,34 @@
 
 .active {
   opacity: 1;
-  animation: showAnimation 0.4s ease-out forwards;
   right: 0;
+  animation: showAnimation 0.4s ease-out forwards;
 }
 .inactive {
   opacity: 0;
+  right: -250px;
   animation: hideAnimation 0.4s ease-in-out forwards;
 }
 @keyframes showAnimation {
   0% {
     opacity: 0;
-    transform: translate(150%, 0%);
+    right: -250px;
   }
 
   100% {
+    right: 0;
     opacity: 1;
-    transform: translate(0%);
   }
 }
 @keyframes hideAnimation {
   0% {
     opacity: 1;
-    transform: translate(0%);
+    right: 0;
   }
 
   100% {
     opacity: 0;
-    transform: translate(150%);
+    right: -250px;
   }
 }
 @media only screen and (max-width: 1024px) {
@@ -133,6 +134,9 @@
     }
     &__icons {
       font-size: 1.7em;
+    }
+    &__height {
+      height: 140px;
     }
   }
 }
