@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import logo from '../../assets/logo.png';
 import NavLinks from '../NavLinks/NavLinks';
+import { HashLink } from 'react-router-hash-link';
+
 import { GiFlour } from 'react-icons/gi';
 import { VscAccount } from 'react-icons/vsc';
 import { FaEnvelope, FaFacebookF } from 'react-icons/fa';
@@ -47,21 +49,12 @@ const NavBar = () => {
   const styleIconsCss = scrollPosition > 0 ? classes.nav__icons : '';
   const styleBoxCss = scrollPosition > 0 ? classes.nav__height : '';
 
-  //the function scrollToSection is used to move the page position to the section selected by the user
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const sectionId = e.currentTarget.getAttribute('href');
-    const cleanedSectionId = sectionId?.slice(1);
-    const sectionElement = document.querySelector(cleanedSectionId!);
+  //the function scrollWithOffset is used to move the page position to the section selected by the user
 
-    if (sectionElement instanceof HTMLElement) {
-      const sectionPosition = sectionElement.offsetTop;
-
-      window.scrollTo({
-        top: sectionPosition - 240,
-        behavior: 'smooth',
-      });
-    }
+  const scrollWithOffset = (el: HTMLElement) => {
+    const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
+    const yOffset = -250;
+    window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
   };
 
   return (
@@ -69,12 +62,12 @@ const NavBar = () => {
       <div className={classes.nav}>
         <div className={`${classes.nav__box} ${styleBoxCss}`}>
           <div>
-            <a href="#home" onClick={(e) => scrollToSection(e)}>
+            <HashLink to="#strona-glowna" scroll={(el) => scrollWithOffset(el)}>
               <img
                 src={logo}
                 className={`${classes['nav__box--logo']} ${styleLogoCss}`}
               />
-            </a>
+            </HashLink>
           </div>
 
           <div className={`${classes['nav__box--icons']} ${styleIconsCss}`}>
@@ -103,7 +96,7 @@ const NavBar = () => {
           scrollPosition={scrollPosition}
           isMenuVisible={isMenuVisible}
           showMenuHandler={showMenuHandler}
-          scrollToSection={scrollToSection}
+          scrollWithOffset={scrollWithOffset}
           animationCss={animationCss}
         />
       </div>

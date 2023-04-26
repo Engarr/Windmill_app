@@ -11,7 +11,7 @@ const NavLinks = (props: {
   isMenuVisible: boolean;
   showMenuHandler: () => void;
   animationCss: string;
-  scrollToSection: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  scrollWithOffset: (e: HTMLElement) => void;
 }) => {
   const [activeSection, setActiveSection] = useState('strona-glowna');
 
@@ -50,9 +50,7 @@ const NavLinks = (props: {
           >
             <HashLink
               to="#strona-glowna"
-              onClick={(e) => {
-                props.scrollToSection(e);
-              }}
+              scroll={(el) => props.scrollWithOffset(el)}
             >
               Strona główna
             </HashLink>
@@ -61,12 +59,7 @@ const NavLinks = (props: {
             <NavLink to="">Sklep On-line</NavLink>
           </li>
           <li className={activeSection === 'offert' ? classes.active : ''}>
-            <HashLink
-              to="#offert"
-              onClick={(e) => {
-                props.scrollToSection(e);
-              }}
-            >
+            <HashLink to="#offert" scroll={(el) => props.scrollWithOffset(el)}>
               Oferta
             </HashLink>
           </li>
@@ -91,9 +84,9 @@ const NavLinks = (props: {
                 <HashLink
                   to="#strona-glowna"
                   onClick={(e) => {
-                    props.scrollToSection(e);
                     props.showMenuHandler();
                   }}
+                  scroll={(el) => props.scrollWithOffset(el)}
                 >
                   Strona główna
                 </HashLink>
@@ -105,9 +98,9 @@ const NavLinks = (props: {
                 <HashLink
                   to="#offert"
                   onClick={(e) => {
-                    props.scrollToSection(e);
                     props.showMenuHandler();
                   }}
+                  scroll={(el) => props.scrollWithOffset(el)}
                 >
                   Oferta
                 </HashLink>
