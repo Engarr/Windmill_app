@@ -22,7 +22,7 @@
     overflow: hidden;
     margin-top: 0.5em;
     background-color: var(--main-color);
-    transition: width 0.3s ease-out;
+    transition: width 0.3s;
   }
   li:hover::after {
     width: 120%;
@@ -40,6 +40,7 @@
 .active a {
   color: var(--main-color);
 }
+
 @media only screen and (max-width: 1024px) {
   .nav__links--big {
     display: none;

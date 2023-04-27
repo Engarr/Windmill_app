@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import classes from './NavLinks.module.scss';
 import { HashLink } from 'react-router-hash-link';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { TfiClose } from 'react-icons/tfi';
 import { FaEnvelope, FaFacebookF } from 'react-icons/fa';
 import Modal from '../Modal/Modal';
@@ -13,9 +13,10 @@ const NavLinks = (props: {
   animationCss: string;
   scrollWithOffset: (e: HTMLElement) => void;
 }) => {
-  const [activeSection, setActiveSection] = useState('strona-glowna');
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
+    setActiveSection('');
     window.addEventListener('scroll', handleScroll);
 
     return () => {
@@ -40,6 +41,10 @@ const NavLinks = (props: {
       }
     });
   };
+  const activeNavHandler = () => {
+    setActiveSection('sklep');
+  };
+
   return (
     /////<--bigDevices
     <>
@@ -49,20 +54,27 @@ const NavLinks = (props: {
             className={activeSection === 'strona-glowna' ? classes.active : ''}
           >
             <HashLink
-              to="#strona-glowna"
+              to="/#strona-glowna"
               scroll={(el) => props.scrollWithOffset(el)}
             >
               Strona główna
             </HashLink>
           </li>
-          <li>
-            <NavLink to="">Sklep On-line</NavLink>
+          <li
+            className={activeSection === 'sklep' ? classes.active : ''}
+            id="nav"
+          >
+            <NavLink to="/sklep" onClick={activeNavHandler}>
+              Sklep On-line
+            </NavLink>
           </li>
+
           <li className={activeSection === 'offert' ? classes.active : ''}>
-            <HashLink to="#offert" scroll={(el) => props.scrollWithOffset(el)}>
+            <HashLink to="/#offert" scroll={(el) => props.scrollWithOffset(el)}>
               Oferta
             </HashLink>
           </li>
+
           <li className={activeSection === 'contact' ? classes.active : ''}>
             <a href="#contact">Kontakt</a>
           </li>
@@ -92,11 +104,11 @@ const NavLinks = (props: {
                 </HashLink>
               </li>
               <li>
-                <NavLink to="">Sklep On-line</NavLink>
+                <NavLink to="/sklep">Sklep On-line</NavLink>
               </li>
               <li>
                 <HashLink
-                  to="#offert"
+                  to="/#offert"
                   onClick={(e) => {
                     props.showMenuHandler();
                   }}

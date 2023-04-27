@@ -11,6 +11,7 @@ import { CiMenuBurger } from 'react-icons/ci';
 import classes from './NavBar.module.scss';
 import { uiActions } from '../../store/ui-slice';
 import { RootState } from '../../store/index';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -53,7 +54,7 @@ const NavBar = () => {
 
   const scrollWithOffset = (el: HTMLElement) => {
     const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
-    const yOffset = 250;
+    const yOffset = 260;
     window.scrollTo({ top: yCoordinate - yOffset, behavior: 'smooth' });
   };
 
@@ -61,7 +62,7 @@ const NavBar = () => {
     <header className={classes.nav}>
       <div className={`${classes.nav__box} ${styleBoxCss}`}>
         <div>
-          <HashLink to="#strona-glowna" scroll={(el) => scrollWithOffset(el)}>
+          <HashLink to="/#strona-glowna" scroll={(el) => scrollWithOffset(el)}>
             <img
               src={logo}
               className={`${classes['nav__box--logo']} ${styleLogoCss}`}
