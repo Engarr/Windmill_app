@@ -1,5 +1,6 @@
 import classes from './HomePage.module.scss';
 import image from '../../assets/e83ec73c1c471036fd8e883920b02aae.png';
+import AboutUs from '../../components/AboutUs/AboutUs';
 
 const HomePage = () => {
   return (
@@ -15,6 +16,7 @@ const HomePage = () => {
             </p>
           </div>
         </div>
+        <AboutUs />
       </section>
       <section className={classes.offert} id="offert">
         Oferta
