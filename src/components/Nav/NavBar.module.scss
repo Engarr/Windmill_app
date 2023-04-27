@@ -16,7 +16,7 @@
     left: 50%;
     transform: translate(-50%);
     height: 140px;
-    overflow: hidden;
+    // overflow: hidden;
     transition: height 0.3s;
     &--logo {
       position: absolute;
@@ -29,13 +29,14 @@
     }
 
     &--icons {
+      position: absolute;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      position: absolute;
-      top: 50%;
+      top: 80%;
       height: 100%;
-      right: 0;
+      right: 15px;
       font-size: 1.7em;
       transform: translate(0, -50%);
       transition: font-size 0.3s;
@@ -56,6 +57,10 @@
         cursor: pointer;
         transition: color 0.3s;
       }
+      &-envelope,
+      &-fb {
+        font-size: 0.7em;
+      }
       &-burger {
         display: none;
       }
@@ -73,10 +78,24 @@
     height: 100px;
   }
   &__icons {
-    font-size: 1.2em;
+    font-size: 1.4em;
   }
   &__height {
     height: 90px;
+  }
+  &__arrowUp {
+    position: absolute;
+    right: -60px;
+    bottom: -380%;
+    color: rgb(231, 157, 20);
+    background-color: #fffffff6;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
   }
 }
 
@@ -121,6 +140,7 @@
       }
 
       &--icons {
+        flex-direction: row;
         &-burger {
           display: flex;
         }
@@ -138,6 +158,9 @@
     }
     &__height {
       height: 140px;
+    }
+    &__arrowUp {
+      display: none;
     }
   }
 }

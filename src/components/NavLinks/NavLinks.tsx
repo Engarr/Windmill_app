@@ -69,9 +69,9 @@ const NavLinks = (props: {
             </NavLink>
           </li>
 
-          <li className={activeSection === 'offert' ? classes.active : ''}>
-            <HashLink to="/#offert" scroll={(el) => props.scrollWithOffset(el)}>
-              Oferta
+          <li className={activeSection === 'O-nas' ? classes.active : ''}>
+            <HashLink to="/#O-nas" scroll={(el) => props.scrollWithOffset(el)}>
+              O nas
             </HashLink>
           </li>
 
@@ -94,7 +94,7 @@ const NavLinks = (props: {
             <ul>
               <li>
                 <HashLink
-                  to="#strona-glowna"
+                  to="/#strona-glowna"
                   onClick={(e) => {
                     props.showMenuHandler();
                   }}
@@ -108,13 +108,13 @@ const NavLinks = (props: {
               </li>
               <li>
                 <HashLink
-                  to="/#offert"
+                  to="/#O-nas"
                   onClick={(e) => {
                     props.showMenuHandler();
                   }}
                   scroll={(el) => props.scrollWithOffset(el)}
                 >
-                  Oferta
+                  O nas
                 </HashLink>
               </li>
               <li>

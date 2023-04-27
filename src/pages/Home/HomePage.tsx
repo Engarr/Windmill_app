@@ -16,10 +16,9 @@ const HomePage = () => {
             </p>
           </div>
         </div>
-        <AboutUs />
       </section>
-      <section className={classes.offert} id="offert">
-        Oferta
+      <section className={classes.offert} id="O-nas">
+        <AboutUs />
       </section>
     </>
   );

@@ -6,12 +6,11 @@ import { HashLink } from 'react-router-hash-link';
 
 import { GiFlour } from 'react-icons/gi';
 import { VscAccount } from 'react-icons/vsc';
-import { FaEnvelope, FaFacebookF } from 'react-icons/fa';
+import { FaEnvelope, FaFacebookF, FaArrowUp } from 'react-icons/fa';
 import { CiMenuBurger } from 'react-icons/ci';
 import classes from './NavBar.module.scss';
 import { uiActions } from '../../store/ui-slice';
 import { RootState } from '../../store/index';
-import { Link } from 'react-router-dom';
 
 const NavBar = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -57,6 +56,12 @@ const NavBar = () => {
     const yOffset = 260;
     window.scrollTo({ top: yCoordinate - yOffset, behavior: 'smooth' });
   };
+  const scrolToTop = () => {
+    window.scroll({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <header className={classes.nav}>
@@ -71,18 +76,19 @@ const NavBar = () => {
         </div>
 
         <div className={`${classes['nav__box--icons']} ${styleIconsCss}`}>
-          <div className={classes['nav__box--icons-envelope']}>
-            <FaEnvelope />
-          </div>
-          <div className={classes['nav__box--icons-fb']}>
-            <FaFacebookF />
-          </div>
           <div className={classes['nav__box--icons-account']}>
             <VscAccount />
           </div>
           <div className={classes['nav__box--icons-cart']}>
             <GiFlour />
           </div>
+          <div className={classes['nav__box--icons-envelope']}>
+            <FaEnvelope />
+          </div>
+          <div className={classes['nav__box--icons-fb']}>
+            <FaFacebookF />
+          </div>
+
           <div
             className={classes['nav__box--icons-burger']}
             onClick={showMenuHandler}
@@ -99,6 +105,10 @@ const NavBar = () => {
         scrollWithOffset={scrollWithOffset}
         animationCss={animationCss}
       />
+
+      <div className={classes.nav__arrowUp} onClick={scrolToTop}>
+        <FaArrowUp />
+      </div>
     </header>
   );
 };
