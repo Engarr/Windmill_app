@@ -1,8 +1,21 @@
+import { useState, useEffect } from 'react';
 import classes from './AboutUs.module.scss';
 import { AiOutlineSafety } from 'react-icons/ai';
 import { MdOutlineWorkspacePremium, MdLocalShipping } from 'react-icons/md';
 
-const AboutUs = () => {
+const AboutUs = (props: { scrollPosition: number }) => {
+  const [hasShowUp, setHasShowUp] = useState(false);
+  const [hasRotate, setHasRotate] = useState(false);
+
+  useEffect(() => {
+    props.scrollPosition > 30 ? setHasShowUp(true) : '';
+    props.scrollPosition > 640 ? setHasRotate(true) : '';
+  }, [props.scrollPosition]);
+
+  const slideTextCss = hasShowUp ? classes.showUp : '';
+  const rotateCardCss = hasRotate ? classes.rotate : '';
+
+  console.log(props.scrollPosition);
   return (
     <div className={classes.wrapper}>
       <div className={classes.aboutUs__container}>
@@ -11,7 +24,7 @@ const AboutUs = () => {
           Jesteśmy firmą skupującą zboże oraz producentem wysokiej jakości
           przetworów zbożowych od 1962 roku.
         </h3>
-        <div>
+        <div className={slideTextCss}>
           <p>
             Nasza historia jest długa i bogata w doświadczenia, które
             wykorzystujemy do produkcji najlepszych produktów na rynku. Nasza
@@ -47,7 +60,7 @@ const AboutUs = () => {
       <div className={classes.card__container}>
         <h2>Dlaczego my ?</h2>
         <div className={classes.card__boxes}>
-          <div className={classes[`card__boxes--box`]}>
+          <div className={`${classes[`card__boxes--box`]} ${rotateCardCss}`}>
             <div className={classes[`card__boxes--logo`]}>
               <MdOutlineWorkspacePremium />
             </div>
@@ -61,7 +74,7 @@ const AboutUs = () => {
               </p>
             </div>
           </div>
-          <div className={classes[`card__boxes--box`]}>
+          <div className={`${classes[`card__boxes--box`]} ${rotateCardCss}`}>
             <div className={classes[`card__boxes--logo`]}>
               <AiOutlineSafety />
             </div>
@@ -76,7 +89,7 @@ const AboutUs = () => {
             </div>
           </div>
 
-          <div className={classes[`card__boxes--box`]}>
+          <div className={`${classes[`card__boxes--box`]} ${rotateCardCss}`}>
             <div className={classes[`card__boxes--logo`]}>
               <MdLocalShipping />
             </div>

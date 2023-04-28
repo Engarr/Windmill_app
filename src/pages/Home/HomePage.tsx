@@ -5,7 +5,9 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/index';
 
 const HomePage = () => {
-  const scrollPos = useSelector((state: RootState) => state.ui.scrollPosition);
+  const scrollPosition = useSelector(
+    (state: RootState) => state.ui.scrollPosition
+  );
   return (
     <>
       <section className={classes.home} id="strona-glowna">
@@ -21,7 +23,7 @@ const HomePage = () => {
         </div>
       </section>
       <section className={classes.offert} id="O-nas">
-        <AboutUs />
+        <AboutUs scrollPosition={scrollPosition} />
       </section>
     </>
   );
