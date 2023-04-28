@@ -15,7 +15,6 @@ const AboutUs = (props: { scrollPosition: number }) => {
   const slideTextCss = hasShowUp ? classes.showUp : '';
   const rotateCardCss = hasRotate ? classes.rotate : '';
 
-  console.log(props.scrollPosition);
   return (
     <div className={classes.wrapper}>
       <div className={classes.aboutUs__container}>
@@ -98,7 +97,7 @@ const AboutUs = (props: { scrollPosition: number }) => {
             </div>
             <div>
               <p>
-                Staramy się żeby wszystkie zamówienia były realizowane na czas.
+                Staramy się żeby wszystkie zamówienia były realizowane do 24 godzin.
                 A nadane jeszcze tego samego dnia
               </p>
             </div>

@@ -1,0 +1,83 @@
+.wrapper {
+  position: relative;
+  font-family: BenchNine;
+}
+.contact {
+  &__container {
+    display: flex;
+    padding: 20px 40px;
+  }
+  &__textBox {
+    margin-right: 2em;
+    margin-top: 50px;
+    padding: 10px 20px;
+    font-size: 2.2em;
+    width: 50%;
+    h2 {
+      color: var(--background-color);
+    }
+  }
+  &__formBox {
+    width: 50%;
+    margin-top: 200px;
+    margin-bottom: 50px;
+    &--h2Box {
+      background-color: var(--background-color);
+      color: white;
+      padding: 10px 20px;
+      width: 250px;
+      font-size: 1.2em;
+      border-radius: 2px;
+      margin-bottom: 2em;
+    }
+    &--inputsBox {
+      width: 70%;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      background-color: var(--background-color);
+      border-radius: 2px;
+      color: white;
+      font-size: 1.2em;
+      width: 100px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: rgb(219, 143, 0);
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .contact {
+    &__container {
+      flex-direction: column;
+      padding: 10px 20px;
+    }
+    &__textBox {
+      margin-top: 50px;
+      text-align: center;
+      width: 100%;
+      margin-bottom: 0.5em;
+      font-size: 1.8em;
+    }
+    &__formBox {
+      text-align: center;
+      padding: 0px 0px;
+      width: 100%;
+      margin-top: 100px;
+      &--h2Box {
+        width: 100%;
+      }
+
+      &--inputsBox {
+        width: 100%;
+      }
+      button{
+        width: 100%;
+      }
+    }
+  }
+}

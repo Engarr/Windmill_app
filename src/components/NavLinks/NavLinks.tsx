@@ -75,8 +75,8 @@ const NavLinks = (props: {
             </HashLink>
           </li>
 
-          <li className={activeSection === 'contact' ? classes.active : ''}>
-            <a href="#contact">Kontakt</a>
+          <li className={activeSection === 'kontakt' ? classes.active : ''}>
+            <a href="#kontakt">Kontakt</a>
           </li>
         </ul>
       </div>
@@ -104,7 +104,14 @@ const NavLinks = (props: {
                 </HashLink>
               </li>
               <li>
-                <NavLink to="/sklep">Sklep On-line</NavLink>
+                <NavLink
+                  to="/sklep"
+                  onClick={(e) => {
+                    props.showMenuHandler();
+                  }}
+                >
+                  Sklep On-line
+                </NavLink>
               </li>
               <li>
                 <HashLink
@@ -118,7 +125,14 @@ const NavLinks = (props: {
                 </HashLink>
               </li>
               <li>
-                <HashLink to="">Kontakt</HashLink>
+                <HashLink
+                  to="/#kontakt"
+                  onClick={(e) => {
+                    props.showMenuHandler();
+                  }}
+                >
+                  Kontakt
+                </HashLink>
               </li>
               <div className={classes[`nav__links--box`]}>
                 <li>

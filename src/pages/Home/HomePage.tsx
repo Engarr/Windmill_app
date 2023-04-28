@@ -3,6 +3,7 @@ import image from '../../assets/e83ec73c1c471036fd8e883920b02aae.png';
 import AboutUs from '../../components/AboutUs/AboutUs';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/index';
+import Contact from '../../components/Contact/Contact';
 
 const HomePage = () => {
   const scrollPosition = useSelector(
@@ -24,6 +25,9 @@ const HomePage = () => {
       </section>
       <section className={classes.offert} id="O-nas">
         <AboutUs scrollPosition={scrollPosition} />
+      </section>
+      <section id="kontakt">
+        <Contact />
       </section>
     </>
   );
