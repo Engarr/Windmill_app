@@ -76,7 +76,7 @@ const NavLinks = (props: {
           </li>
 
           <li className={activeSection === 'kontakt' ? classes.active : ''}>
-            <a href="#kontakt">Kontakt</a>
+            <a href="/#kontakt">Kontakt</a>
           </li>
         </ul>
       </div>
