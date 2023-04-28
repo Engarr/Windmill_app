@@ -11,6 +11,7 @@
   background-position: center;
   overflow: hidden;
   background-image: url(../../assets/maka-background.webp);
+
   &__shadow {
     position: absolute;
     bottom: 0;
@@ -27,6 +28,7 @@
     width: 70%;
     height: 70%;
     background-color: rgba(255, 255, 255, 0.6);
+    animation: showUp 0.8s ease-in;
     &--img {
       position: absolute;
       right: 0;
@@ -45,6 +47,15 @@
     font-family: Amatic SC;
     font-weight: 700;
     letter-spacing: 1px;
+  }
+}
+
+@keyframes showUp {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 @media only screen and (max-width: 1024px) {

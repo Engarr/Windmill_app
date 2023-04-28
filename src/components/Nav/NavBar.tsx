@@ -13,8 +13,10 @@ import { uiActions } from '../../store/ui-slice';
 import { RootState } from '../../store/index';
 
 const NavBar = () => {
-  const [scrollPosition, setScrollPosition] = useState(0);
   const [animationCss, setanimationCss] = useState('');
+  const scrollPosition = useSelector(
+    (state: RootState) => state.ui.scrollPosition
+  );
   const dispatch = useDispatch();
   const isMenuVisible = useSelector(
     (state: RootState) => state.ui.isMenuVisible
@@ -35,7 +37,7 @@ const NavBar = () => {
   useEffect(() => {
     function handleScroll() {
       const position = window.pageYOffset;
-      setScrollPosition(position);
+      dispatch(uiActions.scrollPositionHandler(position));
     }
 
     window.addEventListener('scroll', handleScroll);

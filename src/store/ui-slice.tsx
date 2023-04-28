@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface UiState {
   isMenuVisible: boolean;
+  scrollPosition: number;
 }
 
 const initialState: UiState = {
   isMenuVisible: false,
+  scrollPosition: 0,
 };
 
 const uiSlice = createSlice({
@@ -14,6 +16,9 @@ const uiSlice = createSlice({
   reducers: {
     MenuHandler(state) {
       state.isMenuVisible = !state.isMenuVisible;
+    },
+    scrollPositionHandler(state, action: PayloadAction<number>) {
+      state.scrollPosition = action.payload;
     },
   },
 });
