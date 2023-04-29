@@ -1,5 +1,3 @@
-// import './App.css';
-
 import {
   Navigate,
   createBrowserRouter,
@@ -9,6 +7,7 @@ import RootLayout from './pages/Root/Root';
 import HomePage from './pages/Home/HomePage';
 import Shop from './pages/ShopPage/Shop';
 import MyAccount from './pages/MyAccount/MyAccount';
+import { action as authAction } from './pages/MyAccount/MyAccount';
 
 function App() {
   const router = createBrowserRouter([
@@ -18,7 +17,7 @@ function App() {
       children: [
         { path: '/', element: <HomePage /> },
         { path: '/sklep', element: <Shop /> },
-        { path: '/konto?', element: <MyAccount /> },
+        { path: '/konto', element: <MyAccount />, action: authAction },
       ],
     },
   ]);

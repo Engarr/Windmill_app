@@ -12,6 +12,7 @@ const Input = (props: {
         type={props.type}
         placeholder={props.text}
         id={props.data}
+        name={props.data}
         className={classes.input}
       />
       <label htmlFor="name" className={classes.label}>

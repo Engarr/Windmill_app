@@ -5,3 +5,20 @@ const MyAccount = () => {
 };
 
 export default MyAccount;
+
+interface Data {
+  name: string;
+  password: string;
+}
+
+export async function action({ request }: { request: Request }): Promise<null> {
+  const data: FormData = await request.formData();
+  
+  const authData = {
+    email: data.get('email'),
+    password: data.get('password'),
+  };
+
+
+  return null;
+}
