@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import logo from '../../assets/logo.png';
 import NavLinks from '../NavLinks/NavLinks';
 import { HashLink } from 'react-router-hash-link';
+import { Link } from 'react-router-dom';
 
 import { GiFlour } from 'react-icons/gi';
 import { VscAccount } from 'react-icons/vsc';
@@ -66,52 +67,62 @@ const NavBar = () => {
   };
 
   return (
-    <header className={classes.nav}>
-      <div className={`${classes.nav__box} ${styleBoxCss}`}>
-        <div>
-          <HashLink to="/#strona-glowna" scroll={(el) => scrollWithOffset(el)}>
-            <img
-              src={logo}
-              className={`${classes['nav__box--logo']} ${styleLogoCss}`}
-            />
-          </HashLink>
+    <>
+      <header className={classes.nav}>
+        {scrollPosition > 200 && (
+          <div className={classes.nav__arrowUp} onClick={scrolToTop}>
+            <FaArrowUp />
+          </div>
+        )}
+
+        <div className={`${classes.nav__box} ${styleBoxCss}`}>
+          <div>
+            <HashLink
+              to="/#strona-glowna"
+              scroll={(el) => scrollWithOffset(el)}
+            >
+              <img
+                src={logo}
+                className={`${classes['nav__box--logo']} ${styleLogoCss}`}
+              />
+            </HashLink>
+          </div>
+
+          <div className={`${classes['nav__box--icons']} ${styleIconsCss}`}>
+            <Link to="/konto?mode=login">
+              <div className={classes['nav__box--icons-account']}>
+                <VscAccount />
+              </div>
+            </Link>
+
+            <div className={classes['nav__box--icons-cart']}>
+              <GiFlour />
+            </div>
+            <div className={classes['nav__box--icons-envelope']}>
+              <FaEnvelope />
+            </div>
+            <div className={classes['nav__box--icons-fb']}>
+              <FaFacebookF />
+            </div>
+
+            <div
+              className={classes['nav__box--icons-burger']}
+              onClick={showMenuHandler}
+            >
+              <CiMenuBurger />
+            </div>
+          </div>
         </div>
 
-        <div className={`${classes['nav__box--icons']} ${styleIconsCss}`}>
-          <div className={classes['nav__box--icons-account']}>
-            <VscAccount />
-          </div>
-          <div className={classes['nav__box--icons-cart']}>
-            <GiFlour />
-          </div>
-          <div className={classes['nav__box--icons-envelope']}>
-            <FaEnvelope />
-          </div>
-          <div className={classes['nav__box--icons-fb']}>
-            <FaFacebookF />
-          </div>
-
-          <div
-            className={classes['nav__box--icons-burger']}
-            onClick={showMenuHandler}
-          >
-            <CiMenuBurger />
-          </div>
-        </div>
-      </div>
-
-      <NavLinks
-        scrollPosition={scrollPosition}
-        isMenuVisible={isMenuVisible}
-        showMenuHandler={showMenuHandler}
-        scrollWithOffset={scrollWithOffset}
-        animationCss={animationCss}
-      />
-
-      <div className={classes.nav__arrowUp} onClick={scrolToTop}>
-        <FaArrowUp />
-      </div>
-    </header>
+        <NavLinks
+          scrollPosition={scrollPosition}
+          isMenuVisible={isMenuVisible}
+          showMenuHandler={showMenuHandler}
+          scrollWithOffset={scrollWithOffset}
+          animationCss={animationCss}
+        />
+      </header>
+    </>
   );
 };
 

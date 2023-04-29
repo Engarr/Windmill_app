@@ -7,6 +7,9 @@
   padding: 10px 20px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.089);
   z-index: 1000;
+  a {
+    color: black;
+  }
 
   &__box {
     display: flex;
@@ -15,8 +18,8 @@
     position: relative;
     left: 50%;
     transform: translate(-50%);
-    height: 140px;
-    // overflow: hidden;
+    height: 120px;
+    padding: 10px 20px;
     transition: height 0.3s;
     &--logo {
       position: absolute;
@@ -85,8 +88,10 @@
   }
   &__arrowUp {
     position: absolute;
-    right: -60px;
-    bottom: -380%;
+    right: -8%;
+    bottom: -400%;
+    transform: translateX(-100%);
+    // bottom: -380%;
     color: rgb(231, 157, 20);
     background-color: #fffffff6;
     height: 40px;

@@ -1,6 +1,7 @@
 .wrapper {
   position: relative;
   font-family: BenchNine;
+  background-color: #f3f3f365
 }
 .contact {
   &__container {
@@ -9,7 +10,7 @@
   }
   &__textBox {
     margin-right: 2em;
-    margin-top: 50px;
+    margin-top: 150px;
     padding: 10px 20px;
     font-size: 2.2em;
     width: 50%;
