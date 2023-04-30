@@ -25,11 +25,18 @@ app.use((req, res, next) => {
 });
 
 app.use('/auth', authRouter);
+app.use((error, req, res, next) => {
+  console.log(error);
+  const status = error.satusCode || 500;
+  const message = error.message;
+  const data = error.data;
+  res.status(status).json({ message: message, data: data });
+});
 
 if (process.env.VITE_API_PORT) {
   mongoose
     .connect(
-      `mongodb+srv://Lukasz:${process.env.VITE_API_MOONGOSE_PASS}@cluster0.k4a8s6m.mongodb.net/ecommers?retryWrites=true`
+      `mongodb+srv://Lukasz:${process.env.VITE_API_MOONGOSE_PASS}@cluster0.k4a8s6m.mongodb.net/windmil?retryWrites=true`
     )
     .then((result) => {
       app.listen(process.env.VITE_API_PORT);
