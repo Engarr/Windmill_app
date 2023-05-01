@@ -25,6 +25,10 @@ app.use((req, res, next) => {
 });
 
 app.use('/auth', authRouter);
+app.use('/data', (req, res, next) => {
+  const date = new Date().getFullYear();
+  res.send(date.toString());
+});
 app.use((error, req, res, next) => {
   console.log(error);
   const status = error.satusCode || 500;
