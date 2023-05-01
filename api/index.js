@@ -24,7 +24,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/auth', authRouter);
+app.use('/api/auth', authRouter);
 
 app.use((error, req, res, next) => {
   console.log(error);
