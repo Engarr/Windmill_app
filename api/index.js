@@ -33,16 +33,27 @@ app.use((error, req, res, next) => {
   res.status(status).json({ message: message, data: data });
 });
 
-mongoose
-  .connect(
-    `mongodb+srv://Lukasz:${process.env.VITE_API_MOONGOSE_PASS}@cluster0.k4a8s6m.mongodb.net/windmil?retryWrites=true`
-  )
-  .then((result) => {
-    app.listen(process.env.VITE_API_PORT);
-    console.log('server is running');
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+if (process.env.VITE_API_PORT) {
+  mongoose
+    .connect(
+      `mongodb+srv://Lukasz:${process.env.VITE_API_MOONGOSE_PASS}@cluster0.k4a8s6m.mongodb.net/windmil?retryWrites=true`
+    )
+    .then((result) => {
+      app.listen(process.env.VITE_API_PORT);
+      console.log('server is running');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+} else {
+  mongoose
+    .connect(
+      `mongodb+srv://Lukasz:${process.env.VITE_API_MOONGOSE_PASS}@cluster0.k4a8s6m.mongodb.net/windmil?retryWrites=true`
+    )
+
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
 export default app;
