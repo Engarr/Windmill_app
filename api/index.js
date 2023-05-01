@@ -8,7 +8,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import authRouter from './routers/auth.js';
-
+const port = process.env.VITE_API_PORT || 8080;
 app.use(cors());
 app.use(bodyParser.json());
 app.use((req, res, next) => {
@@ -33,25 +33,18 @@ app.use((error, req, res, next) => {
   res.status(status).json({ message: message, data: data });
 });
 
-if (process.env.VITE_API_PORT) {
-  mongoose
-
-    .connect(process.env.MONGODB_URI)
-
-    .then((result) => {
-      app.listen(process.env.VITE_API_PORT);
-      console.log('server is running');
-    })
-    .catch((err) => {
-      console.log(err);
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Server running on port ${port}`);
     });
-} else {
-  mongoose
-    .connect(process.env.MONGODB_URI)
-
-    .catch((err) => {
-      console.log(err);
-    });
-}
+  })
+  .catch((error) => {
+    console.log('Error connecting to database: ', error.message);
+  });
 
 export default app;
