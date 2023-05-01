@@ -13,37 +13,43 @@ interface Data {
 }
 
 export async function action({ request }: { request: Request }): Promise<null> {
-  const searchParams = new URL(request.url).searchParams;
-  const mode = searchParams.get('mode') || 'login';
+  const response = await fetch(
+    'http://localhost:8080/data'
+    // (import.meta.env.VITE_REACT_APP_API_URL = '/data')
+  );
+  const data = await response.json();
 
-  if (mode !== 'login' && mode !== 'signup') {
-    throw json({ message: 'Unsupported mode.' }, { status: 422 });
-  }
+  // const searchParams = new URL(request.url).searchParams;
+  // const mode = searchParams.get('mode') || 'login';
 
-  const data: FormData = await request.formData();
-  const authData = {
-    email: data.get('email'),
-    password: data.get('password'),
-  };
+  // if (mode !== 'login' && mode !== 'signup') {
+  //   throw json({ message: 'Unsupported mode.' }, { status: 422 });
+  // }
 
-  const url = import.meta.env.VITE_REACT_APP_API_URL + 'auth/';
+  // const data: FormData = await request.formData();
+  // const authData = {
+  //   email: data.get('email'),
+  //   password: data.get('password'),
+  // };
 
-  const response = await fetch(url + mode, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(authData),
-  });
+  // const url = import.meta.env.VITE_REACT_APP_API_URL + 'auth/';
 
-  const resData = await response.json();
+  // const response = await fetch(url + mode, {
+  //   method: 'PUT',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify(authData),
+  // });
+
+  // const resData = await response.json();
 
   if (response.ok) {
     console.log('ok');
-    console.log(resData);
+    console.log(data);
   } else {
     console.log('not ok');
-    console.log(resData);
+    // console.log(resData);
   }
 
   return null;
