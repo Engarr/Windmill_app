@@ -35,9 +35,9 @@ app.use((error, req, res, next) => {
 
 if (process.env.VITE_API_PORT) {
   mongoose
-    .connect(
-      `mongodb+srv://Lukasz:${process.env.VITE_API_MOONGOSE_PASS}@cluster0.k4a8s6m.mongodb.net/windmil?retryWrites=true`
-    )
+
+    .connect(process.env.MONGODB_URI)
+
     .then((result) => {
       app.listen(process.env.VITE_API_PORT);
       console.log('server is running');
@@ -47,9 +47,7 @@ if (process.env.VITE_API_PORT) {
     });
 } else {
   mongoose
-    .connect(
-      `mongodb+srv://Lukasz:${process.env.VITE_API_MOONGOSE_PASS}@cluster0.k4a8s6m.mongodb.net/windmil?retryWrites=true`
-    )
+    .connect(process.env.MONGODB_URI)
 
     .catch((err) => {
       console.log(err);
