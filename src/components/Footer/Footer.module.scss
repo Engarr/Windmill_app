@@ -34,3 +34,20 @@
     }
   }
 }
+@media only screen and (max-width: 1024px) {
+  .container {
+    padding: 0px 10px;
+    width: 100%;
+    font-size: 1.1em;
+    flex-direction: column;
+    &__yearBox {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      margin-bottom: 0.5em;
+    }
+    &__iconsBox {
+      display: flex;
+    }
+  }
+}

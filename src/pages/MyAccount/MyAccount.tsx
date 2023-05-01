@@ -26,7 +26,7 @@ export async function action({ request }: { request: Request }): Promise<null> {
     password: data.get('password'),
   };
 
-  const url = 'http://localhost:8080/auth/';
+  const url = import.meta.env.VITE_REACT_APP_API_URL + 'auth/';
 
   const response = await fetch(url + mode, {
     method: 'PUT',
