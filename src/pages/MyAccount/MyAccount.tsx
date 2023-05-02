@@ -13,11 +13,7 @@ interface Data {
 }
 
 export async function action({ request }: { request: Request }): Promise<null> {
-  // const response = await fetch(
 
-  //   import.meta.env.VITE_REACT_APP_API_URL + 'data'
-  // );
-  // const data = await response.json();
 
   const searchParams = new URL(request.url).searchParams;
   const mode = searchParams.get('mode') || 'login';
