@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 import { signup, login } from '../controllers/auth.js';
 import { body } from 'express-validator';
-import User from '../models/User.js';
+import User from '../models/user.js';
 
 router.put(
   '/signup',
