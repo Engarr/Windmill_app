@@ -72,16 +72,14 @@ const AuthForm = () => {
           type="text"
           data="email"
           text="E-mail:"
-          
+         
         />
-
         <Input
           type="password"
           data="password"
           text="Hasło:"
           
         />
-
         {!isLogin && (
           <Input
             type="password"

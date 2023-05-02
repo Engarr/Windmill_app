@@ -16,7 +16,6 @@
       font-size: 3em;
       margin-bottom: 0.8em;
       font-family: Amatic SC;
-     
     }
   }
   &__actions {
@@ -76,7 +75,6 @@
     margin-bottom: 0.5em;
   }
   li {
-   
     list-style: none;
     position: relative;
     padding: 0px 20px;
@@ -91,7 +89,7 @@
     position: absolute;
     top: 50%;
     left: -0%;
-    
+
     transform: translateY(-50%);
     margin-right: 0.8em;
   }
@@ -112,5 +110,12 @@
         font-size: 1.4em;
       }
     }
+  }
+  .errorsContainer {
+    width: 90%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2em;
   }
 }

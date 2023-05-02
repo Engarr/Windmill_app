@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import { signup } from '../controllers/auth.js';
+import { signup, login } from '../controllers/auth.js';
 import { body } from 'express-validator';
 import User from '../models/User.js';
 
@@ -35,6 +35,15 @@ router.put(
     }),
   ],
   signup
+);
+
+router.post(
+  '/login',
+  [
+    body('email').isEmail().withMessage('Proszę podać poprawny adres e-mail.'),
+    body('password', 'To pole nie może być puste').trim().not().isEmpty(),
+  ],
+  login
 );
 
 export default router;
