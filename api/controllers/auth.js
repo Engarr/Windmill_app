@@ -5,11 +5,12 @@ import { validationResult } from 'express-validator';
 export const signup = async (req, res, next) => {
   const error = validationResult(req);
   if (!error.isEmpty()) {
-    return res.status(422).json({ error: error.array() });
+    return res.status(422).json({ errors: error.array() });
   }
 
   const email = req.body.email;
   const password = req.body.password;
+  
 
   try {
     const hashedPassword = await bcrypt.hash(password, 12);

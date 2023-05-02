@@ -7,14 +7,7 @@ const MyAccount = () => {
 
 export default MyAccount;
 
-interface Data {
-  name: string;
-  password: string;
-}
-
 export async function action({ request }: { request: Request }): Promise<null> {
-
-
   const searchParams = new URL(request.url).searchParams;
   const mode = searchParams.get('mode') || 'login';
 
@@ -26,6 +19,7 @@ export async function action({ request }: { request: Request }): Promise<null> {
   const authData = {
     email: data.get('email'),
     password: data.get('password'),
+    repeatPassword: data.get('repeatPassword'),
   };
 
   const url = import.meta.env.VITE_REACT_APP_API_URL + 'auth/';
@@ -37,16 +31,20 @@ export async function action({ request }: { request: Request }): Promise<null> {
     },
     body: JSON.stringify(authData),
   });
-
   const resData = await response.json();
 
-  if (response.ok) {
-    console.log('ok');
-    console.log(resData);
-  } else {
-    console.log('not ok');
-    console.log(resData);
+  if (response.status === 422 || response.status === 401) {
+    const errors = resData.errors;
+    return errors;
   }
+
+  // if (response.ok) {
+  //   console.log('ok');
+  //   console.log(resData);
+  // } else {
+  //   console.log('not ok');
+  //   console.log(resData);
+  // }
 
   return null;
 }

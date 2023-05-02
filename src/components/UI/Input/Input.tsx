@@ -4,10 +4,12 @@ const Input = (props: {
   type: string;
   text: string;
   data: string;
+  error?: string;
+
   onChange?: () => void;
 }) => {
   return (
-    <div className={classes.inputBox}>
+    <div className={`${classes.inputBox} ${props.error ? classes.error : ''}`}>
       <input
         type={props.type}
         placeholder={props.text}
@@ -15,7 +17,7 @@ const Input = (props: {
         name={props.data}
         className={classes.input}
       />
-      <label htmlFor="name" className={classes.label}>
+      <label htmlFor={props.data} className={classes.label}>
         {props.text}
       </label>
     </div>

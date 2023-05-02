@@ -27,6 +27,8 @@ router.put(
       .matches(/^(?=.*[A-Z])(?=.*[!@#$&*])/),
     body('repeatPassword').custom((value, { req }) => {
       if (value !== req.body.password) {
+        console.log(value);
+        console.log(req.body.repeatPassword);
         return Promise.reject('Hasła muszą być identyczne');
       }
       return true;
