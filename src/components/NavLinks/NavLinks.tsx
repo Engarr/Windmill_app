@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import classes from './NavLinks.module.scss';
 import { HashLink } from 'react-router-hash-link';
 import { NavLink, Link } from 'react-router-dom';

@@ -1,0 +1,103 @@
+.category__desktop {
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  li {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 20px;
+    margin: 0.5em;
+    list-style: none;
+    cursor: pointer;
+    font-family: BenchNine;
+    font-weight: 700;
+    font-size: 1.4em;
+    transition: color 0.3s;
+  }
+  li::before {
+    content: '';
+    position: absolute;
+    bottom: 20%;
+
+    border-top: 2px solid var(--main-color);
+    width: 0%;
+    transition: width 0.3s;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  li:hover::before {
+    width: 80%;
+  }
+}
+.activeCategory {
+  color: var(--main-color);
+}
+
+.category__mobile {
+  position: relative;
+  display: none;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 2em;
+  &--menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.2em;
+    width: 90%;
+    padding: 10px 20px;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    p {
+      margin-right: 0.5em;
+      font-size: 1.2em;
+    }
+  }
+  &--categories {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    width: 90%;
+    text-align: center;
+    overflow: hidden;
+    height: 0;
+    transition: height 0.5s;
+    ul {
+      margin-top: 0.5em;
+    }
+    a {
+      list-style: none;
+      text-decoration: none;
+      color: black;
+      font-family: BenchNine;
+      font-weight: 700;
+      font-size: 1.4em;
+      li {
+        margin-bottom: 0.2em;
+        padding: 5px;
+      }
+    }
+  }
+}
+
+.active {
+  height: 350px;
+}
+.inactive {
+  height: 0;
+}
+@media only screen and (max-width: 1024px) {
+  .category__desktop {
+    display: none;
+  }
+  .category__mobile {
+    display: flex;
+  }
+}

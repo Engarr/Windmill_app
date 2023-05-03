@@ -13,11 +13,10 @@ import { GiFlour } from 'react-icons/gi';
 import { VscAccount } from 'react-icons/vsc';
 import { FaEnvelope, FaFacebookF, FaArrowUp } from 'react-icons/fa';
 import { CiMenuBurger } from 'react-icons/ci';
-import { getUserId } from '../../util/auth';
+
 
 const NavBar = () => {
   const token = useRouteLoaderData('root');
-  const userId = getUserId();
  
   const [animationCss, setanimationCss] = useState('');
   const scrollPosition = useSelector(
@@ -101,7 +100,9 @@ const NavBar = () => {
             </Link>
 
             <div className={classes['nav__box--icons-cart']}>
-              <GiFlour />
+              <Link to="/koszyk">
+                <GiFlour />
+              </Link>
             </div>
             <div className={classes['nav__box--icons-envelope']}>
               <FaEnvelope />

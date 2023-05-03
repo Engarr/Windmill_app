@@ -18,6 +18,16 @@ const userSchema = new Schema(
         ref: 'Product',
       },
     ],
+    orders: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Product',
+      },
+    ],
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

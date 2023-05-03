@@ -7,6 +7,7 @@ import RootLayout from './pages/Root/Root';
 import HomePage from './pages/Home/HomePage';
 import Shop from './pages/ShopPage/Shop';
 import MyAccount from './pages/MyAccount/MyAccount';
+import Cart from './pages/Cart/Cart';
 import { action as authAction } from './pages/MyAccount/MyAccount';
 import { tokenLoader } from './util/auth.js';
 
@@ -21,6 +22,7 @@ function App() {
         { path: '/', element: <HomePage /> },
         { path: '/sklep', element: <Shop /> },
         { path: '/konto', element: <MyAccount />, action: authAction },
+        { path: '/koszyk', element: <Cart /> },
       ],
     },
   ]);
