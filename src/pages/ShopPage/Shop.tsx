@@ -1,6 +1,5 @@
 import React from 'react';
-import Category from '../../components/Category/category';
-
+import Category from '../../components/Category/Category';
 
 const Shop = () => {
   return (
