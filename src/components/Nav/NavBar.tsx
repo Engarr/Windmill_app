@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import logo from '../../assets/logo.png';
 import NavLinks from '../NavLinks/NavLinks';
 import { HashLink } from 'react-router-hash-link';
-import { Link } from 'react-router-dom';
+import { Link, useRouteLoaderData } from 'react-router-dom';
 import classes from './NavBar.module.scss';
 
 import { uiActions } from '../../store/ui-slice';
@@ -13,8 +13,12 @@ import { GiFlour } from 'react-icons/gi';
 import { VscAccount } from 'react-icons/vsc';
 import { FaEnvelope, FaFacebookF, FaArrowUp } from 'react-icons/fa';
 import { CiMenuBurger } from 'react-icons/ci';
+import { getUserId } from '../../util/auth';
 
 const NavBar = () => {
+  const token = useRouteLoaderData('root');
+  const userId = getUserId();
+  console.log(userId);
   const [animationCss, setanimationCss] = useState('');
   const scrollPosition = useSelector(
     (state: RootState) => state.ui.scrollPosition
@@ -90,7 +94,7 @@ const NavBar = () => {
           </div>
 
           <div className={`${classes['nav__box--icons']} ${styleIconsCss}`}>
-            <Link to="/konto?mode=login">
+            <Link to={token ? '/konto' : '/konto?mode=login'}>
               <div className={classes['nav__box--icons-account']}>
                 <VscAccount />
               </div>

@@ -1,8 +1,12 @@
 import { json, redirect } from 'react-router-dom';
 import AuthForm from '../../components/AuthForm/AuthForm';
+import { useRouteLoaderData } from 'react-router-dom';
+
 
 const MyAccount = () => {
-  return <AuthForm />;
+  const token = useRouteLoaderData('root');
+
+  return <>{token ? <></> : <AuthForm />}</>;
 };
 
 export default MyAccount;
@@ -47,8 +51,13 @@ export async function action({ request }: { request: Request }) {
       }
     );
   }
-  const token = resData.token;
+  const token: string = resData.token;
   localStorage.setItem('token', token);
+  const userId: string = resData.userId;
+  localStorage.setItem('userId', userId);
+  const expiration = new Date();
+  expiration.setHours(expiration.getHours() + 24);
+  localStorage.setItem('expiration', expiration.toISOString());
 
   return redirect('/');
 }
