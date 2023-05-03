@@ -8,6 +8,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import authRouter from './routers/auth.js';
+import feedRouter from './routers/feed.js';
 const port = process.env.VITE_API_PORT || 8080;
 app.use(cors());
 app.use(bodyParser.json());
@@ -25,6 +26,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/auth', authRouter);
+app.use('/api/feed', feedRouter);
 
 app.use((error, req, res, next) => {
   console.log(error);

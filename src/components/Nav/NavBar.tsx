@@ -18,7 +18,7 @@ import { getUserId } from '../../util/auth';
 const NavBar = () => {
   const token = useRouteLoaderData('root');
   const userId = getUserId();
-  console.log(userId);
+ 
   const [animationCss, setanimationCss] = useState('');
   const scrollPosition = useSelector(
     (state: RootState) => state.ui.scrollPosition

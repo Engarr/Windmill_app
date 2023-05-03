@@ -1,12 +1,12 @@
 import { json, redirect } from 'react-router-dom';
 import AuthForm from '../../components/AuthForm/AuthForm';
+import UserProfil from '../../components/UserProfil/UserProfil';
 import { useRouteLoaderData } from 'react-router-dom';
-
 
 const MyAccount = () => {
   const token = useRouteLoaderData('root');
 
-  return <>{token ? <></> : <AuthForm />}</>;
+  return <>{token ? <UserProfil /> : <AuthForm />}</>;
 };
 
 export default MyAccount;
