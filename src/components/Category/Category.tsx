@@ -9,7 +9,7 @@ import { uiActions } from '../../store/ui-slice';
 
 const Category = () => {
   const [searchParams] = useSearchParams();
-  const categoryParam = searchParams.get('kategoria');
+  const categoryParam = searchParams.get('kategoria') || 'Wszystkie produkty';
   const [animationCss, setanimationCss] = useState('');
   const dispatch = useDispatch();
   const isCategoryMenu = useSelector(

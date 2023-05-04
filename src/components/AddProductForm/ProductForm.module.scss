@@ -1,0 +1,136 @@
+.productForm__wrapper {
+  width: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  transform: translate(-50%);
+  text-align: center;
+
+  &--form {
+    width: 50%;
+    h2 {
+      padding: 10px 20px;
+      margin-bottom: 1em;
+    }
+    button {
+      padding: 10px 20px;
+      font-family: 'BenchNine', sans-serif;
+      font-size: 1.5em;
+      border: none;
+      background-color: var(--background-color);
+      margin-bottom: 1em;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: rgb(207, 137, 7);
+    }
+  }
+}
+
+select {
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0;
+  cursor: pointer;
+  color: gray;
+  font-size: 1em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background-image: none;
+  flex: 1;
+  padding: 14px;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  cursor: pointer;
+  color: gray;
+  option {
+    margin: 0.5em;
+  }
+}
+select::-ms-expand {
+  display: none;
+}
+.select {
+  height: 3em;
+  line-height: 3;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-width: 290px;
+  border: 1px solid rgba(2, 2, 2, 0.349);
+  border-radius: 2px;
+
+  font-size: 1.2em;
+  margin-bottom: 2em;
+}
+.select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 1em;
+  cursor: pointer;
+  pointer-events: none;
+  transition: 0.25s all ease;
+}
+.select:hover::after {
+  color: grey;
+}
+
+.textareaBox {
+  position: relative;
+  width: 100%;
+  min-width: 290px;
+}
+
+.textareaBox textarea {
+  position: relative;
+  width: 100%;
+  padding: 14px;
+  border: 1px solid rgba(2, 2, 2, 0.3);
+  border-radius: 2px;
+  outline: none;
+  font-size: 1.4em;
+  margin-bottom: 1em;
+  letter-spacing: 2px;
+  resize: vertical;
+  min-height: 150px;
+}
+
+.textareaBox textarea::placeholder {
+  color: transparent;
+}
+.textareaBox label {
+  position: absolute;
+  left: 0;
+  padding: 14px;
+  pointer-events: none;
+  font-size: 1.2em;
+  color: gray;
+  transition: 0.5s;
+}
+.textareaBox textarea:focus ~ .label,
+.textarea:not(:placeholder-shown).textarea:not(:focus) ~ .label {
+  color: black;
+  transform: translate(15px) translateY(-20px);
+  font-size: 1.4em;
+  padding: 0 10px;
+  letter-spacing: 1px;
+  border: 1px solid var(--menu-color);
+  background-color: #fff;
+}
+.textareaBox textarea:focus {
+  border: 1px solid var(--menu-color);
+}

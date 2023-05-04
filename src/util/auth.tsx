@@ -19,12 +19,19 @@ export const getAuthToken = () => {
   }
   return token;
 };
-
-export const getUserId = () => {
-  const userId = localStorage.getItem('userId');
-  if (!userId) {
+export const idLoader = async () => {
+  const token = getAuthToken();
+  if (!token) {
     return null;
   }
+  let url = import.meta.env.VITE_REACT_APP_API_URL;
+  const resposne = await fetch(url + `feed/user`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const user = await resposne.json();
+  const userId = user.userId;
   return userId;
 };
 

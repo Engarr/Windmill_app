@@ -1,25 +1,19 @@
-import { useState, useEffect } from 'react';
-import { useRouteLoaderData } from 'react-router-dom';
+import { useRouteLoaderData, Link, redirect } from 'react-router-dom';
+import ProductForm from '../AddProductForm/ProductForm';
 
 const UserProfil = () => {
   const token = useRouteLoaderData('root') as string;
-  const [userData, setUserData] = useState({});
+  // if (!token) {
+  //   return redirect('/');
+  // }
 
-  const fetchUser = async () => {
-    let url = import.meta.env.VITE_REACT_APP_API_URL;
-    const resposne = await fetch(url + `feed/user`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const user = await resposne.json();
-    setUserData(user);
-  };
-  useEffect(() => {
-    fetchUser();
-  }, []);
-  
-  return <div>UserProfil</div>;
+  return (
+    <div>
+      <Link to="/konto/nowy-produkt">
+        <button>DODAJ PRODUKT</button>
+      </Link>
+    </div>
+  );
 };
 
 export default UserProfil;

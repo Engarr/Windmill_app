@@ -9,7 +9,8 @@ import Shop from './pages/ShopPage/Shop';
 import MyAccount from './pages/MyAccount/MyAccount';
 import Cart from './pages/Cart/Cart';
 import { action as authAction } from './pages/MyAccount/MyAccount';
-import { tokenLoader } from './util/auth.js';
+import { tokenLoader, idLoader } from './util/auth.js';
+import NewProduct from './pages/NewProduct/NewProduct';
 
 function App() {
   const router = createBrowserRouter([
@@ -19,9 +20,17 @@ function App() {
       id: 'root',
       loader: tokenLoader,
       children: [
-        { path: '/', element: <HomePage /> },
+        { index: true, element: <HomePage /> },
         { path: '/sklep', element: <Shop /> },
-        { path: '/konto', element: <MyAccount />, action: authAction },
+        {
+          path: '/konto',
+          id: 'account',
+          loader: idLoader,
+          children: [
+            { index: true, element: <MyAccount />, action: authAction },
+            { path: 'nowy-produkt', element: <NewProduct /> },
+          ],
+        },
         { path: '/koszyk', element: <Cart /> },
       ],
     },
