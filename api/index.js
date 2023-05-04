@@ -1,17 +1,49 @@
 import express from 'express';
-const app = express();
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+import multer from 'multer';
+import path from 'path';
+import { v4 as uuidv4 } from 'uuid';
 
 import dotenv from 'dotenv';
 dotenv.config();
 
 import authRouter from './routers/auth.js';
 import feedRouter from './routers/feed.js';
+
+const app = express();
 const port = process.env.VITE_API_PORT || 8080;
+
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'images');
+  },
+  filename: (req, file, cb) => {
+    cb(null, uuidv4() + '.' + file.originalname);
+  },
+});
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === 'image/png' ||
+    file.mimetype === 'image/jpg' ||
+    file.mimetype === 'image/jpeg'
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
 app.use(cors());
 app.use(bodyParser.json());
+app.use(
+  multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
+);
+
+const dirname = path.dirname(new URL(import.meta.url).pathname);
+
+app.use('/images', express.static(path.join(dirname, 'images')));
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(

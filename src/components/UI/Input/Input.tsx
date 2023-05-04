@@ -5,8 +5,8 @@ const Input = (props: {
   text: string;
   data: string;
   error?: string;
-
-  onChange?: () => void;
+  defaultValue?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => string;
 }) => {
   return (
     <div className={`${classes.inputBox} ${props.error ? classes.error : ''}`}>
@@ -16,6 +16,8 @@ const Input = (props: {
         id={props.data}
         name={props.data}
         className={classes.input}
+        defaultValue={props.defaultValue}
+        onChange={props.onChange}
       />
       <label htmlFor={props.data} className={classes.label}>
         {props.text}
