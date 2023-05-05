@@ -30,7 +30,6 @@ const ProductForm = () => {
     };
     reader.readAsDataURL(selectedFile);
   };
-  console.log(selectedFile);
 
   const productDataHandler = (
     e: React.ChangeEvent<
@@ -49,13 +48,17 @@ const ProductForm = () => {
     const formData = new FormData();
     formData.append('image', selectedFile as File);
     formData.append('name', productData.name);
+    formData.append('price', productData.price);
+    formData.append('description', productData.description);
+    formData.append('userId', userId);
+    formData.append('category', productData.category);
     const response = await fetch(
       import.meta.env.VITE_REACT_APP_API_URL + 'feed/add-product',
       { method: 'POST', body: formData }
     );
     const data = await response.json();
     if (!response.ok) {
-      console.log(response);
+      console.log(data);
     } else {
       console.log('ok');
       console.log(data);
@@ -96,8 +99,19 @@ const ProductForm = () => {
           onChange={productDataHandler}
         />
         <div className={`${classes.select} `}>
-          <select name="category" onChange={productDataHandler}>
-            <option disabled>Wybierz kategorię:</option>
+          <select
+            name="category"
+            onChange={productDataHandler}
+            defaultValue={
+              productData ? productData.category : 'Wybierz kategorię'
+            }
+          >
+            <option
+              value={productData ? productData.category : 'Wybierz kategorię'}
+              disabled
+            >
+              Wybierz kategorię:
+            </option>
             {categories
               .filter((category, index) => index !== 0)
               .map((category) => (
