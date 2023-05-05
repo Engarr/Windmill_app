@@ -17,7 +17,7 @@ const port = process.env.VITE_API_PORT || 8080;
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'api/images');
+    cb(null, '/api/images');
   },
   filename: (req, file, cb) => {
     cb(null, uuidv4() + '.' + file.originalname);
