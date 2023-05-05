@@ -14,7 +14,7 @@ import feedRouter from './routers/feed.js';
 
 const app = express();
 const port = process.env.VITE_API_PORT || 8080;
-console.log(process.env.VITE_API_DESC);
+
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, process.env.VITE_API_DESC);
@@ -55,8 +55,8 @@ app.use(
 );
 
 const dirname = path.dirname(new URL(import.meta.url).pathname);
-app.use('/api/images', express.static(path.join(dirname, '/images')));
-
+app.use('/images', express.static(path.join(dirname, '/images')));
+app.use(express.static('images'));
 app.use('/api/auth', authRouter);
 app.use('/api/feed', feedRouter);
 
