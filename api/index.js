@@ -41,12 +41,10 @@ app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
 );
 
+const dirname = path.dirname(new URL(import.meta.url).pathname);
+const imagesDir = process.env.IMAGES_DIR || 'images';
 
-
-app.use(
-  '/images',
-  express.static(path.join(process.env.VITE_PATH_IMAGES, 'images'))
-);
+app.use('/images', express.static(path.join(dirname, imagesDir)));
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
