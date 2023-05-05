@@ -42,7 +42,7 @@ app.use(
 );
 
 const dirname = path.dirname(new URL(import.meta.url).pathname);
-const imagesDir = process.env.IMAGES_DIR || 'images';
+const imagesDir = process.env.VITE_IMAGES_DIR;
 
 app.use('/images', express.static(path.join(dirname, imagesDir)));
 app.use((req, res, next) => {
