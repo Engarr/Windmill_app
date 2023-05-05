@@ -14,10 +14,10 @@ import feedRouter from './routers/feed.js';
 
 const app = express();
 const port = process.env.VITE_API_PORT || 8080;
-
+console.log(process.env.VITE_API_DESC);
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, '/api/images');
+    cb(null, process.env.VITE_API_DESC);
   },
   filename: (req, file, cb) => {
     cb(null, uuidv4() + '.' + file.originalname);
@@ -37,12 +37,6 @@ const fileFilter = (req, file, cb) => {
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(
-  multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
-);
-
-const dirname = path.dirname(new URL(import.meta.url).pathname);
-
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
@@ -55,6 +49,12 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+app.use(
+  multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
+);
+
+const dirname = path.dirname(new URL(import.meta.url).pathname);
 app.use('/api/images', express.static(path.join(dirname, '/images')));
 
 app.use('/api/auth', authRouter);
