@@ -9,7 +9,7 @@
   text-align: center;
 
   &--form {
-    width: 50%;
+    width: 80%;
     h2 {
       padding: 10px 20px;
       margin-bottom: 1em;
@@ -71,9 +71,9 @@ select::-ms-expand {
   min-width: 290px;
   border: 1px solid rgba(2, 2, 2, 0.349);
   border-radius: 2px;
-
-  font-size: 1.2em;
+  font-size: 1em;
   margin-bottom: 2em;
+  letter-spacing: 2px;
 }
 .select::after {
   content: '\25BC';
@@ -98,11 +98,11 @@ select::-ms-expand {
 .textareaBox textarea {
   position: relative;
   width: 100%;
-  padding: 14px;
+  padding: 12px;
   border: 1px solid rgba(2, 2, 2, 0.3);
   border-radius: 2px;
   outline: none;
-  font-size: 1.4em;
+  font-size: 1em;
   margin-bottom: 1em;
   letter-spacing: 2px;
   resize: vertical;
@@ -124,8 +124,8 @@ select::-ms-expand {
 .textareaBox textarea:focus ~ .label,
 .textarea:not(:placeholder-shown).textarea:not(:focus) ~ .label {
   color: black;
-  transform: translate(15px) translateY(-20px);
-  font-size: 1.4em;
+  transform: translate(15px) translateY(-10px);
+  font-size: 0.8em;
   padding: 0 10px;
   letter-spacing: 1px;
   border: 1px solid var(--menu-color);
@@ -133,4 +133,38 @@ select::-ms-expand {
 }
 .textareaBox textarea:focus {
   border: 1px solid var(--menu-color);
+}
+@media only screen and (max-width: 1024px) {
+  .productForm__wrapper {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 50%;
+    transform: translate(-50%);
+    text-align: center;
+  
+    &--form {
+      width: 90%;
+      h2 {
+        padding: 10px 20px;
+        margin-bottom: 1em;
+      }
+      button {
+        padding: 10px 20px;
+        font-family: 'BenchNine', sans-serif;
+        font-size: 1.5em;
+        border: none;
+        background-color: var(--background-color);
+        margin-bottom: 1em;
+        cursor: pointer;
+        border-radius: 2px;
+        transition: background-color 0.3s;
+      }
+      button:hover {
+        background-color: rgb(207, 137, 7);
+      }
+    }
+  }
 }

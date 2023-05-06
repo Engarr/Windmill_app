@@ -1,4 +1,3 @@
-import path from 'path';
 import Product from '../models/product.js';
 import User from '../models/user.js';
 import mongoose from 'mongoose';

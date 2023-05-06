@@ -3,6 +3,7 @@ import Input from '../UI/Input/Input';
 import classes from './ProductForm.module.scss';
 import { categories } from '../../util/data';
 import { useRouteLoaderData } from 'react-router-dom';
+import UploadFile from '../UI/UploadFile/UploadFile';
 
 const ProductForm = () => {
   const userId = useRouteLoaderData('account') as string;
@@ -84,18 +85,10 @@ const ProductForm = () => {
           defaultValue=""
           onChange={productDataHandler}
         />
-        <div>
-          <label htmlFor="image">Select an image:</label>
-          <input
-            id="image"
-            type="file"
-            name="image"
-            onChange={handleImageChange}
-          />
-          {selectedImage && (
-            <img src={selectedImage} alt="Selected" width="200" height="200" />
-          )}
+        <div className={classes[`productForm__wrapper--photo`]}>
+          <UploadFile onChange={handleImageChange} imageSrcs={selectedImage} />
         </div>
+       
         <Input
           type="number"
           text="Cena:"

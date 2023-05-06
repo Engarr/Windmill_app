@@ -8,14 +8,13 @@
   
   position: relative;
   width: 100%;
-  padding: 14px;
+  padding: 12px;
   border: 1px solid rgba(2, 2, 2, 0.3);
   border-radius: 2px;
   outline: none;
-  font-size: 1.4em;
+  font-size: 1em;
   margin-bottom: 1em;
- 
-  letter-spacing: 2px;
+   letter-spacing: 2px;
 }
 .inputBox input::placeholder {
   color: transparent;
@@ -25,15 +24,15 @@
   left: 0;
   padding: 14px;
   pointer-events: none;
-  font-size: 1.2em;
+  font-size: 1em;
   color: gray;
   transition: 0.5s;
 }
 .inputBox input:focus ~ .label,
 .input:not(:placeholder-shown).input:not(:focus) ~ .label {
   color: black;
-  transform: translate(15px) translateY(-20px);
-  font-size: 1.4em;
+  transform: translate(15px) translateY(-10px);
+  font-size: 0.8em;
   padding: 0 10px;
   letter-spacing: 1px;
   border: 1px solid var(--menu-color);
