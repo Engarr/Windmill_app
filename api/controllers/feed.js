@@ -3,6 +3,10 @@ import Product from '../models/product.js';
 import User from '../models/user.js';
 import mongoose from 'mongoose';
 import { validationResult } from 'express-validator';
+import { storage } from '../config/firebase.config.js';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { v4 as uuidv4 } from 'uuid';
+
 
 export const getUser = async (req, res, next) => {
   const userId = req.userId;
@@ -20,7 +24,17 @@ export const postAddProduct = async (req, res, next) => {
     error.statusCode = 422;
     throw error;
   }
-  const imagePaths = image.path.replace('\\', '/');
+  const metadata = {
+    contentType: req.file.mimetype,
+  };
+  const storageRef = ref(storage, `images/${uuidv4() + image.originalname}`);
+  const snapshot = await uploadBytesResumable(
+    storageRef,
+    image.buffer,
+    metadata
+  );
+  const imageUrl = await getDownloadURL(snapshot.ref);
+
   const name = req.body.name;
   const price = req.body.price;
   const category = req.body.category;
@@ -34,7 +48,7 @@ export const postAddProduct = async (req, res, next) => {
     description: description,
     category: category,
     creator: userId,
-    imageUrl: imagePaths,
+    imageUrl: imageUrl,
   });
   try {
     const result = await product.save();

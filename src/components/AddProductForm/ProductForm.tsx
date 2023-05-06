@@ -52,9 +52,14 @@ const ProductForm = () => {
     formData.append('description', productData.description);
     formData.append('userId', userId);
     formData.append('category', productData.category);
+
     const response = await fetch(
       import.meta.env.VITE_REACT_APP_API_URL + 'feed/add-product',
-      { method: 'POST', body: formData }
+      {
+        method: 'POST',
+
+        body: formData,
+      }
     );
     const data = await response.json();
     if (!response.ok) {
