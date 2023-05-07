@@ -11,8 +11,12 @@
   &--form {
     width: 80%;
     h2 {
-      padding: 10px 20px;
+      text-align: left;
+      font-family: BenchNine;
+      font-size: 2em;
+      padding: 10px 0px;
       margin-bottom: 1em;
+      color: var(--background-color);
     }
     button {
       padding: 10px 20px;
@@ -24,6 +28,8 @@
       cursor: pointer;
       border-radius: 2px;
       transition: background-color 0.3s;
+      font-weight: bold;
+      color: white;
     }
     button:hover {
       background-color: rgb(207, 137, 7);
@@ -144,7 +150,7 @@ select::-ms-expand {
     left: 50%;
     transform: translate(-50%);
     text-align: center;
-  
+
     &--form {
       width: 90%;
       h2 {

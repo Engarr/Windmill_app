@@ -1,4 +1,4 @@
-import react, { useState } from 'react';
+import { useState } from 'react';
 import Input from '../UI/Input/Input';
 import classes from './ProductForm.module.scss';
 import { categories } from '../../util/data';
@@ -88,11 +88,12 @@ const ProductForm = () => {
         <div className={classes[`productForm__wrapper--photo`]}>
           <UploadFile onChange={handleImageChange} imageSrcs={selectedImage} />
         </div>
-       
+
         <Input
           type="number"
           text="Cena:"
           data="price"
+          step={0.01}
           defaultValue=""
           onChange={productDataHandler}
         />

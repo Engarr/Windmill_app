@@ -5,7 +5,6 @@
   width: 100%;
 }
 .inputBox input {
-  
   position: relative;
   width: 100%;
   padding: 12px;
@@ -14,7 +13,10 @@
   outline: none;
   font-size: 1em;
   margin-bottom: 1em;
-   letter-spacing: 2px;
+  letter-spacing: 2px;
+}
+.inputBox input[type='number']::-webkit-inner-spin-button {
+  display: none;
 }
 .inputBox input::placeholder {
   color: transparent;
@@ -43,18 +45,18 @@
   border: 1px solid var(--menu-color);
 }
 .error input {
-	border: 1px solid red;
+  border: 1px solid red;
 }
 .error input ~ .label {
-	color: red;
-	transform: translate(10px) translateY(-7px);
-	font-size: 0.95em;
-	padding: 0 5px;
-	letter-spacing: 1px;
-	border-left: 1px solid red;
-	border-right: 1px solid red;
-	background-color: #fff;
+  color: red;
+  transform: translate(10px) translateY(-7px);
+  font-size: 0.95em;
+  padding: 0 5px;
+  letter-spacing: 1px;
+  border-left: 1px solid red;
+  border-right: 1px solid red;
+  background-color: #fff;
 }
 .error input::placeholder {
-	color: transparent;
+  color: transparent;
 }

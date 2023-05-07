@@ -5,7 +5,9 @@ const Input = (props: {
   text: string;
   data: string;
   error?: string;
+  step?: number;
   defaultValue?: string;
+  style?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => string;
 }) => {
   return (
@@ -18,6 +20,8 @@ const Input = (props: {
         className={classes.input}
         defaultValue={props.defaultValue}
         onChange={props.onChange}
+        step={props.step}
+       
       />
       <label htmlFor={props.data} className={classes.label}>
         {props.text}

@@ -6,7 +6,6 @@ import { storage } from '../config/firebase.config.js';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 
-
 export const getUser = async (req, res, next) => {
   const userId = req.userId;
   res.status(200).json({ userId: userId });
@@ -19,7 +18,7 @@ export const postAddProduct = async (req, res, next) => {
   }
   const image = req.file;
   if (!image || image.length === 0) {
-    const error = new Error('No images provided.');
+    const error = new Error('Nie wybrano pliku zdjęciowego.');
     error.statusCode = 422;
     throw error;
   }
