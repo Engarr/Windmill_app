@@ -4,6 +4,7 @@ import classes from './ProductForm.module.scss';
 import { categories } from '../../util/data';
 import { useRouteLoaderData } from 'react-router-dom';
 import UploadFile from '../UI/UploadFile/UploadFile';
+import { Data, ErrorsData } from '../../types/data';
 
 const ProductForm = () => {
   const userId = useRouteLoaderData('account') as string;
@@ -15,6 +16,7 @@ const ProductForm = () => {
     category: '',
     description: '',
   });
+  const [backendErrors, setBackendErrors] = useState<ErrorsData>({});
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -64,15 +66,35 @@ const ProductForm = () => {
     );
     const data = await response.json();
     if (!response.ok) {
-      console.log(data);
+      const errorArray = data.errors as Data[];
+      console.log(errorArray);
+      const errorsObj: { [key: string]: string } = {};
+      errorArray.forEach((error) => {
+        errorsObj[error.path] = error.msg;
+      });
+      setBackendErrors(errorsObj);
+      window.scroll(0, 0);
     } else {
-      console.log('ok');
-      console.log(data);
     }
   };
+  console.log(backendErrors);
 
   return (
     <div className={classes.productForm__wrapper}>
+      <div>
+        {Object.values(backendErrors).some((error) => error !== '') && (
+          <div className={classes.errorsContainer}>
+            <h3>Błąd autoryzacji:</h3>
+            <ul>
+              {Object.entries(backendErrors).map(
+                ([key, value]: [string, string]) => {
+                  return value && <li key={key}>{`${value}`}</li>;
+                }
+              )}
+            </ul>
+          </div>
+        )}
+      </div>
       <form
         className={classes[`productForm__wrapper--form`]}
         onSubmit={onSubmit}

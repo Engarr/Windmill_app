@@ -8,20 +8,7 @@ import {
 } from 'react-router-dom';
 import classes from './AuthForm.module.scss';
 import Input from '../UI/Input/Input';
-
-type ErrorsData = {
-  email?: string;
-  password?: string;
-  repeatPassword?: string;
-};
-
-type Data = {
-  location: string;
-  msg: string;
-  path: string;
-  type: string;
-  value: string;
-};
+import { Data, ErrorsData } from '../../types/data';
 
 const AuthForm = () => {
   const navigation = useNavigation();
@@ -30,7 +17,6 @@ const AuthForm = () => {
   const isLogin = searchParams.get('mode') === 'login';
   const isSubmitting = navigation.state === 'submitting';
   const [backendErrors, setbackendErrors] = useState<ErrorsData>({});
-
 
   useEffect(() => {
     if (data) {
@@ -48,7 +34,6 @@ const AuthForm = () => {
       password: '',
       repeatPassword: '',
     });
-   
   }, [isLogin]);
 
   return (
@@ -57,10 +42,10 @@ const AuthForm = () => {
         <div className={classes.errorsContainer}>
           <h3>Błąd autoryzacji:</h3>
           <ul>
-            {backendErrors.email && <li>{backendErrors.email}</li>}
-            {backendErrors.password && <li>{backendErrors.password}</li>}
-            {backendErrors.repeatPassword && (
-              <li>{backendErrors.repeatPassword}</li>
+            {Object.entries(backendErrors).map(
+              ([key, value]: [string, string]) => {
+                return value && <li key={key}>{`${value}`}</li>;
+              }
             )}
           </ul>
         </div>
@@ -68,25 +53,10 @@ const AuthForm = () => {
       <Form method="post" className={classes.form__container}>
         <h2>{isLogin ? 'Zaloguj się' : 'Zarejestruj się'}</h2>
 
-        <Input
-          type="text"
-          data="email"
-          text="E-mail:"
-         
-        />
-        <Input
-          type="password"
-          data="password"
-          text="Hasło:"
-          
-        />
+        <Input type="text" data="email" text="E-mail:" />
+        <Input type="password" data="password" text="Hasło:" />
         {!isLogin && (
-          <Input
-            type="password"
-            data="repeatPassword"
-            text="Powtórz hasło:"
-            
-          />
+          <Input type="password" data="repeatPassword" text="Powtórz hasło:" />
         )}
         <div className={classes.form__actions}>
           <button type="submit" disabled={isSubmitting}>

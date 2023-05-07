@@ -25,8 +25,8 @@ router.post(
   '/add-product',
   upload.single('image'),
   [
-    body('name').notEmpty().withMessage('To pole nie może byc puste'),
-    body('category', 'Proszę wybrać kategorię').notEmpty(),
+    body('name').notEmpty().withMessage('Wpisz nazwę produktu'),
+    body('image').custom(imageValidator),
     body('price')
       .notEmpty()
       .withMessage('To pole nie może byc puste')
@@ -34,12 +34,12 @@ router.post(
       .withMessage('Cena musi zawierać liczbę do 2 miejsc po przecinku')
       .isFloat({ min: 0.01 })
       .withMessage('Cena musi być liczbą dodatnią'),
+    body('category', 'Proszę wybrać kategorię').notEmpty(),
     body('description')
       .notEmpty()
-      .withMessage('To pole nie może byc puste')
+      .withMessage('Opis produktu nie może być pusty')
       .isLength({ max: 500 })
       .withMessage('Opis produktu nie może być dłuższy niż 500 znaków'),
-    body('image').custom(imageValidator),
   ],
   postAddProduct
 );
