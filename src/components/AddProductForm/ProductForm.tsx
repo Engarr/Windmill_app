@@ -84,7 +84,7 @@ const ProductForm = () => {
       <div>
         {Object.values(backendErrors).some((error) => error !== '') && (
           <div className={classes.errorsContainer}>
-            <h3>Błąd autoryzacji:</h3>
+            <h3>Błąd formularza:</h3>
             <ul>
               {Object.entries(backendErrors).map(
                 ([key, value]: [string, string]) => {

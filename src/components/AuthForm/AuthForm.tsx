@@ -14,7 +14,7 @@ const AuthForm = () => {
   const navigation = useNavigation();
   const data = useActionData() as Data[];
   const [searchParams] = useSearchParams();
-  const isLogin = searchParams.get('mode') === 'login';
+  const isLogin = searchParams.get('mode') || 'login';
   const isSubmitting = navigation.state === 'submitting';
   const [backendErrors, setbackendErrors] = useState<ErrorsData>({});
 

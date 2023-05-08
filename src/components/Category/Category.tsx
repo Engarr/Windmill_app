@@ -2,14 +2,15 @@ import { useState } from 'react';
 import { categories } from '../../util/data';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from './Category.module.scss';
-import { NavLink, useSearchParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { FaAngleDoubleDown } from 'react-icons/fa';
 import { RootState } from '../../store/index';
 import { uiActions } from '../../store/ui-slice';
 
 const Category = () => {
-  const [searchParams] = useSearchParams();
-  const categoryParam = searchParams.get('kategoria') || 'Wszystkie produkty';
+  const param = useParams();
+  const categoryParam = param.category || 'Wszystkie produkty';
+
   const [animationCss, setanimationCss] = useState('');
   const dispatch = useDispatch();
   const isCategoryMenu = useSelector(
@@ -31,7 +32,7 @@ const Category = () => {
         <ul className={classes.desktop}>
           {categories.map((category) => {
             return (
-              <NavLink to={`?kategoria=${category.name}`}>
+              <NavLink to={`${category.name}`}>
                 <li
                   key={category.id}
                   className={
