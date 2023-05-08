@@ -70,12 +70,27 @@ export const postAddProduct = async (req, res, next) => {
 export const getProducts = async (req, res, next) => {
   try {
     const productsData = await Product.find();
+    res.status(200).json({
+      message: 'Fetched products successfully.',
+      products: productsData,
+    });
+  } catch (err) {
+    if (!err) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
+
+export const getCategoryProducts = async (req, res, next) => {
+  const category = req.params.category;
+
+  try {
+    const products = await Product.find({ category: category });
     res
-      .status(200)
-      .json({
-        message: 'Fetched products successfully.',
-        products: productsData,
-      });
+			.status(200)
+			.json({ message: 'Fetched products successfully.', products: products });
+   
   } catch (err) {
     if (!err) {
       err.statusCode = 500;

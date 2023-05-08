@@ -52,3 +52,22 @@
     }
   }
 }
+
+@media only screen and (max-width: 1024px) {
+  .product__container {
+    &--imgBox {
+      div {
+        opacity: 1;
+        transform: translateY(0%);
+      }
+    }
+
+    &--textBox {
+      p {
+        font-family: BenchNine;
+
+        font-size: 1.4em;
+      }
+    }
+  }
+}

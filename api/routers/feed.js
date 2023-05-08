@@ -2,7 +2,12 @@ import express from 'express';
 
 const router = express.Router();
 import isAuth from '../middleware/is-auth.js';
-import { getUser, postAddProduct, getProducts } from '../controllers/feed.js';
+import {
+  getUser,
+  postAddProduct,
+  getProducts,
+  getCategoryProducts,
+} from '../controllers/feed.js';
 import { body } from 'express-validator';
 import { imageValidator } from '../validation/validation.js';
 
@@ -33,5 +38,6 @@ router.post(
   postAddProduct
 );
 router.get('/products', getProducts);
+router.get('/products/:category', getCategoryProducts);
 
 export default router;
