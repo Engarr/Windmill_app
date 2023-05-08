@@ -9,12 +9,12 @@ import {
 import classes from './AuthForm.module.scss';
 import Input from '../UI/Input/Input';
 import { Data, ErrorsData } from '../../types/types';
-
+import LineWaveLoader from '../Spinner/LineWave/CircleWave';
 const AuthForm = () => {
   const navigation = useNavigation();
   const data = useActionData() as Data[];
   const [searchParams] = useSearchParams();
-  const isLogin = searchParams.get('mode') || 'login';
+  const isLogin = searchParams.get('mode') === 'login';
   const isSubmitting = navigation.state === 'submitting';
   const [backendErrors, setbackendErrors] = useState<ErrorsData>({});
 
@@ -35,7 +35,7 @@ const AuthForm = () => {
       repeatPassword: '',
     });
   }, [isLogin]);
-
+  console.log(isLogin);
   return (
     <div className={classes.wrapper}>
       {Object.values(backendErrors).some((error) => error !== '') && (
@@ -60,13 +60,17 @@ const AuthForm = () => {
         )}
         <div className={classes.form__actions}>
           <button type="submit" disabled={isSubmitting}>
-            {isLogin
-              ? isSubmitting
-                ? '...'
-                : 'Zaloguj się'
-              : isSubmitting
-              ? '...'
-              : 'Utwórz konto'}
+            {isLogin ? (
+              isSubmitting ? (
+                <LineWaveLoader />
+              ) : (
+                'Zaloguj się'
+              )
+            ) : isSubmitting ? (
+              <LineWaveLoader />
+            ) : (
+              'Utwórz konto'
+            )}
           </button>
           <Link to={`?mode=${isLogin ? 'signup' : 'login'}`}>
             {isLogin ? 'Załóż konto nowe konto' : 'Zaloguj się'}

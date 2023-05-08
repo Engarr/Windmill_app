@@ -67,7 +67,6 @@ const ProductForm = () => {
     const data = await response.json();
     if (!response.ok) {
       const errorArray = data.errors as Data[];
-      console.log(errorArray);
       const errorsObj: { [key: string]: string } = {};
       errorArray.forEach((error) => {
         errorsObj[error.path] = error.msg;

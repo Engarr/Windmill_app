@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Products } from '../../types/types';
 import Product from '../../components/Product/Product';
 import classes from './Shop.module.scss';
-import Spinner from '../../components/Spinner/Spinner';
+import Spinner from '../../components/Spinner/Spinner/Spinner';
 
 const Shop = () => {
   const params = useParams();

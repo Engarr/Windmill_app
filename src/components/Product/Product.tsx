@@ -19,7 +19,7 @@ const Product = (props: { product: Products }) => {
       </Link>
       <div className={classes[`product__container--textBox`]}>
         <h4>{props.product.name}</h4>
-        <p>{props.product.price},59 zł</p>
+        <p>{props.product.price}zł</p>
       </div>
     </div>
   );
