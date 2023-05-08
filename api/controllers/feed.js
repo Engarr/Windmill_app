@@ -66,3 +66,20 @@ export const postAddProduct = async (req, res, next) => {
     next(err);
   }
 };
+
+export const getProducts = async (req, res, next) => {
+  try {
+    const productsData = await Product.find();
+    res
+      .status(200)
+      .json({
+        message: 'Fetched products successfully.',
+        products: productsData,
+      });
+  } catch (err) {
+    if (!err) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};

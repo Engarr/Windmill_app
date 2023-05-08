@@ -1,12 +1,12 @@
 .category__desktop {
- 
-
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 2em;
   ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    font-family: BenchNine, sans-serif;
+    font-family: 'BenchNine', cursive;
   }
   li {
     position: relative;
@@ -18,8 +18,8 @@
     list-style: none;
     cursor: pointer;
 
-    font-weight: 700;
-    font-size: 1.4em;
+   
+    font-size: 1.5em;
     transition: color 0.3s;
   }
   li::before {

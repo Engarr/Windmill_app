@@ -3,7 +3,6 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 
-
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -12,7 +11,6 @@ import feedRouter from './routers/feed.js';
 
 const app = express();
 const port = process.env.VITE_API_PORT || 8080;
-
 
 app.use(cors());
 app.use(bodyParser.json());

@@ -1,24 +1,13 @@
 import express from 'express';
-import path from 'path';
+
 const router = express.Router();
 import isAuth from '../middleware/is-auth.js';
-import { getUser, postAddProduct } from '../controllers/feed.js';
+import { getUser, postAddProduct, getProducts } from '../controllers/feed.js';
 import { body } from 'express-validator';
+import { imageValidator } from '../validation/validation.js';
 
 import multer, { memoryStorage } from 'multer';
 const upload = multer({ storage: memoryStorage() });
-
-const imageValidator = (value, { req }) => {
-  if (!req.file) {
-    throw new Error('Nie wybrano pliku zdjęciowego.');
-  }
-  const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-  const extension = path.extname(req.file.originalname);
-  if (!allowedExtensions.test(extension)) {
-    throw new Error('Dozwolone rozszerzenia plików to .jpg, .jpeg, .png');
-  }
-  return true;
-};
 
 router.get('/user', isAuth, getUser);
 router.post(
@@ -43,5 +32,6 @@ router.post(
   ],
   postAddProduct
 );
+router.get('/products', getProducts);
 
 export default router;

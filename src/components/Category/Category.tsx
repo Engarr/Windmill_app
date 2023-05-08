@@ -32,9 +32,8 @@ const Category = () => {
         <ul className={classes.desktop}>
           {categories.map((category) => {
             return (
-              <NavLink to={`${category.name}`}>
+              <NavLink key={category.id} to={`${category.name}`}>
                 <li
-                  key={category.id}
                   className={
                     category.name === categoryParam
                       ? classes.activeCategory
@@ -64,9 +63,9 @@ const Category = () => {
           <ul>
             {categories?.map((category) => {
               return (
-                <NavLink to={`?kategoria=${category.name}`}>
+                <NavLink key={category.id} to={`?kategoria=${category.name}`}>
                   <li
-                    key={category.id}
+                    
                     className={
                       category.name === categoryParam
                         ? classes.activeCategory

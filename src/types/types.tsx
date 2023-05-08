@@ -15,3 +15,11 @@ export type ErrorsData = {
   description?: string;
   image?: string;
 };
+
+export type Products = {
+  _id: string;
+  name: string;
+  imageUrl: string;
+  description: string;
+  price: number;
+};

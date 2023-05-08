@@ -4,7 +4,7 @@ import classes from './ProductForm.module.scss';
 import { categories } from '../../util/data';
 import { useRouteLoaderData } from 'react-router-dom';
 import UploadFile from '../UI/UploadFile/UploadFile';
-import { Data, ErrorsData } from '../../types/data';
+import { Data, ErrorsData } from '../../types/types';
 
 const ProductForm = () => {
   const userId = useRouteLoaderData('account') as string;

@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import classes from './AuthForm.module.scss';
 import Input from '../UI/Input/Input';
-import { Data, ErrorsData } from '../../types/data';
+import { Data, ErrorsData } from '../../types/types';
 
 const AuthForm = () => {
   const navigation = useNavigation();
