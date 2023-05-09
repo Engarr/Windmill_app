@@ -23,3 +23,13 @@ export type Products = {
   description: string;
   price: number;
 };
+
+export type ProductType = {
+  category: string;
+  creator: string;
+  description: string;
+  imageUrl: string;
+  name: string;
+  price: number;
+  _id: string;
+};

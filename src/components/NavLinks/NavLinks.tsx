@@ -44,6 +44,7 @@ const NavLinks = (props: {
   const activeNavHandler = () => {
     setActiveSection('sklep');
   };
+  
 
   return (
     /////<--bigDevices

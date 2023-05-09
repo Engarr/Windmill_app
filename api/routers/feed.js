@@ -7,6 +7,7 @@ import {
   postAddProduct,
   getProducts,
   getCategoryProducts,
+  getProductDetails,
 } from '../controllers/feed.js';
 import { body } from 'express-validator';
 import { imageValidator } from '../validation/validation.js';
@@ -39,5 +40,6 @@ router.post(
 );
 router.get('/products', getProducts);
 router.get('/products/:category', getCategoryProducts);
+router.get('/product/:productId', getProductDetails);
 
 export default router;

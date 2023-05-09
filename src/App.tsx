@@ -9,6 +9,8 @@ import { tokenLoader, idLoader } from './util/auth.js';
 import NewProduct from './pages/NewProduct/NewProduct';
 import ShopRootNavigation from './pages/SopRootLayout/ShopRootNavigation';
 import { action as logout } from './pages/Logout/Logout';
+import ProductDetails from './pages/ProductDetails/ProductDetails';
+import { loader as productsDetailLoader } from './pages/ProductDetails/ProductDetails';
 
 function App() {
   const router = createBrowserRouter([
@@ -31,6 +33,12 @@ function App() {
               element: <Shop />,
             },
           ],
+        },
+        {
+          path: '/produkt/:productId',
+          element: <ProductDetails />,
+          loader: productsDetailLoader,
+          id: 'product-detail',
         },
         {
           path: '/konto',

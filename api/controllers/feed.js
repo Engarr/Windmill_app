@@ -88,13 +88,33 @@ export const getCategoryProducts = async (req, res, next) => {
   try {
     const products = await Product.find({ category: category });
     res
-			.status(200)
-			.json({ message: 'Fetched products successfully.', products: products });
-   
+      .status(200)
+      .json({ message: 'Fetched products successfully.', products: products });
   } catch (err) {
     if (!err) {
       err.statusCode = 500;
     }
+    next(err);
+  }
+};
+export const getProductDetails = async (req, res, next) => {
+  const productId = req.params.productId;
+
+  try {
+    const productDetail = await Product.findById(
+      new mongoose.Types.ObjectId(productId)
+    );
+
+    if (!productDetail) {
+      res.status(422).json({ message: 'Nie ma takiego produktu.' });
+    } else {
+      res.status(200).json({ productDetail: productDetail });
+    }
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+
     next(err);
   }
 };

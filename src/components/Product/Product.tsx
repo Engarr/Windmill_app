@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Products } from '../../types/types';
-import classes from './Products.module.scss';
+import classes from './Product.module.scss';
 
 const Product = (props: { product: Products }) => {
   return (

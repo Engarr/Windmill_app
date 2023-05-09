@@ -16,9 +16,10 @@ const Shop = () => {
     setisLoading(true);
     let url;
     if (!category || category === 'Wszystkie produkty') {
-      url = 'http://localhost:8080/api/feed/products';
+      url = import.meta.env.VITE_REACT_APP_API_URL + 'feed/products';
     } else {
-      url = `http://localhost:8080/api/feed/products/${category}`;
+      url =
+        import.meta.env.VITE_REACT_APP_API_URL + `feed/products/${category}`;
     }
 
     const response = await fetch(url);
