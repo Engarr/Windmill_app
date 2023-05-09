@@ -1,0 +1,155 @@
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px 40px;
+}
+.product {
+  &__imageWrapper {
+    width: 50%;
+  }
+  &__infoWrapper {
+    width: 50%;
+    &--icon {
+      color: var(--background-color);
+      font-size: 25px;
+      margin-right: 0.5em;
+    }
+    &--titleBox {
+      padding: 20px 0px;
+      h2 {
+        font-family: 'Amatic SC', sans-serif;
+        font-size: 3em;
+        margin-bottom: 0.2em;
+        letter-spacing: 2px;
+      }
+      div:nth-child(2) {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 0.2em;
+        p {
+          font-size: 20px;
+          margin-right: 0.3em;
+        }
+        a {
+          color: var(--background-color);
+        }
+      }
+      div:nth-child(3) {
+        p {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          font-family: 'BenchNine', sans-serif;
+          font-size: 25px;
+        }
+      }
+    }
+    &--descriptionBox {
+      h4 {
+        font-family: 'BenchNine', sans-serif;
+        background-color: var(--background-color);
+        color: white;
+        font-weight: 700;
+        width: 80px;
+        text-align: center;
+        border-radius: 5px;
+        margin-bottom: 1em;
+        padding: 5px 20px;
+        font-size: 1.6em;
+        letter-spacing: 1px;
+      }
+    }
+    &--description {
+      p {
+        letter-spacing: 1px;
+        display: flex;
+        flex-direction: column;
+        letter-spacing: 1px;
+        font-family: 'Roboto Condensed', sans-serif;
+        font-size: 1.2em;
+        width: 80%;
+
+        span {
+          font-weight: bold;
+          margin-bottom: 0.2em;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 40px;
+  }
+  .product {
+    &__imageWrapper {
+      width: 100%;
+      text-align: center;
+    }
+    &__infoWrapper {
+      width: 100%;
+      &--icon {
+        font-size: 20px;
+      }
+      &--titleBox {
+        h2 {
+          font-size: 2em;
+        }
+        div:nth-child(2) {
+          p {
+            font-size: 20px;
+          }
+        }
+
+        div:nth-child(3) {
+            p {
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+              font-family: 'BenchNine', sans-serif;
+              font-size: 25px;
+            }
+          }
+      }
+      &--descriptionBox {
+        h4 {
+          font-family: 'BenchNine', sans-serif;
+          background-color: var(--background-color);
+          color: white;
+          font-weight: 700;
+          width: 80px;
+          text-align: center;
+          border-radius: 5px;
+          margin-bottom: 1em;
+          padding: 5px 20px;
+          font-size: 1.6em;
+          letter-spacing: 1px;
+        }
+      }
+      &--description {
+        p {
+          letter-spacing: 1px;
+          display: flex;
+          flex-direction: column;
+          letter-spacing: 1px;
+          font-family: 'Roboto Condensed', sans-serif;
+          font-size: 1.2em;
+          width: 80%;
+
+          span {
+            font-weight: bold;
+            margin-bottom: 0.2em;
+          }
+        }
+      }
+    }
+  }
+}
