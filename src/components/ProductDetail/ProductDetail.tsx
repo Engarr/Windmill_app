@@ -39,7 +39,22 @@ const ProductDetail = (props: { detail: { productDetail: ProductType } }) => {
             </p>
           </div>
         </div>
-        <div>Przyciski</div>
+        <div className={classes[`buttons`]}>
+          <div className={classes[`buttons__QtyBox`]}>
+            <div>
+              <button>+</button>
+            </div>
+            <div>
+              <span>0</span>
+            </div>
+            <div>
+              <button>-</button>
+            </div>
+          </div>
+          <div className={classes[`buttons__addBox`]}>
+            <button>Dodaj do koszyka</button>
+          </div>
+        </div>
       </div>
     </div>
   );
