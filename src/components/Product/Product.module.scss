@@ -39,6 +39,11 @@
   }
 
   &--textBox {
+    display: flex;
+    flex-direction: column;
+    
+    width: 100%;
+    // background-color: aqua;
     h4 {
       color: var(--background-color);
       margin-bottom: 0.2em;

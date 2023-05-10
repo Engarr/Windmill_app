@@ -38,8 +38,6 @@ const loadDetail = async (id: string): Promise<{}> => {
     );
   } else {
     const resData = await response.json();
-    const productDetail = resData.productDetail;
-
     return resData.productDetail;
   }
 };

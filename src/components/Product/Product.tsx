@@ -3,9 +3,12 @@ import { Products } from '../../types/types';
 import classes from './Product.module.scss';
 
 const Product = (props: { product: Products }) => {
+  const handleClick = () => {
+    window.scrollTo(0, 0);
+  };
   return (
     <div className={classes.product__container}>
-      <Link to={`/produkt/${props.product._id}`}>
+      <Link to={`/produkt/${props.product._id}`} onClick={handleClick}>
         <div className={classes[`product__container--imgBox`]}>
           <img
             src={props.product.imageUrl}
