@@ -7,18 +7,18 @@ import UploadFile from '../UI/UploadFile/UploadFile';
 import { Data, ErrorsData } from '../../types/types';
 import { ProductType } from '../../types/types';
 
-const ProductForm = (props: { detail: { productDetail: ProductType } }) => {
-  const details = props.detail.productDetail;
+const ProductForm = (props: { detail?: { productDetail: ProductType } }) => {
+  const details = props.detail?.productDetail;
 
-  // const userId = useRouteLoaderData('account') as string;
+  const token = useRouteLoaderData('root') as string;
   const [selectedImage, setSelectedImage] = useState<string | null>(
-    details.imageUrl || null
+    details?.imageUrl || null
   );
 
   const [productData, setProductData] = useState({
     name: details?.name || '',
-    price: details?.price || 0,
-    category: details?.category || '',
+    price: details?.price || '',
+    category: details?.category || 'Wybierz kategorię',
     description: details?.description || '',
   });
   const [backendErrors, setBackendErrors] = useState<ErrorsData>({});
@@ -63,17 +63,21 @@ const ProductForm = (props: { detail: { productDetail: ProductType } }) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('image', selectedFile as File);
-    formData.append('imageUrl', details.imageUrl);
     formData.append('name', productData.name);
     formData.append('price', productData.price.toString());
     formData.append('description', productData.description);
-
     formData.append('category', productData.category);
-    formData.append('productId', details._id);
-    formData.append('userId', details.creator.toString());
+    if (details?._id && details?.creator && details?.imageUrl) {
+      formData.append('imageUrl', details.imageUrl);
+      formData.append('productId', details?._id);
+      formData.append('userId', details.creator.toString());
+    }
 
     const response = await fetch(import.meta.env.VITE_REACT_APP_API_URL + url, {
       method: typeOfMethod,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       body: formData,
     });
     const data = await response.json();
@@ -127,20 +131,17 @@ const ProductForm = (props: { detail: { productDetail: ProductType } }) => {
           text="Cena:"
           data="price"
           step={0.01}
-          defaultValue={details.price ? details.price : ''}
+          defaultValue={productData.price}
           onChange={productDataHandler}
         />
         <div className={`${classes.select} `}>
           <select
             name="category"
             onChange={productDataHandler}
-            value={details.category ? details.category : 'Wybierz kategorię'}
+            value={productData.category}
           >
-            <option
-              value={!details.category ? details.category : 'Wybierz kategorię'}
-              disabled
-            >
-              Wybierz kategorię:
+            <option value={productData.category} disabled>
+              {productData.category}
             </option>
             {categories
               .filter((category, index) => index !== 0)
@@ -157,7 +158,7 @@ const ProductForm = (props: { detail: { productDetail: ProductType } }) => {
             id="description"
             name="description"
             placeholder="Opis produktu:"
-            defaultValue={details.description ? details.description : ''}
+            defaultValue={productData.description}
             onChange={productDataHandler}
           />
           <label className={classes.label} htmlFor="description">

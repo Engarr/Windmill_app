@@ -61,7 +61,7 @@ router.put(
       .withMessage('Opis produktu nie może być pusty')
       .isLength({ max: 800 })
       .withMessage('Opis produktu nie może być dłuższy niż 500 znaków'),
-  ],
+  ],isAuth,
   editProduct
 );
 
