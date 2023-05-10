@@ -2,27 +2,34 @@ import { useState } from 'react';
 import Input from '../UI/Input/Input';
 import classes from './ProductForm.module.scss';
 import { categories } from '../../util/data';
-import { useRouteLoaderData } from 'react-router-dom';
+import { redirect, useRouteLoaderData } from 'react-router-dom';
 import UploadFile from '../UI/UploadFile/UploadFile';
 import { Data, ErrorsData } from '../../types/types';
+import { ProductType } from '../../types/types';
 
-const ProductForm = () => {
-  const userId = useRouteLoaderData('account') as string;
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+const ProductForm = (props: { detail: { productDetail: ProductType } }) => {
+  const details = props.detail.productDetail;
+
+  // const userId = useRouteLoaderData('account') as string;
+  const [selectedImage, setSelectedImage] = useState<string | null>(
+    details.imageUrl || null
+  );
 
   const [productData, setProductData] = useState({
-    name: '',
-    price: '',
-    category: '',
-    description: '',
+    name: details?.name || '',
+    price: details?.price || 0,
+    category: details?.category || '',
+    description: details?.description || '',
   });
   const [backendErrors, setBackendErrors] = useState<ErrorsData>({});
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
+  //The function responsible for receiving a photo file
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedFile(event.target.files?.[0] || null);
   };
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     handleFileSelect(event);
     const selectedFile: File = event.target.files![0];
@@ -47,23 +54,28 @@ const ProductForm = () => {
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    let url = 'feed/add-product';
+    let typeOfMethod = 'POST';
+    if (details) {
+      url = `feed/editProduct/${details._id}`;
+      typeOfMethod = 'PUT';
+    }
     e.preventDefault();
     const formData = new FormData();
     formData.append('image', selectedFile as File);
+    formData.append('imageUrl', details.imageUrl);
     formData.append('name', productData.name);
-    formData.append('price', productData.price);
+    formData.append('price', productData.price.toString());
     formData.append('description', productData.description);
-    formData.append('userId', userId);
+
     formData.append('category', productData.category);
+    formData.append('productId', details._id);
+    formData.append('userId', details.creator.toString());
 
-    const response = await fetch(
-      import.meta.env.VITE_REACT_APP_API_URL + 'feed/add-product',
-      {
-        method: 'POST',
-
-        body: formData,
-      }
-    );
+    const response = await fetch(import.meta.env.VITE_REACT_APP_API_URL + url, {
+      method: typeOfMethod,
+      body: formData,
+    });
     const data = await response.json();
     if (!response.ok) {
       const errorArray = data.errors as Data[];
@@ -74,9 +86,9 @@ const ProductForm = () => {
       setBackendErrors(errorsObj);
       window.scroll(0, 0);
     } else {
+      redirect('/sklep');
     }
   };
-  console.log(backendErrors);
 
   return (
     <div className={classes.productForm__wrapper}>
@@ -98,12 +110,12 @@ const ProductForm = () => {
         className={classes[`productForm__wrapper--form`]}
         onSubmit={onSubmit}
       >
-        <h2>Dodaj nowy produkt:</h2>
+        <h2> {details ? 'Edytuj' : 'Dodaj nowy'} produkt:</h2>
         <Input
           type="text"
           text="Nazwa produktu:"
           data="name"
-          defaultValue=""
+          defaultValue={productData.name}
           onChange={productDataHandler}
         />
         <div className={classes[`productForm__wrapper--photo`]}>
@@ -115,19 +127,17 @@ const ProductForm = () => {
           text="Cena:"
           data="price"
           step={0.01}
-          defaultValue=""
+          defaultValue={details.price ? details.price : ''}
           onChange={productDataHandler}
         />
         <div className={`${classes.select} `}>
           <select
             name="category"
             onChange={productDataHandler}
-            defaultValue={
-              productData ? productData.category : 'Wybierz kategorię'
-            }
+            value={details.category ? details.category : 'Wybierz kategorię'}
           >
             <option
-              value={productData ? productData.category : 'Wybierz kategorię'}
+              value={!details.category ? details.category : 'Wybierz kategorię'}
               disabled
             >
               Wybierz kategorię:
@@ -147,7 +157,7 @@ const ProductForm = () => {
             id="description"
             name="description"
             placeholder="Opis produktu:"
-            defaultValue=""
+            defaultValue={details.description ? details.description : ''}
             onChange={productDataHandler}
           />
           <label className={classes.label} htmlFor="description">
@@ -155,7 +165,7 @@ const ProductForm = () => {
           </label>
         </div>
         <div>
-          <button>Zapisz produkt</button>
+          <button>{details ? 'Edytuj' : 'Zapisz'} produkt</button>
         </div>
       </form>
     </div>

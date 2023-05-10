@@ -1,9 +1,26 @@
-import React from 'react'
+import React, { Suspense } from 'react';
+import ProductForm from '../../components/AddProductForm/ProductForm';
+import {
+  useRouteLoaderData,
+  json,
+  redirect,
+  defer,
+  Await,
+} from 'react-router-dom';
+import Spinner from '../../components/Spinner/Spinner/Spinner';
 
 const EditProduct = () => {
-  return (
-    <div>EditProduct</div>
-  )
-}
+  const productDetail = useRouteLoaderData('product-detail');
 
-export default EditProduct
+  return (
+    <div>
+      <Suspense fallback={<Spinner message="Ładowanie..." />}>
+        <Await resolve={productDetail}>
+          {(loadDetail) => <ProductForm detail={loadDetail} />}
+        </Await>
+      </Suspense>
+    </div>
+  );
+};
+
+export default EditProduct;

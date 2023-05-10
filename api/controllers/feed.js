@@ -3,7 +3,12 @@ import User from '../models/user.js';
 import mongoose from 'mongoose';
 import { validationResult } from 'express-validator';
 import { storage } from '../config/firebase.config.js';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject,
+} from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 
 export const getUser = async (req, res, next) => {
@@ -59,6 +64,65 @@ export const postAddProduct = async (req, res, next) => {
     user.products.push(product._id);
     await user.save();
     res.status(200).json({ message: 'product has been created', data: result });
+  } catch (err) {
+    if (!err) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
+
+export const editProduct = async (req, res, next) => {
+  const error = validationResult(req);
+  if (!error.isEmpty()) {
+    return res.status(422).json({ errors: error.array() });
+  }
+  const productId = req.body.productId;
+  const name = req.body.name;
+  const price = req.body.price;
+  const category = req.body.category;
+  const description = req.body.description;
+  const userId = req.body.userId;
+  const image = req.file;
+
+  let imageUrl = req.body.imageUrl;
+  try {
+    if (image) {
+      const metadata = {
+        contentType: req.file.mimetype,
+      };
+      const desertRef = ref(storage, imageUrl);
+      await deleteObject(desertRef);
+      const newStorageRef = ref(
+        storage,
+        `images/${uuidv4() + image.originalname}`
+      );
+      const snapshot = await uploadBytesResumable(
+        newStorageRef,
+        image.buffer,
+        metadata
+      );
+      imageUrl = await getDownloadURL(snapshot.ref);
+    }
+    const product = await Product.findById(productId);
+    if (!product) {
+      const error = new Error('Could not find product.');
+      error.statusCode = 404;
+      throw error;
+    }
+    if (product.creator.toString() !== userId) {
+      const error = new Error('Not authorized!');
+      error.statusCode = 403;
+      throw error;
+    }
+
+    product.name = name;
+    product.price = price;
+    product.description = description;
+    product.category = category;
+    product.imageUrl = imageUrl;
+    const result = await product.save();
+    res.status(200).json({ message: 'Product updated!', product: result });
   } catch (err) {
     if (!err) {
       err.statusCode = 500;

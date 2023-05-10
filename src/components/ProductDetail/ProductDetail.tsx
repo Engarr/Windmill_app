@@ -55,6 +55,11 @@ const ProductDetail = (props: { detail: { productDetail: ProductType } }) => {
 
   return (
     <>
+      <div>
+        <Link to="edit">
+          <button>Edytuj produkt</button>
+        </Link>
+      </div>
       <div className={classes.wrapper}>
         <div className={classes.product__imageWrapper}>
           <div>
