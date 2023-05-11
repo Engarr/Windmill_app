@@ -8,18 +8,16 @@ import {
 } from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner/Spinner';
 import ProductDetail from '../../components/ProductDetail/ProductDetail';
-import { idLoader } from '../../util/auth';
+import { idLoader, getAuthToken } from '../../util/auth';
 
 const ProductDetails = () => {
   const productDetail = useRouteLoaderData('product-detail') as {};
- 
+
   return (
     <div>
       <Suspense fallback={<Spinner message="Ładowanie..." />}>
         <Await resolve={productDetail}>
-          {(loadDetail) => (
-            <ProductDetail detail={loadDetail}  />
-          )}
+          {(loadDetail) => <ProductDetail detail={loadDetail} />}
         </Await>
       </Suspense>
     </div>
@@ -59,4 +57,33 @@ export async function loader({
     productDetail: await loadDetail(productId),
     userId: await idLoader(),
   });
+}
+
+export async function action({
+  params,
+  request,
+}: {
+  request: Request;
+  params: any;
+}) {
+  const productId = params.productId;
+  const token = getAuthToken();
+  const response = await fetch(
+    import.meta.env.VITE_REACT_APP_API_URL + `feed/delete/${productId}`,
+    {
+      method: request.method,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  if (!response.ok) {
+    throw json(
+      { message: 'Niestety nie mogliśmy usunąć produktu' },
+      {
+        status: 500,
+      }
+    );
+  }
+  return redirect('/sklep');
 }

@@ -185,3 +185,33 @@ export const getProductDetails = async (req, res, next) => {
     next(err);
   }
 };
+export const deleteProduct = async (req, res, next) => {
+  const userId = req.userId;
+  const productId = req.params.productId;
+  try {
+    const product = await Product.findById(productId);
+    if (!product) {
+      const error = new Error('Could not find product');
+      error.statusCode = 404;
+      throw error;
+    }
+    if (product.creator.toString() !== userId.toString()) {
+      const error = new Error('Not authorized!');
+      error.statusCode = 403;
+      throw error;
+    }
+    const desertRef = ref(storage, product.imageUrl);
+    await deleteObject(desertRef);
+    await Product.findByIdAndRemove(productId);
+    const user = await User.findById(userId);
+    await user.products.pull(productId);
+    await user.save();
+    res.status(200).json({ message: 'Product deleted.' });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+
+    next(err);
+  }
+};

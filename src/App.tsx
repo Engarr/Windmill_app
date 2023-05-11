@@ -10,7 +10,10 @@ import NewProduct from './pages/NewProduct/NewProduct';
 import ShopRootNavigation from './pages/SopRootLayout/ShopRootNavigation';
 import { action as logout } from './pages/Logout/Logout';
 import ProductDetails from './pages/ProductDetails/ProductDetails';
-import { loader as productsDetailLoader } from './pages/ProductDetails/ProductDetails';
+import {
+  loader as productsDetailLoader,
+  action as deleteProductAction,
+} from './pages/ProductDetails/ProductDetails';
 import EditProduct from './pages/EditProduct/EditProduct';
 
 function App() {
@@ -43,6 +46,7 @@ function App() {
             {
               index: true,
               element: <ProductDetails />,
+              action: deleteProductAction,
             },
             { path: 'edit', element: <EditProduct /> },
           ],

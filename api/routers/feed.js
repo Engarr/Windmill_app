@@ -9,6 +9,7 @@ import {
   getCategoryProducts,
   getProductDetails,
   editProduct,
+  deleteProduct,
 } from '../controllers/feed.js';
 import { body } from 'express-validator';
 import { imageValidator } from '../validation/validation.js';
@@ -65,5 +66,6 @@ router.put(
   isAuth,
   editProduct
 );
+router.delete('/delete/:productId', isAuth, deleteProduct);
 
 export default router;

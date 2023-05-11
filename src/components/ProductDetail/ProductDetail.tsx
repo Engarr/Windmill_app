@@ -8,6 +8,7 @@ import { TbTruckDelivery } from 'react-icons/tb';
 import { Products } from '../../types/types';
 import Product from '../Product/Product';
 import Spinner from '../Spinner/Spinner/Spinner';
+import ProductManage from '../ProductManage/ProductManage';
 
 const ProductDetail = (props: {
   detail: { productDetail: ProductType; userId: string };
@@ -60,16 +61,7 @@ const ProductDetail = (props: {
 
   return (
     <>
-      {isAuth && (
-        <div className={classes.productManage}>
-          <Link to="edit">
-            <button>Edytuj produkt</button>
-          </Link>
-          <Link to="">
-            <button>Usuń produkt</button>
-          </Link>
-        </div>
-      )}
+      {isAuth && <ProductManage />}
 
       <div className={classes.wrapper}>
         <div className={classes.product__imageWrapper}>
