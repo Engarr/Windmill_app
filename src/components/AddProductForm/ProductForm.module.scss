@@ -148,7 +148,8 @@ select::-ms-expand {
   margin-bottom: 1em;
   letter-spacing: 2px;
   resize: vertical;
-  min-height: 150px;
+  min-height: 300px;
+  font-family: sans-serif;
 }
 
 .textareaBox textarea::placeholder {

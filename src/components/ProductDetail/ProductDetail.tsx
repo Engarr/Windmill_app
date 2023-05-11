@@ -61,9 +61,12 @@ const ProductDetail = (props: {
   return (
     <>
       {isAuth && (
-        <div>
+        <div className={classes.productManage}>
           <Link to="edit">
             <button>Edytuj produkt</button>
+          </Link>
+          <Link to="">
+            <button>Usuń produkt</button>
           </Link>
         </div>
       )}

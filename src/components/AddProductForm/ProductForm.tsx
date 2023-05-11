@@ -9,12 +9,16 @@ import { ProductType } from '../../types/types';
 
 const ProductForm = (props: {
   detail?: { productDetail: ProductType; userId: string };
+  userId?: string;
 }): JSX.Element => {
   const details = props.detail?.productDetail;
-  const userId = props.detail?.userId;
+  const userId = props.detail?.userId || props.userId;
+  const creatorId = details?.creator.toString();
   const navigate = useNavigate();
-
-  const isAuth = userId?.toString() === details?.creator.toString();
+  let isAuth = true;
+  if (creatorId) {
+    isAuth = userId?.toString() === creatorId.toString();
+  }
   const token = useRouteLoaderData('root') as string;
   const [selectedImage, setSelectedImage] = useState<string | null>(
     details?.imageUrl || null
@@ -72,6 +76,7 @@ const ProductForm = (props: {
     formData.append('price', productData.price.toString());
     formData.append('description', productData.description);
     formData.append('category', productData.category);
+    formData.append('userId', userId as string);
     if (details?._id && details?.creator && details?.imageUrl) {
       formData.append('imageUrl', details.imageUrl);
       formData.append('productId', details?._id);
