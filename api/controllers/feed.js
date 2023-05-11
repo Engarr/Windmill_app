@@ -13,6 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export const getUser = async (req, res, next) => {
   const userId = req.userId;
+
   res.status(200).json({ userId: userId });
 };
 
@@ -82,7 +83,7 @@ export const editProduct = async (req, res, next) => {
   const price = req.body.price;
   const category = req.body.category;
   const description = req.body.description;
-  const userId = req.body.userId;
+  const creatorId = req.body.creatorId;
   const image = req.file;
 
   let imageUrl = req.body.imageUrl;
@@ -110,7 +111,9 @@ export const editProduct = async (req, res, next) => {
       error.statusCode = 404;
       throw error;
     }
-    if (product.creator.toString() !== userId) {
+    console.log(creatorId);
+    console.log(req.userId.toString());
+    if (creatorId.toString() !== req.userId.toString()) {
       const error = new Error('Not authorized!');
       error.statusCode = 403;
       throw error;

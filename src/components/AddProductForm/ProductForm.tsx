@@ -1,15 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Input from '../UI/Input/Input';
 import classes from './ProductForm.module.scss';
 import { categories } from '../../util/data';
-import { redirect, useRouteLoaderData } from 'react-router-dom';
+import { useNavigate, useRouteLoaderData } from 'react-router-dom';
 import UploadFile from '../UI/UploadFile/UploadFile';
 import { Data, ErrorsData } from '../../types/types';
 import { ProductType } from '../../types/types';
 
-const ProductForm = (props: { detail?: { productDetail: ProductType } }) => {
+const ProductForm = (props: {
+  detail?: { productDetail: ProductType; userId: string };
+}): JSX.Element => {
   const details = props.detail?.productDetail;
+  const userId = props.detail?.userId;
+  const navigate = useNavigate();
 
+  const isAuth = userId?.toString() === details?.creator.toString();
   const token = useRouteLoaderData('root') as string;
   const [selectedImage, setSelectedImage] = useState<string | null>(
     details?.imageUrl || null
@@ -70,7 +75,7 @@ const ProductForm = (props: { detail?: { productDetail: ProductType } }) => {
     if (details?._id && details?.creator && details?.imageUrl) {
       formData.append('imageUrl', details.imageUrl);
       formData.append('productId', details?._id);
-      formData.append('userId', details.creator.toString());
+      formData.append('creatorId', details.creator.toString());
     }
 
     const response = await fetch(import.meta.env.VITE_REACT_APP_API_URL + url, {
@@ -90,9 +95,14 @@ const ProductForm = (props: { detail?: { productDetail: ProductType } }) => {
       setBackendErrors(errorsObj);
       window.scroll(0, 0);
     } else {
-      redirect('/sklep');
+      navigate('/sklep');
     }
   };
+  useEffect(() => {
+    if (!isAuth) {
+      navigate('/');
+    }
+  }, [isAuth]);
 
   return (
     <div className={classes.productForm__wrapper}>

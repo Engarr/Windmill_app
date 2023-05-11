@@ -37,11 +37,13 @@ function App() {
         },
         {
           path: '/produkt/:productId',
-
           loader: productsDetailLoader,
           id: 'product-detail',
           children: [
-            { index: true, element: <ProductDetails /> },
+            {
+              index: true,
+              element: <ProductDetails />,
+            },
             { path: 'edit', element: <EditProduct /> },
           ],
         },

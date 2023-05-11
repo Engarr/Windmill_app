@@ -9,12 +9,17 @@ import { Products } from '../../types/types';
 import Product from '../Product/Product';
 import Spinner from '../Spinner/Spinner/Spinner';
 
-const ProductDetail = (props: { detail: { productDetail: ProductType } }) => {
+const ProductDetail = (props: {
+  detail: { productDetail: ProductType; userId: string };
+}) => {
   const details = props.detail.productDetail;
+  const userId = props.detail.userId;
   const [quantity, setQuantity] = useState(0);
   const [products, setProducts] = useState<Products[]>([]);
   const [isLoading, setisLoading] = useState(false);
   const category = details.category;
+
+  const isAuth = details.creator.toString() === userId;
 
   const IncreaseQuantityHandler = () => {
     setQuantity(quantity + 1);
@@ -55,11 +60,14 @@ const ProductDetail = (props: { detail: { productDetail: ProductType } }) => {
 
   return (
     <>
-      <div>
-        <Link to="edit">
-          <button>Edytuj produkt</button>
-        </Link>
-      </div>
+      {isAuth && (
+        <div>
+          <Link to="edit">
+            <button>Edytuj produkt</button>
+          </Link>
+        </div>
+      )}
+
       <div className={classes.wrapper}>
         <div className={classes.product__imageWrapper}>
           <div>

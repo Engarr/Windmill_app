@@ -1,4 +1,5 @@
 import { redirect } from 'react-router-dom';
+import { useRouteLoaderData } from 'react-router-dom';
 
 export const getTokenDuration = () => {
   const storedExpirationDate = localStorage.getItem('expiration');
@@ -41,6 +42,7 @@ export const idLoader = async () => {
   });
   const user = await resposne.json();
   const userId = user.userId;
+
   return userId;
 };
 
@@ -49,8 +51,10 @@ export function checkOutLoader() {
   if (!token) {
     return redirect('/auth');
   }
+
   return null;
 }
 export const tokenLoader = () => {
   return getAuthToken();
 };
+

@@ -8,15 +8,18 @@ import {
 } from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner/Spinner';
 import ProductDetail from '../../components/ProductDetail/ProductDetail';
+import { idLoader } from '../../util/auth';
 
 const ProductDetails = () => {
-  const productDetail = useRouteLoaderData('product-detail');
-
+  const productDetail = useRouteLoaderData('product-detail') as {};
+ 
   return (
     <div>
       <Suspense fallback={<Spinner message="Ładowanie..." />}>
         <Await resolve={productDetail}>
-          {(loadDetail) => <ProductDetail detail={loadDetail} />}
+          {(loadDetail) => (
+            <ProductDetail detail={loadDetail}  />
+          )}
         </Await>
       </Suspense>
     </div>
@@ -54,5 +57,6 @@ export async function loader({
 
   return defer({
     productDetail: await loadDetail(productId),
+    userId: await idLoader(),
   });
 }

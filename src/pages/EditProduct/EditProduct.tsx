@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import ProductForm from '../../components/AddProductForm/ProductForm';
 import {
   useRouteLoaderData,
