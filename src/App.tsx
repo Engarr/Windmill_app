@@ -15,6 +15,7 @@ import {
   action as deleteProductAction,
 } from './pages/ProductDetails/ProductDetails';
 import EditProduct from './pages/EditProduct/EditProduct';
+import ErrorPage from './pages/ErrorPage/ErrorPage';
 
 function App() {
   const router = createBrowserRouter([
@@ -23,7 +24,9 @@ function App() {
       element: <RootLayout />,
       id: 'root',
       loader: tokenLoader,
+      errorElement: <ErrorPage />,
       children: [
+        { index: true, element: <HomePage /> },
         { index: true, element: <HomePage /> },
 
         {

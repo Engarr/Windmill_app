@@ -35,7 +35,7 @@ const ProductDetail = (props: {
       setQuantity(quantity - 1);
     }
   };
-
+//the function for fetching products of a given category
   const fetchProducts = async () => {
     setisLoading(true);
     const url =

@@ -34,7 +34,7 @@ const ProductForm = (props: {
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  //The function responsible for receiving a photo file
+  //The function responsible for receiving and manage a photo file
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedFile(event.target.files?.[0] || null);
   };
@@ -50,6 +50,7 @@ const ProductForm = (props: {
     reader.readAsDataURL(selectedFile);
   };
 
+  //A function to manage the data provided by the user in the form
   const productDataHandler = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -61,7 +62,7 @@ const ProductForm = (props: {
     }));
     return e.target.value;
   };
-
+  // A function for sending data to backend for add new product or editing existing product
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     let url = 'feed/add-product';
     let typeOfMethod = 'POST';
@@ -103,6 +104,7 @@ const ProductForm = (props: {
       navigate('/sklep');
     }
   };
+  //function responsible for redirecting unauthorized users
   useEffect(() => {
     if (!isAuth) {
       navigate('/');

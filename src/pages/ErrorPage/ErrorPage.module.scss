@@ -1,0 +1,50 @@
+.errorPage {
+  &__container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    width: 100%;
+    max-width: 1400px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  &__Box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2em;
+    h2 {
+      text-transform: uppercase;
+      font-family: 'Amatic SC', sans-serif;
+      font-size: 3em;
+      letter-spacing: 2px;
+      span {
+        color: var(--background-color-hover);
+      }
+    }
+    p {
+      color: var(--background-color);
+      margin: 1em 0;
+      font-size: 2em;
+      font-family: 'BenchNine', sans-serif;
+    }
+    button {
+      margin: 2em 0;
+      padding: 10px 20px;
+      background-color: var(--background-color);
+      border: none;
+      border-radius: 2px;
+      color: white;
+      font-size: 1.4em;
+      transition: background-color 0.3s;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: var(--background-color-hover);
+    }
+  }
+}

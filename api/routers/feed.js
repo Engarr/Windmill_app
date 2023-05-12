@@ -35,8 +35,8 @@ router.post(
     body('description')
       .notEmpty()
       .withMessage('Opis produktu nie może być pusty')
-      .isLength({ max: 800 })
-      .withMessage('Opis produktu nie może być dłuższy niż 500 znaków'),
+      .isLength({ max: 1000 })
+      .withMessage('Opis produktu nie może być dłuższy niż 1000 znaków'),
   ],
   postAddProduct
 );
