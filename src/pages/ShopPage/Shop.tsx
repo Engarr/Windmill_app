@@ -4,43 +4,45 @@ import { Products } from '../../types/types';
 import Product from '../../components/Product/Product';
 import classes from './Shop.module.scss';
 import Spinner from '../../components/Spinner/Spinner/Spinner';
+import {
+  useGetAllProductsQuery,
+  useGetCategoryProductQuery,
+} from '../../store/apiSlice';
 
 const Shop = () => {
-  const params = useParams();
+  const params = useParams<{ category: string }>();
   const category = params.category || `Wszystkie produkty`;
-
   const [products, setProducts] = useState<Products[]>([]);
-  const [isLoading, setisLoading] = useState(false);
+  const { data: allProductsArr, isLoading: isAllProductsLoading } =
+    useGetAllProductsQuery();
+  const { data: categoryProductsArr, isLoading: isCategoryProductsLoading } =
+    useGetCategoryProductQuery(category);
 
-  const fetchProducts = async () => {
-    setisLoading(true);
-    let url;
-    if (!category || category === 'Wszystkie produkty') {
-      url = import.meta.env.VITE_REACT_APP_API_URL + 'feed/products';
-    } else {
-      url =
-        import.meta.env.VITE_REACT_APP_API_URL + `feed/products/${category}`;
-    }
-
-    const response = await fetch(url);
-
-    const data = await response.json();
-    const productsArr = data.products;
-
-    setisLoading(false);
-    setProducts(productsArr);
-  };
   useEffect(() => {
-    setProducts([]);
-    fetchProducts();
-  }, [category]);
+    if (!category || category === 'Wszystkie produkty') {
+      if (!isAllProductsLoading) {
+        setProducts(allProductsArr?.products ?? []);
+      }
+    } else {
+      if (!isCategoryProductsLoading) {
+        setProducts(categoryProductsArr?.products ?? []);
+      }
+    }
+  }, [
+    category,
+    allProductsArr,
+    categoryProductsArr,
+    isAllProductsLoading,
+    isCategoryProductsLoading,
+  ]);
 
   return (
     <section id="sklep">
       <div className={classes.product__wrappper}>
-        {isLoading ? (
+        {(isAllProductsLoading || isCategoryProductsLoading) && (
           <Spinner message="Wczytywanie produktów.." />
-        ) : products.length > 0 ? (
+        )}
+        {products.length > 0 ? (
           <>
             {products.map((product) => {
               return <Product key={product._id} product={product} />;

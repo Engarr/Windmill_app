@@ -10,7 +10,7 @@ const ErrorPage = () => {
       <div className={classes.errorPage__container}>
         <NavBar />
         <div className={classes.errorPage__Box}>
-          <p>Niestety taka strona nie istnieje </p>
+          <p>Niestety strona nie istnieje... </p>
           <h2>
             Error <span>404 </span>
           </h2>
