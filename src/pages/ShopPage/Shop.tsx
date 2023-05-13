@@ -39,19 +39,22 @@ const Shop = () => {
   return (
     <section id="sklep">
       <div className={classes.product__wrappper}>
-        {(isAllProductsLoading || isCategoryProductsLoading) && (
+        {isAllProductsLoading || isCategoryProductsLoading ? (
           <Spinner message="Wczytywanie produktów.." />
-        )}
-        {products.length > 0 ? (
-          <>
-            {products.map((product) => {
-              return <Product key={product._id} product={product} />;
-            })}
-          </>
         ) : (
-          <div className={classes.empty}>
-            <h2>Wystąpił błąd, spróbuj ponownie później</h2>
-          </div>
+          <>
+            {products.length > 0 ? (
+              <>
+                {products.map((product) => {
+                  return <Product key={product._id} product={product} />;
+                })}
+              </>
+            ) : (
+              <div className={classes.empty}>
+                <h2>Wystąpił błąd, spróbuj ponownie później</h2>
+              </div>
+            )}
+          </>
         )}
       </div>
     </section>
