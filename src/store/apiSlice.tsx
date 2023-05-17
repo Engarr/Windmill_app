@@ -25,14 +25,14 @@ export const productsApi = createApi({
     getProductDetails: builder.query<ProductsDetailsResponse, string>({
       query: (id) => `feed/product/${id}`,
     }),
-    getUserId: builder.query<{ userId: string | boolean }, string>({
-      query: (token) => ({
-        url: 'feed/user',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }),
-    }),
+    // getUserId: builder.query<{ userId: string | boolean }, string>({
+    //   query: (token) => ({
+    //     url: 'feed/user',
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   }),
+    // }),
   }),
 });
 
@@ -40,5 +40,5 @@ export const {
   useGetAllProductsQuery,
   useGetCategoryProductQuery,
   useGetProductDetailsQuery,
-  useGetUserIdQuery,
+  // useGetUserIdQuery,
 } = productsApi;

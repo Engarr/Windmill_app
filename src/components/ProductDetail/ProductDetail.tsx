@@ -11,17 +11,17 @@ import Spinner from '../Spinner/Spinner/Spinner';
 import ProductManage from '../ProductManage/ProductManage';
 
 const ProductDetail = (props: {
-  productDetails?: ProductType;
-  userId?: string | null;
+  detail: { productDetail: ProductType; userId: string };
 }) => {
-  const details = props.productDetails;
-  const userId = props.userId;
+  const details = props.detail.productDetail;
+  const userId = props.detail.userId;
+  console.log(details);
   const [quantity, setQuantity] = useState(0);
   const [products, setProducts] = useState<Products[]>([]);
   const [isLoading, setisLoading] = useState(false);
-  const category = details?.category;
+  const category = details.category;
 
-  const isAuth = details?.creator?.toString() === userId;
+  const isAuth = details.creator.toString() === userId;
 
   const IncreaseQuantityHandler = () => {
     setQuantity(quantity + 1);
@@ -46,7 +46,7 @@ const ProductDetail = (props: {
     const productsArr = data.products;
 
     const newArr = await productsArr.filter(
-      (item: ProductType) => item._id !== details?._id
+      (item: ProductType) => item._id !== details._id
     );
 
     let shuffledItems = await newArr.sort(() => Math.random() - 0.5);
@@ -67,24 +67,22 @@ const ProductDetail = (props: {
       <div className={classes.wrapper}>
         <div className={classes.product__imageWrapper}>
           <div>
-            <img src={details?.imageUrl} alt={details?.name} width={250} />
+            <img src={details.imageUrl} alt={details.name} width={250} />
           </div>
         </div>
         <div className={classes.product__infoWrapper}>
           <div className={classes[`product__infoWrapper--titleBox`]}>
             <div>
-              <h2>{details?.name}</h2>
+              <h2>{details.name}</h2>
             </div>
             <div>
               <p>Kategoria:</p>
-              <Link to={`/sklep/${details?.category}`}>
-                {details?.category}
-              </Link>
+              <Link to={`/sklep/${details.category}`}>{details.category}</Link>
             </div>
             <div>
               <p>
                 <GiTwoCoins className={classes[`product__infoWrapper--icon`]} />
-                {details?.price} zł
+                {details.price} zł
               </p>
             </div>
           </div>
@@ -94,7 +92,7 @@ const ProductDetail = (props: {
             </div>
             <div className={classes[`product__infoWrapper--description`]}>
               <p>
-                <span>Charakterystyka:</span> {details?.description}
+                <span>Charakterystyka:</span> {details.description}
               </p>
             </div>
           </div>
