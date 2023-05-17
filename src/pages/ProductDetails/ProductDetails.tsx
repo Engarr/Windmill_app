@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import {
   useRouteLoaderData,
   json,
@@ -12,6 +12,7 @@ import { idLoader, getAuthToken } from '../../util/auth';
 
 const ProductDetails = () => {
   const productDetail = useRouteLoaderData('product-detail') as {};
+
 
   return (
     <div>
@@ -27,9 +28,9 @@ const ProductDetails = () => {
 export default ProductDetails;
 
 const loadDetail = async (id: string): Promise<{}> => {
+  
   const url = import.meta.env.VITE_REACT_APP_API_URL + `feed/product/${id}`;
   const response = await fetch(url);
-
   if (!response.ok) {
     throw json(
       { message: 'Could not fetch details for selected event.' },
@@ -39,6 +40,7 @@ const loadDetail = async (id: string): Promise<{}> => {
     );
   } else {
     const resData = await response.json();
+
     return resData.productDetail;
   }
 };

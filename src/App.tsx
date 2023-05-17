@@ -24,13 +24,12 @@ function App() {
       element: <RootLayout />,
       id: 'root',
       loader: tokenLoader,
-
+      errorElement: <ErrorPage />,
       children: [
         {
           path: '*',
           element: <ErrorPage />,
         },
-        { index: true, element: <HomePage /> },
         { index: true, element: <HomePage /> },
 
         {

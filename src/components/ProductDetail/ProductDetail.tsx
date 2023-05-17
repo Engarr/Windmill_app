@@ -15,6 +15,7 @@ const ProductDetail = (props: {
 }) => {
   const details = props.detail.productDetail;
   const userId = props.detail.userId;
+  
   const [quantity, setQuantity] = useState(0);
   const [products, setProducts] = useState<Products[]>([]);
   const [isLoading, setisLoading] = useState(false);
@@ -35,7 +36,7 @@ const ProductDetail = (props: {
       setQuantity(quantity - 1);
     }
   };
-//the function for fetching products of a given category
+  //the function for fetching products of a given category
   const fetchProducts = async () => {
     setisLoading(true);
     const url =

@@ -8,7 +8,7 @@ const ErrorPage = () => {
   return (
     <>
       <div className={classes.errorPage__container}>
-        <NavBar />
+        {/* <NavBar /> */}
         <div className={classes.errorPage__Box}>
           <p>Niestety strona nie istnieje... </p>
           <h2>

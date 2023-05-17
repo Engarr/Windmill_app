@@ -17,7 +17,6 @@ const Shop = () => {
     useGetAllProductsQuery();
   const { data: categoryProductsArr, isLoading: isCategoryProductsLoading } =
     useGetCategoryProductQuery(category);
-
   useEffect(() => {
     if (!category || category === 'Wszystkie produkty') {
       if (!isAllProductsLoading) {
