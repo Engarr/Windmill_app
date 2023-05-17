@@ -11,7 +11,6 @@ import ShopRootNavigation from './pages/SopRootLayout/ShopRootNavigation';
 import { action as logout } from './pages/Logout/Logout';
 import ProductDetails from './pages/ProductDetails/ProductDetails';
 import {
-  loader as productsDetailLoader,
   action as deleteProductAction,
 } from './pages/ProductDetails/ProductDetails';
 import EditProduct from './pages/EditProduct/EditProduct';
@@ -46,7 +45,6 @@ function App() {
         },
         {
           path: '/produkt/:productId',
-          loader: productsDetailLoader,
           id: 'product-detail',
           children: [
             {

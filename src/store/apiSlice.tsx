@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Products } from '../types/types';
+import { Products, ProductType } from '../types/types';
 
 interface ProductsResponse {
   message: string;
@@ -7,12 +7,7 @@ interface ProductsResponse {
 }
 
 interface ProductsDetailsResponse {
-  message: string;
-  productDetail: Products[];
-}
-interface UserResponse {
-  message: string;
-  userId: string;
+  productDetail: ProductType;
 }
 
 export const productsApi = createApi({
@@ -27,8 +22,23 @@ export const productsApi = createApi({
     getCategoryProduct: builder.query<ProductsResponse, string>({
       query: (category) => `feed/products/${category}`,
     }),
+    getProductDetails: builder.query<ProductsDetailsResponse, string>({
+      query: (id) => `feed/product/${id}`,
+    }),
+    getUserId: builder.query<{ userId: string | boolean }, string>({
+      query: (token) => ({
+        url: 'feed/user',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetAllProductsQuery, useGetCategoryProductQuery } =
-  productsApi;
+export const {
+  useGetAllProductsQuery,
+  useGetCategoryProductQuery,
+  useGetProductDetailsQuery,
+  useGetUserIdQuery,
+} = productsApi;

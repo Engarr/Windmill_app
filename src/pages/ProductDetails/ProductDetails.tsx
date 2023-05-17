@@ -1,65 +1,46 @@
-import { Suspense, useEffect } from 'react';
 import {
   useRouteLoaderData,
   json,
   redirect,
   defer,
   Await,
+  useParams,
 } from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner/Spinner';
 import ProductDetail from '../../components/ProductDetail/ProductDetail';
-import { idLoader, getAuthToken } from '../../util/auth';
+import { getAuthToken } from '../../util/auth';
+import {
+  useGetProductDetailsQuery,
+  useGetUserIdQuery,
+} from '../../store/apiSlice';
 
 const ProductDetails = () => {
-  const productDetail = useRouteLoaderData('product-detail') as {};
+  const token = getAuthToken();
+  const params = useParams();
+  const productId = params.productId;
 
+  const { data: productDetails, isLoading: loadingDetails } =
+    useGetProductDetailsQuery(productId as string);
+  if (!token) {
+    return <Spinner message="Ładowanie..." />;
+  }
+  const { data: userId, isLoading: loadingUserId } = useGetUserIdQuery(token);
 
   return (
     <div>
-      <Suspense fallback={<Spinner message="Ładowanie..." />}>
-        <Await resolve={productDetail}>
-          {(loadDetail) => <ProductDetail detail={loadDetail} />}
-        </Await>
-      </Suspense>
+      {loadingDetails && loadingUserId ? (
+        <Spinner message="Ładowanie..." />
+      ) : (
+        <ProductDetail
+          productDetails={productDetails?.productDetail}
+          userId={userId?.userId as string}
+        />
+      )}
     </div>
   );
 };
 
 export default ProductDetails;
-
-const loadDetail = async (id: string): Promise<{}> => {
-  
-  const url = import.meta.env.VITE_REACT_APP_API_URL + `feed/product/${id}`;
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw json(
-      { message: 'Could not fetch details for selected event.' },
-      {
-        status: 500,
-      }
-    );
-  } else {
-    const resData = await response.json();
-
-    return resData.productDetail;
-  }
-};
-
-export async function loader({
-  request,
-  params,
-}: {
-  request: Request;
-  params: any;
-}) {
-  const param = params;
-  const productId = param.productId as string;
-
-  return defer({
-    productDetail: await loadDetail(productId),
-    userId: await idLoader(),
-  });
-}
 
 export async function action({
   params,

@@ -13,6 +13,7 @@ const Shop = () => {
   const params = useParams<{ category: string }>();
   const category = params.category || `Wszystkie produkty`;
   const [products, setProducts] = useState<Products[]>([]);
+  
   const { data: allProductsArr, isLoading: isAllProductsLoading } =
     useGetAllProductsQuery();
   const { data: categoryProductsArr, isLoading: isCategoryProductsLoading } =

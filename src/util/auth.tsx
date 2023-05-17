@@ -1,5 +1,5 @@
 import { redirect } from 'react-router-dom';
-import { useRouteLoaderData } from 'react-router-dom';
+import { useGetUserIdQuery } from '../store/apiSlice';
 
 export const getTokenDuration = () => {
   const storedExpirationDate = localStorage.getItem('expiration');
@@ -57,4 +57,3 @@ export function checkOutLoader() {
 export const tokenLoader = () => {
   return getAuthToken();
 };
-
