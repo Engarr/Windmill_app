@@ -9,6 +9,7 @@ import Product from '../Product/Product';
 import Spinner from '../Spinner/Spinner/Spinner';
 import ProductManage from '../ProductManage/ProductManage';
 import { useGetCategoryProductQuery } from '../../store/apiSlice';
+import Empty from '../Empty/Empty';
 
 const ProductDetail = (props: {
   detail: { productDetail: ProductType; userId: string };
@@ -150,9 +151,10 @@ const ProductDetail = (props: {
               })}
             </>
           ) : (
-            <div className={classes.empty}>
-              <h2>Wystąpił błąd, spróbuj ponownie później</h2>
-            </div>
+            <Empty
+              message={'Nie posiadamy innych podobnych produktów'}
+              width={200}
+            />
           )}
         </div>
       </div>

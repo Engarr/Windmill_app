@@ -8,7 +8,7 @@ import {
   useGetAllProductsQuery,
   useGetCategoryProductQuery,
 } from '../../store/apiSlice';
-import errorImg from '../../assets/404.jpg';
+import Empty from '../../components/Empty/Empty';
 
 const Shop = () => {
   const params = useParams<{ category: string }>();
@@ -52,11 +52,10 @@ const Shop = () => {
                 })}
               </>
             ) : (
-              <div className={classes.empty}>
-                <p>Niestety nie psoiadamy produktu w takeij kategorii </p>
-
-                <img src={errorImg} alt="empty bag" width={400} />
-              </div>
+              <Empty
+                message={'Nie posiadamy produktów w tej kategorii'}
+                width={300}
+              />
             )}
           </>
         )}
