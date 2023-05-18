@@ -1,8 +1,11 @@
 .product__wrappper {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  padding: 100px 0px;
+  z-index: 10;
 }
 .empty {
   margin: 2em;
@@ -13,5 +16,10 @@
     margin: 1em 0;
     font-size: 3em;
     font-family: 'BenchNine', sans-serif;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .product__wrappper {
+    padding: 0px 0px;
   }
 }

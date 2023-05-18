@@ -63,9 +63,8 @@ const Category = () => {
           <ul>
             {categories?.map((category) => {
               return (
-                <NavLink key={category.id} to={`?kategoria=${category.name}`}>
+                <NavLink key={category.id} to={`${category.name}`}>
                   <li
-                    
                     className={
                       category.name === categoryParam
                         ? classes.activeCategory
