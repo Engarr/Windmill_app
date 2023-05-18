@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
-import { ProductType } from '../../types/types';
+import { ProductType, Products } from '../../types/types';
 import classes from './ProductDetail.module.scss';
 import { GiTwoCoins } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 import { VscCalendar } from 'react-icons/vsc';
 import { TbTruckDelivery } from 'react-icons/tb';
-import { Products } from '../../types/types';
 import Product from '../Product/Product';
 import Spinner from '../Spinner/Spinner/Spinner';
 import ProductManage from '../ProductManage/ProductManage';
+import { useGetCategoryProductQuery } from '../../store/apiSlice';
 
 const ProductDetail = (props: {
   detail: { productDetail: ProductType; userId: string };
@@ -17,9 +17,7 @@ const ProductDetail = (props: {
   const userId = props.detail.userId;
   const [quantity, setQuantity] = useState(0);
   const [products, setProducts] = useState<Products[]>([]);
-  const [isLoading, setisLoading] = useState(false);
   const category = details.category;
-
   const isAuth = details.creator.toString() === userId;
 
   const IncreaseQuantityHandler = () => {
@@ -35,29 +33,32 @@ const ProductDetail = (props: {
       setQuantity(quantity - 1);
     }
   };
+
   //the function for fetching products of a given category
-  const fetchProducts = async () => {
-    setisLoading(true);
-    const url =
-      import.meta.env.VITE_REACT_APP_API_URL + `feed/products/${category}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    const productsArr = data.products;
+  const { data: categoryProductsArr, isLoading: isCategoryProductsLoading } =
+    useGetCategoryProductQuery(category);
 
-    const newArr = await productsArr.filter(
-      (item: ProductType) => item._id !== details._id
-    );
+  const fetchProducts = () => {
+    if (!isCategoryProductsLoading && categoryProductsArr) {
+      const productsArr = categoryProductsArr.products;
+      const newArr = productsArr.filter((item) => item._id !== details._id);
 
-    let shuffledItems = await newArr.sort(() => Math.random() - 0.5);
-    let maxProducts = await shuffledItems.slice(0, 3);
+      let shuffledItems = newArr.sort(() => Math.random() - 0.5);
+      let maxProducts = shuffledItems.slice(0, 3);
 
-    setProducts(maxProducts);
-    setisLoading(false);
+      setProducts(maxProducts);
+    }
   };
+
   useEffect(() => {
-    setProducts([]);
     fetchProducts();
   }, [category, details]);
+
+  useEffect(() => {
+    if (categoryProductsArr) {
+      fetchProducts();
+    }
+  }, [categoryProductsArr]);
 
   return (
     <>
@@ -117,14 +118,15 @@ const ProductDetail = (props: {
 
           <div className={classes[`buttons`]}>
             <div className={classes[`buttons__QtyBox`]}>
-              <div onClick={IncreaseQuantityHandler}>
-                <button>+</button>
+              <div onClick={decreaseQuantityHandler}>
+                <button>-</button>
               </div>
               <div>
                 <span>{quantity}</span>
               </div>
-              <div onClick={decreaseQuantityHandler}>
-                <button>-</button>
+
+              <div onClick={IncreaseQuantityHandler}>
+                <button>+</button>
               </div>
             </div>
             <div className={classes[`buttons__addBox`]}>
@@ -139,7 +141,7 @@ const ProductDetail = (props: {
           <h2>Podobne produkty:</h2>
         </div>
         <div>
-          {isLoading ? (
+          {isCategoryProductsLoading ? (
             <Spinner message="Wczytywanie produktów.." />
           ) : products.length > 0 ? (
             <>

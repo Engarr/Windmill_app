@@ -6,10 +6,6 @@ interface ProductsResponse {
   products: Products[];
 }
 
-interface ProductsDetailsResponse {
-  productDetail: ProductType;
-}
-
 export const productsApi = createApi({
   reducerPath: 'productsApi',
   baseQuery: fetchBaseQuery({
@@ -22,21 +18,8 @@ export const productsApi = createApi({
     getCategoryProduct: builder.query<ProductsResponse, string>({
       query: (category) => `feed/products/${category}`,
     }),
-    
-    // getUserId: builder.query<{ userId: string | boolean }, string>({
-    //   query: (token) => ({
-    //     url: 'feed/user',
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   }),
-    // }),
   }),
 });
 
-export const {
-  useGetAllProductsQuery,
-  useGetCategoryProductQuery,
-  // useGetProductDetailsQuery,
-  // useGetUserIdQuery,
-} = productsApi;
+export const { useGetAllProductsQuery, useGetCategoryProductQuery } =
+  productsApi;
