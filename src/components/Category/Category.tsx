@@ -12,6 +12,7 @@ const Category = () => {
   const categoryParam = param.category || 'Wszystkie produkty';
 
   const [animationCss, setanimationCss] = useState('');
+  const [animationCssArrow, setanimationCssArrow] = useState('');
   const dispatch = useDispatch();
   const isCategoryMenu = useSelector(
     (state: RootState) => state.ui.isCategoryMenu
@@ -25,6 +26,7 @@ const Category = () => {
       dispatch(uiActions.CategoryMenuHandler());
     }
     setanimationCss(isCategoryMenu ? classes.inactive : classes.active);
+    setanimationCssArrow(isCategoryMenu ? classes.arrowUp : classes.arrowDown);
   };
   return (
     <>
@@ -53,7 +55,7 @@ const Category = () => {
           onClick={cateogryMenuHandler}
         >
           <p>Kategorie</p>
-          <FaAngleDoubleDown />
+          <FaAngleDoubleDown className={animationCssArrow} />
         </div>
         <div
           className={`${

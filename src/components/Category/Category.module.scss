@@ -61,7 +61,7 @@
     width: 90%;
     padding: 10px 20px;
     text-align: center;
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     cursor: pointer;
     p {
       margin-right: 0.5em;
@@ -69,12 +69,12 @@
     }
   }
   &--categories {
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     width: 90%;
     text-align: center;
     overflow: hidden;
     height: 0;
-    transition: height 0.5s;
+    opacity: 0;
     background-color: #fff;
     ul {
       margin-top: 0.5em;
@@ -96,9 +96,21 @@
 
 .active {
   height: 350px;
+  opacity: 1;
+  transition: height 1s, opacity 0.1s;
 }
 .inactive {
   height: 0;
+  opacity: 0;
+  transition: height 0.5s, opacity 2s;
+}
+.arrowUp {
+  transform: rotate(0deg);
+  transition: transform 0.3s;
+}
+.arrowDown {
+  transform: rotate(180deg);
+  transition: transform 0.3s;
 }
 @media only screen and (max-width: 1024px) {
   .category__desktop {

@@ -4,7 +4,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  padding: 100px 0px;
+  padding: 0px 0px;
   z-index: 10;
 }
 .empty {
@@ -18,8 +18,17 @@
     font-family: 'BenchNine', sans-serif;
   }
 }
-@media only screen and (min-width: 1024px) {
+@media only screen and (max-width: 1024px) {
   .product__wrappper {
-    padding: 0px 0px;
+    padding: 100px 0px;
+  }
+  .empty {
+    p {
+      margin-top: 1em;
+      font-size: 2em;
+    }
+    img {
+      width: 250px;
+    }
   }
 }
