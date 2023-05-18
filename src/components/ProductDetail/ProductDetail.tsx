@@ -15,7 +15,6 @@ const ProductDetail = (props: {
 }) => {
   const details = props.detail.productDetail;
   const userId = props.detail.userId;
-  console.log(details);
   const [quantity, setQuantity] = useState(0);
   const [products, setProducts] = useState<Products[]>([]);
   const [isLoading, setisLoading] = useState(false);

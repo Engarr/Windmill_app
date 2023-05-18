@@ -20,7 +20,7 @@ const ErrorPage = () => {
           </Link>
         </div>
 
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </>
   );

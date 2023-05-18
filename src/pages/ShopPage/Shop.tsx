@@ -8,17 +8,18 @@ import {
   useGetAllProductsQuery,
   useGetCategoryProductQuery,
 } from '../../store/apiSlice';
+import errorImg from '../../assets/404.jpg';
 
 const Shop = () => {
   const params = useParams<{ category: string }>();
   const category = params.category || `Wszystkie produkty`;
   const [products, setProducts] = useState<Products[]>([]);
-  
+
   const { data: allProductsArr, isLoading: isAllProductsLoading } =
     useGetAllProductsQuery();
   const { data: categoryProductsArr, isLoading: isCategoryProductsLoading } =
     useGetCategoryProductQuery(category);
-    
+
   useEffect(() => {
     if (!category || category === 'Wszystkie produkty') {
       if (!isAllProductsLoading) {
@@ -52,7 +53,9 @@ const Shop = () => {
               </>
             ) : (
               <div className={classes.empty}>
-                <h2>Wystąpił błąd, spróbuj ponownie później</h2>
+                <p>Niestety nie psoiadamy produktu w takeij kategorii </p>
+
+                <img src={errorImg} alt="empty bag" width={400} />
               </div>
             )}
           </>

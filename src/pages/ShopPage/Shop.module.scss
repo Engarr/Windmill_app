@@ -6,9 +6,12 @@
 }
 .empty {
   margin: 2em;
-  h2{
-    font-size: 2em;
-    font-weight: 700;
-    font-family: BenchNine;
+  text-align: center;
+
+  p {
+    color: var(--background-color);
+    margin: 1em 0;
+    font-size: 3em;
+    font-family: 'BenchNine', sans-serif;
   }
 }

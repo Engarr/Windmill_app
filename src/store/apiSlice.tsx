@@ -22,9 +22,7 @@ export const productsApi = createApi({
     getCategoryProduct: builder.query<ProductsResponse, string>({
       query: (category) => `feed/products/${category}`,
     }),
-    getProductDetails: builder.query<ProductsDetailsResponse, string>({
-      query: (id) => `feed/product/${id}`,
-    }),
+    
     // getUserId: builder.query<{ userId: string | boolean }, string>({
     //   query: (token) => ({
     //     url: 'feed/user',
@@ -39,6 +37,6 @@ export const productsApi = createApi({
 export const {
   useGetAllProductsQuery,
   useGetCategoryProductQuery,
-  useGetProductDetailsQuery,
+  // useGetProductDetailsQuery,
   // useGetUserIdQuery,
 } = productsApi;
