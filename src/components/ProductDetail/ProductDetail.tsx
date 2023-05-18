@@ -8,7 +8,10 @@ import { TbTruckDelivery } from 'react-icons/tb';
 import Product from '../Product/Product';
 import Spinner from '../Spinner/Spinner/Spinner';
 import ProductManage from '../ProductManage/ProductManage';
-import { useGetCategoryProductQuery } from '../../store/apiSlice';
+import {
+  useGetCategoryProductQuery,
+  useSendDataToCartMutation,
+} from '../../store/apiSlice';
 import Empty from '../Empty/Empty';
 import { useDispatch } from 'react-redux';
 import { cartItemAction } from '../../store/cartSlice';
@@ -18,11 +21,12 @@ const ProductDetail = (props: {
 }) => {
   const details = props.detail.productDetail;
   const userId = props.detail.userId;
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState<number>(1);
   const [products, setProducts] = useState<Products[]>([]);
   const category = details.category;
   const isAuth = details.creator.toString() === userId;
   const dispatch = useDispatch();
+  const [addProdToCart] = useSendDataToCartMutation();
 
   const IncreaseQuantityHandler = () => {
     setQuantity(quantity + 1);
@@ -63,9 +67,9 @@ const ProductDetail = (props: {
       fetchProducts();
     }
   }, [categoryProductsArr]);
-  //the function for adding product to cart by Redux
 
-  const addItemToCartHandler = () => {
+  //the function for adding product to cart by Redux
+  const addItemToCartHandler = async () => {
     dispatch(
       cartItemAction.onAddItem({
         _id: details._id,
@@ -75,9 +79,14 @@ const ProductDetail = (props: {
         quantity: quantity,
       })
     );
+    await addProdToCart({
+      productId: details._id,
+      quantity: quantity,
+      userId: userId,
+    });
   };
-  
 
+  
   return (
     <>
       {isAuth && <ProductManage />}

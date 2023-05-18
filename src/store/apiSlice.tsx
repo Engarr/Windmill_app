@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Products, ProductType } from '../types/types';
+import { Products } from '../types/types';
 
 interface ProductsResponse {
   message: string;
@@ -18,8 +18,21 @@ export const productsApi = createApi({
     getCategoryProduct: builder.query<ProductsResponse, string>({
       query: (category) => `feed/products/${category}`,
     }),
+    sendDataToCart: builder.mutation<
+      void,
+      { productId: string; userId: string; quantity: number }
+    >({
+      query: ({ productId, userId, quantity }) => ({
+        url: 'feed/addToCart',
+        method: 'PUT',
+        body: { productId, userId, quantity },
+      }),
+    }),
   }),
 });
 
-export const { useGetAllProductsQuery, useGetCategoryProductQuery } =
-  productsApi;
+export const {
+  useGetAllProductsQuery,
+  useGetCategoryProductQuery,
+  useSendDataToCartMutation,
+} = productsApi;

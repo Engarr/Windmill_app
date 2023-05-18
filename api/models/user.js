@@ -24,6 +24,24 @@ const userSchema = new Schema(
         ref: 'Product',
       },
     ],
+    cart: [
+      {
+        productId: {
+          type: String,
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
+    wishLists: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Product',
+      },
+    ],
     isAdmin: {
       type: Boolean,
       default: false,

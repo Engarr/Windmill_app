@@ -73,6 +73,27 @@ export const postAddProduct = async (req, res, next) => {
   }
 };
 
+export const addToCart = async (req, res, next) => {
+  const userId = req.body.userId;
+  const quantity = req.body.quantity;
+  const productId = req.body.productId;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      const error = new Error('Could not find user.');
+      error.statusCode = 404;
+      throw error;
+    }
+    user.cart.push({ productId: productId, quantity: quantity });
+    await user.save();
+  } catch (err) {
+    if (!err) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
 export const editProduct = async (req, res, next) => {
   const error = validationResult(req);
   if (!error.isEmpty()) {
