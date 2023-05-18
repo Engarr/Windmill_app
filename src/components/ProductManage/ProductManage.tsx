@@ -16,12 +16,17 @@ const ProductManage = () => {
     <div>
       <div className={classes.productManage}>
         <div>
-          <Link to="edit">
-            <button>Edytuj produkt</button>
-          </Link>
+          <h2>Zarządzaj produktem:</h2>
         </div>
-        <div>
-          <button onClick={startDeleteHandler}>Usuń produkt</button>
+        <div className={classes.productManage__buttonBox}>
+          <div>
+            <Link to="edit">
+              <button>Edytuj produkt</button>
+            </Link>
+          </div>
+          <div>
+            <button onClick={startDeleteHandler}>Usuń produkt</button>
+          </div>
         </div>
       </div>
     </div>

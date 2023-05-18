@@ -66,7 +66,7 @@ const ProductDetail = (props: {
       <div className={classes.wrapper}>
         <div className={classes.product__imageWrapper}>
           <div>
-            <img src={details.imageUrl} alt={details.name} width={250} />
+            <img src={details.imageUrl} alt={details.name} />
           </div>
         </div>
         <div className={classes.product__infoWrapper}>
