@@ -102,6 +102,7 @@ const ProductForm = (props: {
       window.scroll(0, 0);
     } else {
       navigate('/sklep');
+      window.location.reload();
     }
   };
   //function responsible for redirecting unauthorized users

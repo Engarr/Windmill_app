@@ -112,7 +112,6 @@ export const editProduct = async (req, res, next) => {
       throw error;
     }
 
-    console.log(req.userId.toString());
     if (creatorId.toString() !== req.userId.toString()) {
       const error = new Error('Not authorized!');
       error.statusCode = 403;

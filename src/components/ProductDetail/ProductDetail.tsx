@@ -10,6 +10,8 @@ import Spinner from '../Spinner/Spinner/Spinner';
 import ProductManage from '../ProductManage/ProductManage';
 import { useGetCategoryProductQuery } from '../../store/apiSlice';
 import Empty from '../Empty/Empty';
+import { useDispatch } from 'react-redux';
+import { cartItemAction } from '../../store/cartSlice';
 
 const ProductDetail = (props: {
   detail: { productDetail: ProductType; userId: string };
@@ -20,6 +22,7 @@ const ProductDetail = (props: {
   const [products, setProducts] = useState<Products[]>([]);
   const category = details.category;
   const isAuth = details.creator.toString() === userId;
+  const dispatch = useDispatch();
 
   const IncreaseQuantityHandler = () => {
     setQuantity(quantity + 1);
@@ -60,6 +63,20 @@ const ProductDetail = (props: {
       fetchProducts();
     }
   }, [categoryProductsArr]);
+  //the function for adding product to cart by Redux
+
+  const addItemToCartHandler = () => {
+    dispatch(
+      cartItemAction.onAddItem({
+        _id: details._id,
+        name: details.name,
+        price: details.price,
+        imageUrl: details.imageUrl,
+        quantity: quantity,
+      })
+    );
+  };
+  
 
   return (
     <>
@@ -131,7 +148,7 @@ const ProductDetail = (props: {
               </div>
             </div>
             <div className={classes[`buttons__addBox`]}>
-              <button>Dodaj do koszyka</button>
+              <button onClick={addItemToCartHandler}>Dodaj do koszyka</button>
             </div>
           </div>
         </div>

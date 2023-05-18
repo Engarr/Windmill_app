@@ -33,3 +33,10 @@ export type ProductType = {
   price: number;
   _id: string;
 };
+export type CartProductType = {
+  _id: string;
+  name: string;
+  price: number;
+  imageUrl: string;
+  quantity: number;
+};
