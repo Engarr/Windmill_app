@@ -8,6 +8,7 @@ dotenv.config();
 
 import authRouter from './routers/auth.js';
 import feedRouter from './routers/feed.js';
+import cartFeedRouter from './routers/cartFeed.js';
 
 const app = express();
 const port = process.env.VITE_API_PORT || 8080;
@@ -30,6 +31,7 @@ app.use((req, res, next) => {
 
 app.use('/api/auth', authRouter);
 app.use('/api/feed', feedRouter);
+app.use('/api/cartFeed', cartFeedRouter);
 
 app.use((error, req, res, next) => {
   console.log(error);

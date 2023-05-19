@@ -26,7 +26,6 @@ function App() {
       loader: tokenLoader,
       errorElement: <ErrorPage />,
       children: [
-        
         { index: true, element: <HomePage /> },
         { index: true, element: <HomePage /> },
 
@@ -64,7 +63,7 @@ function App() {
             { path: 'nowy-produkt', element: <NewProduct /> },
           ],
         },
-        { path: '/koszyk', element: <Cart /> },
+        { path: '/koszyk', element: <Cart />},
         {
           path: '/logout',
           action: logout,

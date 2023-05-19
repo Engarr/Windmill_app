@@ -35,7 +35,6 @@ const AuthForm = () => {
       repeatPassword: '',
     });
   }, [isLogin]);
-  console.log(isLogin);
   return (
     <div className={classes.wrapper}>
       {Object.values(backendErrors).some((error) => error !== '') && (

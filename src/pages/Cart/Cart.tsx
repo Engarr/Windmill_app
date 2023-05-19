@@ -1,9 +1,11 @@
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { useGetCartProductsQuery } from '../../store/apiSlice';
+import { useRouteLoaderData } from 'react-router-dom';
 
 const Cart = () => {
-  const cartItems = useSelector((state: RootState) => state.cartItems.items);
-  console.log(cartItems);
+  const token = useRouteLoaderData('root') as string;
+
+  const { data } = useGetCartProductsQuery(token);
+
   return <div>Cart</div>;
 };
 

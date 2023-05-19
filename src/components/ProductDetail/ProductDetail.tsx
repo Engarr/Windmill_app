@@ -13,8 +13,6 @@ import {
   useSendDataToCartMutation,
 } from '../../store/apiSlice';
 import Empty from '../Empty/Empty';
-import { useDispatch } from 'react-redux';
-import { cartItemAction } from '../../store/cartSlice';
 
 const ProductDetail = (props: {
   detail: { productDetail: ProductType; userId: string };
@@ -25,7 +23,6 @@ const ProductDetail = (props: {
   const [products, setProducts] = useState<Products[]>([]);
   const category = details.category;
   const isAuth = details.creator.toString() === userId;
-  const dispatch = useDispatch();
   const [addProdToCart] = useSendDataToCartMutation();
 
   const IncreaseQuantityHandler = () => {
@@ -68,17 +65,8 @@ const ProductDetail = (props: {
     }
   }, [categoryProductsArr]);
 
-  //the function for adding product to cart by Redux
+  //the function for adding product to cart and save it in to backend
   const addItemToCartHandler = async () => {
-    dispatch(
-      cartItemAction.onAddItem({
-        _id: details._id,
-        name: details.name,
-        price: details.price,
-        imageUrl: details.imageUrl,
-        quantity: quantity,
-      })
-    );
     await addProdToCart({
       productId: details._id,
       quantity: quantity,
@@ -86,7 +74,6 @@ const ProductDetail = (props: {
     });
   };
 
-  
   return (
     <>
       {isAuth && <ProductManage />}
@@ -157,7 +144,15 @@ const ProductDetail = (props: {
               </div>
             </div>
             <div className={classes[`buttons__addBox`]}>
-              <button onClick={addItemToCartHandler}>Dodaj do koszyka</button>
+              {!userId ? (
+                <>
+                  <Link to="/konto?mode=login">
+                    <button>Dodaj do koszyka</button>
+                  </Link>
+                </>
+              ) : (
+                <button onClick={addItemToCartHandler}>Dodaj do koszyka</button>
+              )}
             </div>
           </div>
         </div>
