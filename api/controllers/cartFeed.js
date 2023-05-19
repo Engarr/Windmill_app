@@ -42,9 +42,10 @@ export const getCartProducts = async (req, res, next) => {
 
     const promises = userCart.map(async (item) => {
       const product = await Product.findById(item.productId);
-      return product;
+      return { product: product, quantity: item.quantity };
     });
     const prodArr = await Promise.all(promises);
+
     res.status(200).json({ prodArr: prodArr });
   } catch (err) {
     if (!err) {
