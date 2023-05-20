@@ -1,0 +1,137 @@
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  a {
+    color: black;
+    text-decoration: none;
+  }
+  table {
+    width: 90%;
+    // background-color: aqua;
+    border-collapse: collapse;
+    margin-bottom: 2em;
+  }
+  th,
+  td {
+    text-align: left;
+    padding: 1rem;
+  }
+  
+  th {
+    color: grey;
+    font-family: 'BenchNine', sans-serif;
+    font-size: 1.2em;
+  }
+
+  tr:nth-of-type(2n) {
+    background-color: rgb(238, 232, 232, 0.2);
+  }
+  &__imgBox {
+    width: 100%;
+    text-align: center;
+  }
+  &__nameBox {
+    a {
+      font-size: 1.4em;
+      color: var(--background-color);
+      font-family: 'BenchNine', sans-serif;
+    }
+  }
+  &__priceBox,
+  &__sumBox,
+  &__qtyBox {
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+  &__qtyBox {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0px 5px;
+      font-size: 1.1em;
+      background: none;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      height: 20px;
+      width: 20px;
+      color: var(--background-color);
+
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      color: white;
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+    p {
+      margin: 0 10px;
+    }
+  }
+  &__deleteBox {
+    font-size: 1.2em;
+    text-align: center;
+
+    &--icon {
+      color: var(--background-color);
+      cursor: pointer;
+      transition: color 0.3s, transform 0.2s;
+    }
+    &--icon:hover {
+      color: var(--background-color-hover);
+      transform: scale(1.1);
+    }
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .container {
+    padding: 10px 20px;
+    table {
+      width: 100%;
+    }
+
+    &__deleteBox {
+      font-size: 2em;
+    }
+
+    td:first-child {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 2rem;
+    }
+    td:last-child {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 2rem;
+    }
+
+    th {
+      display: none;
+    }
+
+    td {
+      display: grid;
+      grid-template-columns: 15ch auto;
+      width: 100%;
+      padding: 0.75rem 1rem;
+      img {
+        position: relative;
+        width: 250px;
+      }
+    }
+
+    td::before {
+      content: attr(data-cell);
+      font-weight: bold;
+      flex-direction: column;
+      color: grey;
+      font-family: 'BenchNine', sans-serif;
+      font-size: 1.4em;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Products, CartProductType } from '../types/types';
+import { Products, cartItemsResponse } from '../types/types';
 
 interface ProductsResponse {
   message: string;
@@ -11,6 +11,7 @@ export const productsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_REACT_APP_API_URL,
   }),
+  tagTypes: ['CartFeed'],
   endpoints: (builder) => ({
     getAllProducts: builder.query<ProductsResponse, void>({
       query: () => 'feed/products',
@@ -18,7 +19,13 @@ export const productsApi = createApi({
     getCategoryProduct: builder.query<ProductsResponse, string>({
       query: (category) => `feed/products/${category}`,
     }),
-
+    getCartProducts: builder.query<cartItemsResponse, string>({
+      query: (token) => ({
+        url: `cartFeed/getCartProducts`,
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      providesTags: [{ type: 'CartFeed' }],
+    }),
     sendDataToCart: builder.mutation<
       void,
       { productId: string; userId: string; quantity: number }
@@ -28,12 +35,7 @@ export const productsApi = createApi({
         method: 'PUT',
         body: { productId, userId, quantity },
       }),
-    }),
-    getCartProducts: builder.query<CartProductType, string>({
-      query: (token) => ({
-        url: `cartFeed/getCartProducts`,
-        headers: { Authorization: `Bearer ${token}` },
-      }),
+      invalidatesTags: [{ type: 'CartFeed' }],
     }),
   }),
 });

@@ -40,3 +40,10 @@ export type CartProductType = {
   imageUrl: string;
   quantity: number;
 };
+
+export type cartItemsResponse = {
+  prodArr: {
+    product: ProductType;
+    quantity: number;
+  }[];
+};

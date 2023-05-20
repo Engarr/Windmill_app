@@ -45,7 +45,6 @@ export const getCartProducts = async (req, res, next) => {
       return { product: product, quantity: item.quantity };
     });
     const prodArr = await Promise.all(promises);
-
     res.status(200).json({ prodArr: prodArr });
   } catch (err) {
     if (!err) {

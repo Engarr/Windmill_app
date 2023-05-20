@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { ProductType, Products } from '../../types/types';
 import classes from './ProductDetail.module.scss';
 import { GiTwoCoins } from 'react-icons/gi';
-import { Link } from 'react-router-dom';
+import { Link, useRouteLoaderData } from 'react-router-dom';
+
 import { VscCalendar } from 'react-icons/vsc';
 import { TbTruckDelivery } from 'react-icons/tb';
 import Product from '../Product/Product';
@@ -64,7 +65,7 @@ const ProductDetail = (props: {
       fetchProducts();
     }
   }, [categoryProductsArr]);
-
+  const token = useRouteLoaderData('root') as string;
   //the function for adding product to cart and save it in to backend
   const addItemToCartHandler = async () => {
     await addProdToCart({
