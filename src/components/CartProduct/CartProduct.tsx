@@ -2,14 +2,23 @@ import { ProductType } from '../../types/types';
 import classes from './CartProduct.module.scss';
 import { Link } from 'react-router-dom';
 import { RiDeleteBinLine } from 'react-icons/ri';
+import { useDeleteCartProductMutation } from '../../store/apiSlice';
 
 interface Product {
   product: ProductType;
   quantity: number;
 }
 
-const CartProduct = (props: { products: Product[] }) => {
+const CartProduct = (props: { products: Product[]; token: string }) => {
   const cartProduct = props.products;
+  const [deleteProductFromCart] = useDeleteCartProductMutation();
+
+  const removeProduct = async (prodId: string) => {
+    await deleteProductFromCart({
+      productId: prodId,
+      token: props.token,
+    });
+  };
 
   return (
     <div className={classes.container}>
@@ -59,7 +68,12 @@ const CartProduct = (props: { products: Product[] }) => {
                 </div>
               </td>
               <td>
-                <div className={classes.container__deleteBox}>
+                <div
+                  className={classes.container__deleteBox}
+                  onClick={() => {
+                    removeProduct(product.product._id);
+                  }}
+                >
                   <RiDeleteBinLine
                     className={classes[`container__deleteBox--icon`]}
                   />

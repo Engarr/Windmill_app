@@ -11,9 +11,7 @@ const Cart = () => {
   const { data: cartItems, isLoading } = useGetCartProductsQuery(token, {
     refetchOnMountOrArgChange: true,
   });
-  // console.log(cartItems?.prodArr);
   const productsArr = cartItems?.prodArr;
-
 
   return (
     <div>
@@ -21,9 +19,7 @@ const Cart = () => {
         <Spinner message="Ladowanie.." />
       ) : (
         <>
-          {productsArr && (
-            <CartProduct  products={productsArr} />
-          )}
+          {productsArr && <CartProduct products={productsArr} token={token} />}
         </>
       )}
     </div>

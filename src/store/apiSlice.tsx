@@ -37,6 +37,18 @@ export const productsApi = createApi({
       }),
       invalidatesTags: [{ type: 'CartFeed' }],
     }),
+    deleteCartProduct: builder.mutation<
+      void,
+      { productId: string; token: string }
+    >({
+      query: ({ token, productId }) => ({
+        url: 'cartFeed/deleteProduct',
+        headers: { Authorization: `Bearer ${token}` },
+        method: 'DELETE',
+        body: { productId },
+      }),
+      invalidatesTags: [{ type: 'CartFeed' }],
+    }),
   }),
 });
 
@@ -45,4 +57,5 @@ export const {
   useGetCategoryProductQuery,
   useSendDataToCartMutation,
   useGetCartProductsQuery,
+  useDeleteCartProductMutation,
 } = productsApi;
