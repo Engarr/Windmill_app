@@ -30,7 +30,9 @@ const CartProduct = (props: { products: Product[]; token: string }) => {
       {cartProduct.length <= 0 ? (
         <div className={classes.emptyCart}>
           <h2>Twój koszyk jest pusty</h2>
-          <button>Wróć do sklepu</button>
+          <Link to="/sklep">
+            <button>Wróć do sklepu</button>
+          </Link>
         </div>
       ) : (
         <table>
