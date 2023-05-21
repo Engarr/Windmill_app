@@ -10,6 +10,7 @@ import Spinner from '../../components/Spinner/Spinner/Spinner';
 import ProductDetail from '../../components/ProductDetail/ProductDetail';
 import { idLoader, getAuthToken } from '../../util/auth';
 
+
 const ProductDetails = () => {
   const productDetail = useRouteLoaderData('product-detail') as {};
 

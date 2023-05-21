@@ -3,6 +3,7 @@ import classes from './CartProduct.module.scss';
 import { Link } from 'react-router-dom';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { useDeleteCartProductMutation } from '../../store/apiSlice';
+import { toast } from 'react-hot-toast';
 
 interface Product {
   product: ProductType;
@@ -13,11 +14,16 @@ const CartProduct = (props: { products: Product[]; token: string }) => {
   const cartProduct = props.products;
   const [deleteProductFromCart] = useDeleteCartProductMutation();
 
-  const removeProduct = async (prodId: string) => {
-    await deleteProductFromCart({
-      productId: prodId,
-      token: props.token,
-    });
+  const removeProduct = async (prodId: string, name: string) => {
+    try {
+      toast.success(`Produkt: ${name} został usunięty z koszyka`);
+      await deleteProductFromCart({
+        productId: prodId,
+        token: props.token,
+      });
+    } catch (error) {
+      toast.error('Wystąpił błąd podczas dodawania produktu do koszyka.');
+    }
   };
 
   return (
@@ -71,7 +77,7 @@ const CartProduct = (props: { products: Product[]; token: string }) => {
                 <div
                   className={classes.container__deleteBox}
                   onClick={() => {
-                    removeProduct(product.product._id);
+                    removeProduct(product.product._id, product.product.name);
                   }}
                 >
                   <RiDeleteBinLine

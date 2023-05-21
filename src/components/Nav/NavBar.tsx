@@ -5,19 +5,18 @@ import NavLinks from '../NavLinks/NavLinks';
 import { HashLink } from 'react-router-hash-link';
 import { Link, useRouteLoaderData } from 'react-router-dom';
 import classes from './NavBar.module.scss';
-
 import { uiActions } from '../../store/ui-slice';
 import { RootState } from '../../store/index';
-
 import { GiFlour } from 'react-icons/gi';
 import { VscAccount } from 'react-icons/vsc';
 import { FaEnvelope, FaFacebookF, FaArrowUp } from 'react-icons/fa';
 import { CiMenuBurger } from 'react-icons/ci';
-
+import { Toaster } from 'react-hot-toast';
+import Toast from '../Toast/Toast';
 
 const NavBar = () => {
   const token = useRouteLoaderData('root');
- 
+
   const [animationCss, setanimationCss] = useState('');
   const scrollPosition = useSelector(
     (state: RootState) => state.ui.scrollPosition
@@ -118,6 +117,7 @@ const NavBar = () => {
               <CiMenuBurger />
             </div>
           </div>
+          <Toast />
         </div>
 
         <NavLinks

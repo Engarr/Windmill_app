@@ -3,7 +3,6 @@ import { ProductType, Products } from '../../types/types';
 import classes from './ProductDetail.module.scss';
 import { GiTwoCoins } from 'react-icons/gi';
 import { Link, useRouteLoaderData } from 'react-router-dom';
-
 import { VscCalendar } from 'react-icons/vsc';
 import { TbTruckDelivery } from 'react-icons/tb';
 import Product from '../Product/Product';
@@ -14,6 +13,8 @@ import {
   useSendDataToCartMutation,
 } from '../../store/apiSlice';
 import Empty from '../Empty/Empty';
+
+import toast, { Toaster } from 'react-hot-toast';
 
 const ProductDetail = (props: {
   detail: { productDetail: ProductType; userId: string };
@@ -28,6 +29,7 @@ const ProductDetail = (props: {
 
   const IncreaseQuantityHandler = () => {
     setQuantity(quantity + 1);
+
     if (quantity >= 10) {
       setQuantity(quantity);
     }
@@ -68,11 +70,18 @@ const ProductDetail = (props: {
   const token = useRouteLoaderData('root') as string;
   //the function for adding product to cart and save it in to backend
   const addItemToCartHandler = async () => {
-    await addProdToCart({
-      productId: details._id,
-      quantity: quantity,
-      userId: userId,
-    });
+    try {
+      toast.success(
+        `Produkt:${details.name} sztuk: ${quantity} dodano do koszyka`
+      );
+      await addProdToCart({
+        productId: details._id,
+        quantity: quantity,
+        userId: userId,
+      });
+    } catch (error) {
+      toast.error('Wystąpił błąd podczas dodawania produktu do koszyka.');
+    }
   };
 
   return (
