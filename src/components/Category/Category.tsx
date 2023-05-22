@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { categories } from '../../util/data';
 import { useDispatch, useSelector } from 'react-redux';
-import classes from './Category.module.scss';
 import { NavLink, useParams } from 'react-router-dom';
 import { FaAngleDoubleDown } from 'react-icons/fa';
+import { categories } from '../../util/data';
+import classes from './Category.module.scss';
 import { RootState } from '../../store/index';
 import { uiActions } from '../../store/ui-slice';
 

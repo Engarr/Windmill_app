@@ -11,12 +11,10 @@ interface PropsType {
     productDetail?: ProductType;
     userId?: string;
   };
-}
-
-interface PropsIdType {
   userIdNumber?: string;
 }
-const ProductForm = ({ detail, userIdNumber }: PropsType & PropsIdType) => {
+
+const ProductForm = ({ detail, userIdNumber }: PropsType) => {
   const details = detail?.productDetail;
   const IdUser = detail?.userId || userIdNumber;
   const creatorId = details?.creator.toString();
