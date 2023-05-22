@@ -1,16 +1,24 @@
 import { useState, useEffect } from 'react';
-import classes from './AboutUs.module.scss';
 import { AiOutlineSafety } from 'react-icons/ai';
 import { MdOutlineWorkspacePremium, MdLocalShipping } from 'react-icons/md';
+import classes from './AboutUs.module.scss';
 
-const AboutUs = (props: { scrollPosition: number }) => {
-  const [hasShowUp, setHasShowUp] = useState(false);
-  const [hasRotate, setHasRotate] = useState(false);
+interface PropsType {
+  scrollPosition: number;
+}
+
+const AboutUs = ({ scrollPosition }: PropsType) => {
+  const [hasShowUp, setHasShowUp] = useState<boolean>(false);
+  const [hasRotate, setHasRotate] = useState<boolean>(false);
 
   useEffect(() => {
-    props.scrollPosition > 30 ? setHasShowUp(true) : '';
-    props.scrollPosition > 640 ? setHasRotate(true) : '';
-  }, [props.scrollPosition]);
+    if (scrollPosition > 30) {
+      setHasShowUp(true);
+    }
+    if (scrollPosition > 640) {
+      setHasRotate(true);
+    }
+  }, [scrollPosition]);
 
   const slideTextCss = hasShowUp ? classes.showUp : '';
   const rotateCardCss = hasRotate ? classes.rotate : '';
@@ -97,8 +105,8 @@ const AboutUs = (props: { scrollPosition: number }) => {
             </div>
             <div>
               <p>
-                Staramy się żeby wszystkie zamówienia były realizowane do 24 godzin.
-                A nadane jeszcze tego samego dnia
+                Staramy się żeby wszystkie zamówienia były realizowane do 24
+                godzin. A nadane jeszcze tego samego dnia
               </p>
             </div>
           </div>
