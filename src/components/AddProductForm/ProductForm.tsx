@@ -1,23 +1,27 @@
 import { useState, useEffect } from 'react';
+import { useNavigate, useRouteLoaderData } from 'react-router-dom';
 import Input from '../UI/Input/Input';
 import classes from './ProductForm.module.scss';
 import { categories } from '../../util/data';
-import { useNavigate, useRouteLoaderData } from 'react-router-dom';
 import UploadFile from '../UI/UploadFile/UploadFile';
-import { Data, ErrorsData } from '../../types/types';
-import { ProductType } from '../../types/types';
+import { Data, ErrorsData, ProductType } from '../../types/types';
 
-const ProductForm = (props: {
-  detail?: { productDetail: ProductType; userId: string };
-  userId?: string;
-}): JSX.Element => {
-  const details = props.detail?.productDetail;
-  const userId = props.detail?.userId || props.userId;
+interface PropsType {
+  detail: {
+    productDetail: ProductType;
+    userId: string;
+  };
+  userId: string;
+}
+
+const ProductForm = ({ detail, userId }: PropsType): JSX.Element => {
+  const details = detail?.productDetail;
+  const IdUser = detail?.userId || userId;
   const creatorId = details?.creator.toString();
   const navigate = useNavigate();
   let isAuth = true;
   if (creatorId) {
-    isAuth = userId?.toString() === creatorId.toString();
+    isAuth = IdUser?.toString() === creatorId.toString();
   }
   const token = useRouteLoaderData('root') as string;
   const [selectedImage, setSelectedImage] = useState<string | null>(
@@ -31,26 +35,27 @@ const ProductForm = (props: {
     description: details?.description || '',
   });
   const [backendErrors, setBackendErrors] = useState<ErrorsData>({});
-
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  //The function responsible for receiving and manage a photo file
+  // The function responsible for receiving and manage a photo file
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedFile(event.target.files?.[0] || null);
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     handleFileSelect(event);
-    const selectedFile: File = event.target.files![0];
+    const selectedPhotoFile: File | undefined = event.target.files?.[0];
     const reader = new FileReader();
     reader.onload = () => {
       const dataURL: string = reader.result as string;
       setSelectedImage(dataURL);
     };
-    reader.readAsDataURL(selectedFile);
+    if (selectedPhotoFile) {
+      reader.readAsDataURL(selectedPhotoFile);
+    }
   };
 
-  //A function to manage the data provided by the user in the form
+  // A function to manage the data provided by the user in the form
   const productDataHandler = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -77,7 +82,7 @@ const ProductForm = (props: {
     formData.append('price', productData.price.toString());
     formData.append('description', productData.description);
     formData.append('category', productData.category);
-    formData.append('userId', userId as string);
+    formData.append('userId', IdUser as string);
     if (details?._id && details?.creator && details?.imageUrl) {
       formData.append('imageUrl', details.imageUrl);
       formData.append('productId', details?._id);
@@ -105,11 +110,12 @@ const ProductForm = (props: {
       window.location.reload();
     }
   };
-  //function responsible for redirecting unauthorized users
+  // function responsible for redirecting unauthorized users
   useEffect(() => {
     if (!isAuth) {
       navigate('/');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth]);
 
   return (
@@ -173,7 +179,7 @@ const ProductForm = (props: {
         <div className={`${classes.textareaBox} `}>
           <textarea
             className={classes.textarea}
-            id="description"
+            id="description" // Dodany id
             name="description"
             placeholder="Opis produktu:"
             defaultValue={productData.description}
@@ -184,7 +190,7 @@ const ProductForm = (props: {
           </label>
         </div>
         <div>
-          <button>{details ? 'Edytuj' : 'Zapisz'} produkt</button>
+          <button type="button">{details ? 'Edytuj' : 'Zapisz'} produkt</button>
         </div>
       </form>
     </div>

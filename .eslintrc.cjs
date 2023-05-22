@@ -21,10 +21,23 @@ module.exports = {
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
     'react/react-in-jsx-scope': 0,
+    'no-underscore-dangle': [
+      'error',
+      {
+        allow: ['_id'],
+      },
+    ],
+    'jsx-a11y/label-has-associated-control': 0,
     'react/function-component-definition': [
       2,
       {
         namedComponents: ['arrow-function', 'function-declaration'],
+      },
+    ],
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
       },
     ],
   },
