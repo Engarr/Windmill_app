@@ -10,6 +10,7 @@ import classes from './AuthForm.module.scss';
 import Input from '../UI/Input/Input';
 import { Data, ErrorsData } from '../../types/types';
 import LineWaveLoader from '../Spinner/CircleWave/CircleWave';
+
 const AuthForm = () => {
   const navigation = useNavigation();
   const data = useActionData() as Data[];
@@ -35,6 +36,22 @@ const AuthForm = () => {
       repeatPassword: '',
     });
   }, [isLogin]);
+
+  let buttonContent;
+  if (isLogin) {
+    if (isSubmitting) {
+      buttonContent = <LineWaveLoader />;
+    } else {
+      buttonContent = 'Zaloguj się';
+    }
+  } else if (!isLogin) {
+    if (isSubmitting) {
+      buttonContent = <LineWaveLoader />;
+    } else {
+      buttonContent = 'Utwórz konto';
+    }
+  }
+
   return (
     <div className={classes.wrapper}>
       {Object.values(backendErrors).some((error) => error !== '') && (
@@ -59,17 +76,7 @@ const AuthForm = () => {
         )}
         <div className={classes.form__actions}>
           <button type="submit" disabled={isSubmitting}>
-            {isLogin ? (
-              isSubmitting ? (
-                <LineWaveLoader />
-              ) : (
-                'Zaloguj się'
-              )
-            ) : isSubmitting ? (
-              <LineWaveLoader />
-            ) : (
-              'Utwórz konto'
-            )}
+            {buttonContent}
           </button>
           <Link to={`?mode=${isLogin ? 'signup' : 'login'}`}>
             {isLogin ? 'Załóż konto nowe konto' : 'Zaloguj się'}

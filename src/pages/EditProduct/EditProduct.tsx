@@ -1,12 +1,6 @@
+import { useRouteLoaderData, Await } from 'react-router-dom';
 import { Suspense } from 'react';
 import ProductForm from '../../components/AddProductForm/ProductForm';
-import {
-  useRouteLoaderData,
-  json,
-  redirect,
-  defer,
-  Await,
-} from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner/Spinner';
 
 const EditProduct = () => {

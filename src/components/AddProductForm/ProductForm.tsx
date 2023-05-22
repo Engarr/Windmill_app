@@ -7,16 +7,18 @@ import UploadFile from '../UI/UploadFile/UploadFile';
 import { Data, ErrorsData, ProductType } from '../../types/types';
 
 interface PropsType {
-  detail: {
-    productDetail: ProductType;
-    userId: string;
+  detail?: {
+    productDetail?: ProductType;
+    userId?: string;
   };
-  userId: string;
 }
 
-const ProductForm = ({ detail, userId }: PropsType): JSX.Element => {
+interface PropsIdType {
+  userIdNumber?: string;
+}
+const ProductForm = ({ detail, userIdNumber }: PropsType & PropsIdType) => {
   const details = detail?.productDetail;
-  const IdUser = detail?.userId || userId;
+  const IdUser = detail?.userId || userIdNumber;
   const creatorId = details?.creator.toString();
   const navigate = useNavigate();
   let isAuth = true;

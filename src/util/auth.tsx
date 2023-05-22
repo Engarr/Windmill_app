@@ -33,14 +33,14 @@ export const idLoader = async () => {
   if (!token) {
     return null;
   }
-  let url = import.meta.env.VITE_REACT_APP_API_URL;
-  const resposne = await fetch(url + `feed/user`, {
+  const url = import.meta.env.VITE_REACT_APP_API_URL;
+  const resposne = await fetch(`${url}feed/user`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
   const user = await resposne.json();
-  const userId = user.userId;
+  const { userId } = user;
 
   return userId;
 };

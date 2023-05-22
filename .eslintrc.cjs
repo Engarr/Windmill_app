@@ -20,6 +20,10 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
+    'react/require-default-props': [
+      'error',
+      { ignoreFunctionalComponents: true },
+    ],
     'react/react-in-jsx-scope': 0,
     'no-underscore-dangle': [
       'error',
