@@ -1,7 +1,7 @@
-import classes from './Contact.module.scss';
+import { HiLocationMarker, HiPhone, HiOutlineMail } from 'react-icons/hi';
 import Input from '../UI/Input/Input';
 import Textarea from '../UI/Textarea/Textarea';
-import { HiLocationMarker, HiPhone, HiOutlineMail } from 'react-icons/hi';
+import classes from './Contact.module.scss';
 
 const Contact = () => {
   return (
@@ -40,7 +40,7 @@ const Contact = () => {
               <Input type="text" data="email" text="E-mail:" />
               <Textarea />
             </div>
-            <button>Wyślij</button>
+            <button type="button">Wyślij</button>
           </form>
         </div>
       </div>
