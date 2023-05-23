@@ -15,6 +15,7 @@ const Shop = () => {
   const category = params.category || `Wszystkie produkty`;
   const [products, setProducts] = useState<Products[]>([]);
 
+  // function for fetching all or category products
   const { data: allProductsArr, isLoading: isAllProductsLoading } =
     useGetAllProductsQuery();
   const { data: categoryProductsArr, isLoading: isCategoryProductsLoading } =
@@ -25,10 +26,8 @@ const Shop = () => {
       if (!isAllProductsLoading) {
         setProducts(allProductsArr?.products ?? []);
       }
-    } else {
-      if (!isCategoryProductsLoading) {
-        setProducts(categoryProductsArr?.products ?? []);
-      }
+    } else if (!isCategoryProductsLoading) {
+      setProducts(categoryProductsArr?.products ?? []);
     }
   }, [
     category,
@@ -37,29 +36,26 @@ const Shop = () => {
     isAllProductsLoading,
     isCategoryProductsLoading,
   ]);
+  let content;
+  if (isAllProductsLoading || isCategoryProductsLoading) {
+    content = <Spinner message="Wczytywanie produktów.." />;
+  } else if (products.length >= 0) {
+    content = (
+      <>
+        {products.map((product) => {
+          return <Product key={product._id} product={product} />;
+        })}
+      </>
+    );
+  } else {
+    content = (
+      <Empty message="Nie posiadamy produktów w tej kategorii" width={300} />
+    );
+  }
 
   return (
     <section id="sklep">
-      <div className={classes.product__wrappper}>
-        {isAllProductsLoading || isCategoryProductsLoading ? (
-          <Spinner message="Wczytywanie produktów.." />
-        ) : (
-          <>
-            {products.length > 0 ? (
-              <>
-                {products.map((product) => {
-                  return <Product key={product._id} product={product} />;
-                })}
-              </>
-            ) : (
-              <Empty
-                message={'Nie posiadamy produktów w tej kategorii'}
-                width={300}
-              />
-            )}
-          </>
-        )}
-      </div>
+      <div className={classes.product__wrappper}>{content}</div>
     </section>
   );
 };
