@@ -1,23 +1,28 @@
-import { json, redirect } from 'react-router-dom';
+import { useRouteLoaderData, redirect } from 'react-router-dom';
 import AuthForm from '../../components/AuthForm/AuthForm';
 import UserProfil from '../../components/UserProfil/UserProfil';
-import { useRouteLoaderData } from 'react-router-dom';
 
 const MyAccount = () => {
   const token = useRouteLoaderData('root');
+  let content;
+  if (token) {
+    content = <UserProfil />;
+  } else {
+    content = <AuthForm />;
+  }
 
-  return <>{token ? <UserProfil /> : <AuthForm />}</>;
+  return <div>{content}</div>;
 };
 
 export default MyAccount;
 
 export async function action({ request }: { request: Request }) {
-  const searchParams = new URL(request.url).searchParams;
+  const { searchParams } = new URL(request.url);
   const mode = searchParams.get('mode') || 'login';
   const method = mode === 'login' ? 'POST' : 'PUT';
 
   if (mode !== 'login' && mode !== 'signup') {
-    throw json({ message: 'Unsupported mode.' }, { status: 422 });
+    throw new Error('Unsupported mode.');
   }
 
   const data: FormData = await request.formData();
@@ -27,10 +32,10 @@ export async function action({ request }: { request: Request }) {
     repeatPassword: data.get('repeatPassword'),
   };
 
-  const url = import.meta.env.VITE_REACT_APP_API_URL + 'auth/';
+  const url = `${import.meta.env.VITE_REACT_APP_API_URL}auth/`;
 
   const response = await fetch(url + mode, {
-    method: method,
+    method,
     headers: {
       'Content-Type': 'application/json',
     },
@@ -40,18 +45,13 @@ export async function action({ request }: { request: Request }) {
   const resData = await response.json();
 
   if (response.status === 422 || response.status === 401) {
-    const errors = resData.errors;
+    const { errors } = resData;
     return errors;
   }
   if (!response.ok) {
-    throw json(
-      { message: 'Nie można uwierzytelnić użytkownika.' },
-      {
-        status: 500,
-      }
-    );
+    throw new Error('Nie można uwierzytelnić użytkownika');
   }
-  const token: string = resData.token;
+  const { token } = resData;
   localStorage.setItem('token', token);
 
   const expiration = new Date();

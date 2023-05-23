@@ -1,18 +1,23 @@
 import { Suspense } from 'react';
-import {
-  useRouteLoaderData,
-  json,
-  redirect,
-  defer,
-  Await,
-} from 'react-router-dom';
+import { useRouteLoaderData, redirect, defer, Await } from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner/Spinner';
 import ProductDetail from '../../components/ProductDetail/ProductDetail';
 import { idLoader, getAuthToken } from '../../util/auth';
+import { ProductType } from '../../types/types';
 
+interface ProductDetailType {
+  productDetail: ProductType;
+  userId: string;
+}
+
+interface ParamsType {
+  productId: string;
+}
 
 const ProductDetails = () => {
-  const productDetail = useRouteLoaderData('product-detail') as {};
+  const productDetail = useRouteLoaderData(
+    'product-detail'
+  ) as ProductDetailType;
 
   return (
     <div>
@@ -27,30 +32,20 @@ const ProductDetails = () => {
 
 export default ProductDetails;
 
-const loadDetail = async (id: string): Promise<{}> => {
-  const url = import.meta.env.VITE_REACT_APP_API_URL + `feed/product/${id}`;
+const loadDetail = async (id: string): Promise<ProductDetailType> => {
+  const url = `${import.meta.env.VITE_REACT_APP_API_URL}feed/product/${id}`;
+
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw json(
-      { message: 'Could not fetch details for selected event.' },
-      {
-        status: 500,
-      }
-    );
+    throw new Error('Nie udało się pobrać szczegółów wybranego produktu.');
   } else {
     const resData = await response.json();
     return resData.productDetail;
   }
 };
 
-export async function loader({
-  request,
-  params,
-}: {
-  request: Request;
-  params: any;
-}) {
+export async function loader({ params }: { params: ParamsType }) {
   const param = params;
   const productId = param.productId as string;
 
@@ -59,18 +54,17 @@ export async function loader({
     userId: await idLoader(),
   });
 }
-
 export async function action({
   params,
   request,
 }: {
   request: Request;
-  params: any;
+  params: ParamsType;
 }) {
-  const productId = params.productId;
+  const { productId } = params;
   const token = getAuthToken();
   const response = await fetch(
-    import.meta.env.VITE_REACT_APP_API_URL + `feed/delete/${productId}`,
+    `${import.meta.env.VITE_REACT_APP_API_URL}feed/delete/${productId}`,
     {
       method: request.method,
       headers: {
@@ -79,12 +73,7 @@ export async function action({
     }
   );
   if (!response.ok) {
-    throw json(
-      { message: 'Niestety nie mogliśmy usunąć produktu' },
-      {
-        status: 500,
-      }
-    );
+    throw new Error('Niestety nie mogliśmy usunąć produktu');
   }
   return redirect('/sklep');
 }
