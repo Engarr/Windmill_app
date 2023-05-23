@@ -6,8 +6,8 @@ const ProductManage = () => {
   const submit = useSubmit();
 
   function startDeleteHandler() {
+    // eslint-disable-next-line no-alert
     const proceed = window.confirm('Czy na pewno chce uszunąć produkt?');
-
     if (proceed) {
       submit(null, { method: 'DELETE' });
     }
@@ -21,11 +21,13 @@ const ProductManage = () => {
         <div className={classes.productManage__buttonBox}>
           <div>
             <Link to="edit">
-              <button>Edytuj produkt</button>
+              <button type="button">Edytuj produkt</button>
             </Link>
           </div>
           <div>
-            <button onClick={startDeleteHandler}>Usuń produkt</button>
+            <button type="button" onClick={startDeleteHandler}>
+              Usuń produkt
+            </button>
           </div>
         </div>
       </div>

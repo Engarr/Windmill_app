@@ -1,29 +1,38 @@
 import classes from './Input.module.scss';
 
-const Input = (props: {
+interface Propstype {
   type: string;
   text: string;
   data: string;
   error?: string;
   step?: number;
   defaultValue?: number | string;
-  style?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => string;
-}) => {
+}
+
+const Input = ({
+  type,
+  text,
+  data,
+  error,
+  step,
+  defaultValue,
+  onChange,
+}: Propstype) => {
   return (
-    <div className={`${classes.inputBox} ${props.error ? classes.error : ''}`}>
+    <div className={`${classes.inputBox} ${error ? classes.error : ''}`}>
       <input
-        type={props.type}
-        placeholder={props.text}
-        id={props.data}
-        name={props.data}
+        type={type}
+        placeholder={text}
+        id={data}
+        name={data}
         className={classes.input}
-        defaultValue={props.defaultValue}
-        onChange={props.onChange}
-        step={props.step}
+        defaultValue={defaultValue}
+        onChange={onChange}
+        step={step}
       />
-      <label htmlFor={props.data} className={classes.label}>
-        {props.text}
+      <label htmlFor={data} className={classes.label}>
+        {text}
       </label>
     </div>
   );

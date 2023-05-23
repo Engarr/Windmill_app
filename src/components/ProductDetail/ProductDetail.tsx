@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
+import { GiTwoCoins } from 'react-icons/gi';
+import { Link } from 'react-router-dom';
+import { TbTruckDelivery } from 'react-icons/tb';
+import { VscCalendar } from 'react-icons/vsc';
+import { toast } from 'react-hot-toast';
 import { ProductType, Products } from '../../types/types';
 import classes from './ProductDetail.module.scss';
-import { GiTwoCoins } from 'react-icons/gi';
-import { Link, useRouteLoaderData } from 'react-router-dom';
-import { VscCalendar } from 'react-icons/vsc';
-import { TbTruckDelivery } from 'react-icons/tb';
 import Product from '../Product/Product';
 import Spinner from '../Spinner/Spinner/Spinner';
 import ProductManage from '../ProductManage/ProductManage';
@@ -14,16 +15,19 @@ import {
 } from '../../store/apiSlice';
 import Empty from '../Empty/Empty';
 
-import toast, { Toaster } from 'react-hot-toast';
+interface PropsType {
+  detail: {
+    productDetail: ProductType;
+    userId: string;
+  };
+}
 
-const ProductDetail = (props: {
-  detail: { productDetail: ProductType; userId: string };
-}) => {
-  const details = props.detail.productDetail;
-  const userId = props.detail.userId;
+const ProductDetail = ({ detail }: PropsType) => {
+  const details = detail.productDetail;
+  const { userId } = detail;
   const [quantity, setQuantity] = useState<number>(1);
   const [products, setProducts] = useState<Products[]>([]);
-  const category = details.category;
+  const { category } = details;
   const isAuth = details.creator.toString() === userId;
   const [addProdToCart] = useSendDataToCartMutation();
 
@@ -42,7 +46,7 @@ const ProductDetail = (props: {
     }
   };
 
-  //the function for fetching products of a given category
+  // the function for fetching products of a given category
   const { data: categoryProductsArr, isLoading: isCategoryProductsLoading } =
     useGetCategoryProductQuery(category);
 
@@ -51,8 +55,8 @@ const ProductDetail = (props: {
       const productsArr = categoryProductsArr.products;
       const newArr = productsArr.filter((item) => item._id !== details._id);
 
-      let shuffledItems = newArr.sort(() => Math.random() - 0.5);
-      let maxProducts = shuffledItems.slice(0, 3);
+      const shuffledItems = newArr.sort(() => Math.random() - 0.5);
+      const maxProducts = shuffledItems.slice(0, 3);
 
       setProducts(maxProducts);
     }
@@ -60,15 +64,16 @@ const ProductDetail = (props: {
 
   useEffect(() => {
     fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, details]);
 
   useEffect(() => {
     if (categoryProductsArr) {
       fetchProducts();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryProductsArr]);
-  const token = useRouteLoaderData('root') as string;
-  //the function for adding product to cart and save it in to backend
+  // the function for adding product to cart and save it in to backend
   const addItemToCartHandler = async () => {
     try {
       toast.success(
@@ -76,13 +81,30 @@ const ProductDetail = (props: {
       );
       await addProdToCart({
         productId: details._id,
-        quantity: quantity,
-        userId: userId,
+        quantity,
+        userId,
       });
     } catch (error) {
       toast.error('Wystąpił błąd podczas dodawania produktu do koszyka.');
     }
   };
+
+  let similarContent;
+  if (isCategoryProductsLoading) {
+    similarContent = <Spinner message="Wczytywanie produktów.." />;
+  } else if (products.length >= 0) {
+    similarContent = (
+      <>
+        {products.map((product) => {
+          return <Product key={product._id} product={product} />;
+        })}
+      </>
+    );
+  } else {
+    similarContent = (
+      <Empty message="Nie posiadamy innych podobnych produktów" width={200} />
+    );
+  }
 
   return (
     <>
@@ -140,28 +162,46 @@ const ProductDetail = (props: {
             </div>
           </div>
 
-          <div className={classes[`buttons`]}>
-            <div className={classes[`buttons__QtyBox`]}>
-              <div onClick={decreaseQuantityHandler}>
-                <button>-</button>
+          <div className={classes.buttons}>
+            <div className={classes.buttons__QtyBox}>
+              <div
+                onClick={decreaseQuantityHandler}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    decreaseQuantityHandler();
+                  }
+                }}
+                tabIndex={0}
+                role="button"
+              >
+                <button type="button">-</button>
               </div>
               <div>
                 <span>{quantity}</span>
               </div>
 
-              <div onClick={IncreaseQuantityHandler}>
-                <button>+</button>
+              <div
+                onClick={IncreaseQuantityHandler}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    IncreaseQuantityHandler();
+                  }
+                }}
+                tabIndex={0}
+                role="button"
+              >
+                <button type="button">+</button>
               </div>
             </div>
-            <div className={classes[`buttons__addBox`]}>
+            <div className={classes.buttons__addBox}>
               {!userId ? (
-                <>
-                  <Link to="/konto?mode=login">
-                    <button>Dodaj do koszyka</button>
-                  </Link>
-                </>
+                <Link to="/konto?mode=login">
+                  <button type="button">Dodaj do koszyka</button>
+                </Link>
               ) : (
-                <button onClick={addItemToCartHandler}>Dodaj do koszyka</button>
+                <button type="button" onClick={addItemToCartHandler}>
+                  Dodaj do koszyka
+                </button>
               )}
             </div>
           </div>
@@ -172,22 +212,7 @@ const ProductDetail = (props: {
         <div>
           <h2>Podobne produkty:</h2>
         </div>
-        <div>
-          {isCategoryProductsLoading ? (
-            <Spinner message="Wczytywanie produktów.." />
-          ) : products.length > 0 ? (
-            <>
-              {products.map((product) => {
-                return <Product key={product._id} product={product} />;
-              })}
-            </>
-          ) : (
-            <Empty
-              message={'Nie posiadamy innych podobnych produktów'}
-              width={200}
-            />
-          )}
-        </div>
+        <div>{similarContent}</div>
       </div>
     </>
   );
