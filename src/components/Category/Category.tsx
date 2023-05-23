@@ -53,6 +53,13 @@ const Category = () => {
         <div
           className={classes[`category__mobile--menu`]}
           onClick={cateogryMenuHandler}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              cateogryMenuHandler();
+            }
+          }}
+          tabIndex={0}
+          role="button"
         >
           <p>Kategorie</p>
           <FaAngleDoubleDown className={animationCssArrow} />
@@ -65,14 +72,24 @@ const Category = () => {
           <ul>
             {categories?.map((category) => {
               return (
-                <NavLink key={category.id} to={`${category.name}`}>
+                <NavLink
+                  key={category.id}
+                  to={`${category.name}`}
+                  onClick={cateogryMenuHandler}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      cateogryMenuHandler();
+                    }
+                  }}
+                  tabIndex={0}
+                  role="button"
+                >
                   <li
                     className={
                       category.name === categoryParam
                         ? classes.activeCategory
                         : ''
                     }
-                    onClick={cateogryMenuHandler}
                   >
                     {category.name}
                   </li>
