@@ -7,7 +7,7 @@ import Spinner from '../../components/Spinner/Spinner/Spinner';
 import {
   useGetAllProductsQuery,
   useGetCategoryProductQuery,
-} from '../../store/apiSlice';
+} from '../../store/api/productsApiSlice';
 import Empty from '../../components/Empty/Empty';
 
 const Shop = () => {

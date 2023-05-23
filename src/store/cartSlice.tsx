@@ -13,7 +13,7 @@ const initialState: CartState = {
 
 const cartItemsSlice = createSlice({
   name: 'cartItems',
-  initialState: initialState,
+  initialState,
   reducers: {
     onAddItem: (state, action) => {
       const newItem = action.payload;
@@ -21,11 +21,11 @@ const cartItemsSlice = createSlice({
       if (!existingItem) {
         state.items.push(newItem);
       } else {
-        existingItem.quantity = existingItem.quantity + newItem.quantity;
-        existingItem.price =
-          existingItem.price + newItem.price * newItem.quantity;
+        existingItem.quantity += newItem.quantity;
+        existingItem.price += newItem.price * newItem.quantity;
       }
-      state.totalQuantity = state.totalQuantity + newItem.quantity;
+      // eslint-disable-next-line no-param-reassign
+      state.totalQuantity += newItem.quantity;
     },
   },
 });

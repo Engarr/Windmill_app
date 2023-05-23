@@ -3,7 +3,7 @@ import { RiDeleteBinLine } from 'react-icons/ri';
 import { toast } from 'react-hot-toast';
 import { ProductType } from '../../types/types';
 import classes from './CartProduct.module.scss';
-import { useDeleteCartProductMutation } from '../../store/apiSlice';
+import { useDeleteCartProductMutation } from '../../store/api/cartApiSlice';
 
 interface PropsType {
   products: {
@@ -69,7 +69,9 @@ const CartProduct = ({ products, token }: PropsType) => {
               </td>
               <td data-cell="Suma:">
                 <div className={classes.container__sumBox}>
-                  <p>{product.quantity * product.product.price} zŁ</p>
+                  <p>
+                    {(product.quantity * product.product.price).toFixed(2)} zŁ
+                  </p>
                 </div>
               </td>
               <td>

@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import image from '../../assets/e83ec73c1c471036fd8e883920b02aae.png';
 import AboutUs from '../../components/AboutUs/AboutUs';
-import { RootState } from '../../store/index';
+import { RootState } from '../../store/store';
 import Contact from '../../components/Contact/Contact';
 import classes from './HomePage.module.scss';
 

@@ -1,5 +1,5 @@
 import { useRouteLoaderData, Link } from 'react-router-dom';
-import { useGetCartProductsQuery } from '../../store/apiSlice';
+import { useGetCartProductsQuery } from '../../store/api/cartApiSlice';
 import Spinner from '../../components/Spinner/Spinner/Spinner';
 import CartProduct from '../../components/CartProduct/CartProduct';
 import classes from './Cart.module.scss';

@@ -9,10 +9,8 @@ import classes from './ProductDetail.module.scss';
 import Product from '../Product/Product';
 import Spinner from '../Spinner/Spinner/Spinner';
 import ProductManage from '../ProductManage/ProductManage';
-import {
-  useGetCategoryProductQuery,
-  useSendDataToCartMutation,
-} from '../../store/apiSlice';
+import { useSendDataToCartMutation } from '../../store/api/cartApiSlice';
+import { useGetCategoryProductQuery } from '../../store/api/productsApiSlice';
 import Empty from '../Empty/Empty';
 
 interface PropsType {

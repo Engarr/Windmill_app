@@ -1,25 +1,9 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Products, cartItemsResponse } from '../types/types';
+import apiSlice from './apiSlice';
+import { CartItemsResponse } from '../../types/types';
 
-interface ProductsResponse {
-  message: string;
-  products: Products[];
-}
-
-export const productsApi = createApi({
-  reducerPath: 'productsApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_REACT_APP_API_URL,
-  }),
-  tagTypes: ['CartFeed'],
+const cartApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getAllProducts: builder.query<ProductsResponse, void>({
-      query: () => 'feed/products',
-    }),
-    getCategoryProduct: builder.query<ProductsResponse, string>({
-      query: (category) => `feed/products/${category}`,
-    }),
-    getCartProducts: builder.query<cartItemsResponse, string>({
+    getCartProducts: builder.query<CartItemsResponse, string>({
       query: (token) => ({
         url: `cartFeed/getCartProducts`,
         headers: { Authorization: `Bearer ${token}` },
@@ -51,11 +35,8 @@ export const productsApi = createApi({
     }),
   }),
 });
-
 export const {
-  useGetAllProductsQuery,
-  useGetCategoryProductQuery,
   useSendDataToCartMutation,
   useGetCartProductsQuery,
   useDeleteCartProductMutation,
-} = productsApi;
+} = cartApiSlice;

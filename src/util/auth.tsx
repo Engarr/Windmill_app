@@ -33,6 +33,7 @@ export const idLoader = async () => {
   if (!token) {
     return null;
   }
+
   const url = import.meta.env.VITE_REACT_APP_API_URL;
   const resposne = await fetch(`${url}feed/user`, {
     headers: {

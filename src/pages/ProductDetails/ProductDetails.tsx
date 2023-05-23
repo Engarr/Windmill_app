@@ -32,6 +32,7 @@ const ProductDetails = () => {
 
 export default ProductDetails;
 
+// function for fetching product from database
 const loadDetail = async (id: string): Promise<ProductDetailType> => {
   const url = `${import.meta.env.VITE_REACT_APP_API_URL}feed/product/${id}`;
 
@@ -54,6 +55,7 @@ export async function loader({ params }: { params: ParamsType }) {
     userId: await idLoader(),
   });
 }
+// function for delete product from database
 export async function action({
   params,
   request,

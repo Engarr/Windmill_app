@@ -16,14 +16,17 @@ const uiSlice = createSlice({
   name: 'ui',
   initialState,
   reducers: {
-    MenuHandler(state) {
+    MenuHandler: (state) => {
+      // eslint-disable-next-line no-param-reassign
       state.isMenuVisible = !state.isMenuVisible;
     },
 
-    scrollPositionHandler(state, action: PayloadAction<number>) {
-      state.scrollPosition = action.payload;
+    scrollPositionHandler: (state, action: PayloadAction<number>) => {
+      return { ...state, scrollPosition: action.payload };
     },
-    CategoryMenuHandler(state) {
+
+    CategoryMenuHandler: (state) => {
+      // eslint-disable-next-line no-param-reassign
       state.isCategoryMenu = !state.isCategoryMenu;
     },
   },

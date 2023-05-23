@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/prefer-default-export
 export const categories = [
   { id: 1, name: 'Wszystkie produkty' },
   { id: 2, name: 'Kasze i ryże' },

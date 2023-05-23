@@ -41,7 +41,7 @@ export type CartProductType = {
   quantity: number;
 };
 
-export type cartItemsResponse = {
+export type CartItemsResponse = {
   prodArr: {
     product: ProductType;
     quantity: number;

@@ -8,7 +8,7 @@ import { FaEnvelope, FaFacebookF, FaArrowUp } from 'react-icons/fa';
 import { CiMenuBurger } from 'react-icons/ci';
 import NavLinks from '../NavLinks/NavLinks';
 import { uiActions } from '../../store/ui-slice';
-import { RootState } from '../../store/index';
+import { RootState } from '../../store/store';
 import logo from '../../assets/logo.png';
 import Toast from '../Toast/Toast';
 import classes from './NavBar.module.scss';
