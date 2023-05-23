@@ -1,7 +1,7 @@
 import React from 'react';
-import classes from './Footer.module.scss';
 import { FaEnvelope, FaFacebookF } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import classes from './Footer.module.scss';
 
 const Footer = () => {
   const year = new Date().getFullYear();

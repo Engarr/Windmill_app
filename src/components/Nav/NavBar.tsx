@@ -1,18 +1,17 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import logo from '../../assets/logo.png';
-import NavLinks from '../NavLinks/NavLinks';
 import { HashLink } from 'react-router-hash-link';
 import { Link, useRouteLoaderData } from 'react-router-dom';
-import classes from './NavBar.module.scss';
-import { uiActions } from '../../store/ui-slice';
-import { RootState } from '../../store/index';
 import { GiFlour } from 'react-icons/gi';
 import { VscAccount } from 'react-icons/vsc';
 import { FaEnvelope, FaFacebookF, FaArrowUp } from 'react-icons/fa';
 import { CiMenuBurger } from 'react-icons/ci';
-import { Toaster } from 'react-hot-toast';
+import NavLinks from '../NavLinks/NavLinks';
+import { uiActions } from '../../store/ui-slice';
+import { RootState } from '../../store/index';
+import logo from '../../assets/logo.png';
 import Toast from '../Toast/Toast';
+import classes from './NavBar.module.scss';
 
 const NavBar = () => {
   const token = useRouteLoaderData('root');
@@ -49,13 +48,13 @@ const NavBar = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [scrollPosition]);
+  }, [dispatch, scrollPosition]);
 
   const styleLogoCss = scrollPosition > 0 ? classes.nav__top : '';
   const styleIconsCss = scrollPosition > 0 ? classes.nav__icons : '';
   const styleBoxCss = scrollPosition > 0 ? classes.nav__height : '';
 
-  //the function scrollWithOffset is used to move the page position to the section selected by the user
+  // the function scrollWithOffset is used to move the page position to the section selected by the user
 
   const scrollWithOffset = (el: HTMLElement) => {
     const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
@@ -70,65 +69,77 @@ const NavBar = () => {
   };
 
   return (
-    <>
-      <header className={classes.nav}>
-        {scrollPosition > 200 && (
-          <div className={classes.nav__arrowUp} onClick={scrolToTop}>
-            <FaArrowUp />
-          </div>
-        )}
+    <header className={classes.nav}>
+      {scrollPosition > 200 && (
+        <div
+          className={classes.nav__arrowUp}
+          onClick={scrolToTop}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              scrolToTop();
+            }
+          }}
+          tabIndex={0}
+          role="button"
+        >
+          <FaArrowUp />
+        </div>
+      )}
 
-        <div className={`${classes.nav__box} ${styleBoxCss}`}>
-          <div>
-            <HashLink
-              to="/#strona-glowna"
-              scroll={(el) => scrollWithOffset(el)}
-            >
-              <img
-                src={logo}
-                className={`${classes['nav__box--logo']} ${styleLogoCss}`}
-              />
-            </HashLink>
-          </div>
-
-          <div className={`${classes['nav__box--icons']} ${styleIconsCss}`}>
-            <Link to={token ? '/konto' : '/konto?mode=login'}>
-              <div className={classes['nav__box--icons-account']}>
-                <VscAccount />
-              </div>
-            </Link>
-
-            <div className={classes['nav__box--icons-cart']}>
-              <Link to="/koszyk">
-                <GiFlour />
-              </Link>
-            </div>
-            <div className={classes['nav__box--icons-envelope']}>
-              <FaEnvelope />
-            </div>
-            <div className={classes['nav__box--icons-fb']}>
-              <FaFacebookF />
-            </div>
-
-            <div
-              className={classes['nav__box--icons-burger']}
-              onClick={showMenuHandler}
-            >
-              <CiMenuBurger />
-            </div>
-          </div>
-          <Toast />
+      <div className={`${classes.nav__box} ${styleBoxCss}`}>
+        <div>
+          <HashLink to="/#strona-glowna" scroll={(el) => scrollWithOffset(el)}>
+            <img
+              src={logo}
+              className={`${classes['nav__box--logo']} ${styleLogoCss}`}
+              alt="logo"
+            />
+          </HashLink>
         </div>
 
-        <NavLinks
-          scrollPosition={scrollPosition}
-          isMenuVisible={isMenuVisible}
-          showMenuHandler={showMenuHandler}
-          scrollWithOffset={scrollWithOffset}
-          animationCss={animationCss}
-        />
-      </header>
-    </>
+        <div className={`${classes['nav__box--icons']} ${styleIconsCss}`}>
+          <Link to={token ? '/konto' : '/konto?mode=login'}>
+            <div className={classes['nav__box--icons-account']}>
+              <VscAccount />
+            </div>
+          </Link>
+
+          <div className={classes['nav__box--icons-cart']}>
+            <Link to="/koszyk">
+              <GiFlour />
+            </Link>
+          </div>
+          <div className={classes['nav__box--icons-envelope']}>
+            <FaEnvelope />
+          </div>
+          <div className={classes['nav__box--icons-fb']}>
+            <FaFacebookF />
+          </div>
+
+          <div
+            className={classes['nav__box--icons-burger']}
+            onClick={showMenuHandler}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                showMenuHandler();
+              }
+            }}
+            role="button"
+            tabIndex={0}
+          >
+            <CiMenuBurger />
+          </div>
+        </div>
+        <Toast />
+      </div>
+
+      <NavLinks
+        isMenuVisible={isMenuVisible}
+        showMenuHandler={showMenuHandler}
+        scrollWithOffset={scrollWithOffset}
+        animationCss={animationCss}
+      />
+    </header>
   );
 };
 

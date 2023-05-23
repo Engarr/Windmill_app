@@ -1,20 +1,45 @@
-import  { useState, useEffect } from 'react';
-import classes from './NavLinks.module.scss';
+import { useState, useEffect } from 'react';
 import { HashLink } from 'react-router-hash-link';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { TfiClose } from 'react-icons/tfi';
 import { FaEnvelope, FaFacebookF } from 'react-icons/fa';
 import Modal from '../Modal/Modal';
+import classes from './NavLinks.module.scss';
 
-const NavLinks = (props: {
-  scrollPosition: number;
+interface PropsType {
   isMenuVisible: boolean;
   showMenuHandler: () => void;
   animationCss: string;
   scrollWithOffset: (e: HTMLElement) => void;
-}) => {
+}
+
+const NavLinks = ({
+  isMenuVisible,
+  showMenuHandler,
+  animationCss,
+  scrollWithOffset,
+}: PropsType) => {
   const [activeSection, setActiveSection] = useState('');
 
+  /// The function handleScroll is to highlight the active section on the page on which we are located
+
+  const handleScroll = () => {
+    const sections = document.querySelectorAll('section');
+    const positionOfScroll = window.pageYOffset + 150;
+
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop - 150;
+
+      const sectionHeight = section.clientHeight;
+
+      if (
+        positionOfScroll >= sectionTop &&
+        positionOfScroll < sectionTop + sectionHeight
+      ) {
+        setActiveSection(section.id);
+      }
+    });
+  };
   useEffect(() => {
     setActiveSection('');
     window.addEventListener('scroll', handleScroll);
@@ -23,31 +48,12 @@ const NavLinks = (props: {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-  ///The function handleScroll is to highlight the active section on the page on which we are located
-  const handleScroll = () => {
-    const sections = document.querySelectorAll('section');
-    const scrollPosition = window.pageYOffset + 150;
-
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop - 150;
-
-      const sectionHeight = section.clientHeight;
-
-      if (
-        scrollPosition >= sectionTop &&
-        scrollPosition < sectionTop + sectionHeight
-      ) {
-        setActiveSection(section.id);
-      }
-    });
-  };
   const activeNavHandler = () => {
     setActiveSection('sklep');
   };
-  
 
   return (
-    /////<--bigDevices
+    // bigDevices
     <>
       <div className={`${classes[`nav__links--big`]} `}>
         <ul>
@@ -56,7 +62,7 @@ const NavLinks = (props: {
           >
             <HashLink
               to="/#strona-glowna"
-              scroll={(el) => props.scrollWithOffset(el)}
+              scroll={(el) => scrollWithOffset(el)}
             >
               Strona główna
             </HashLink>
@@ -71,7 +77,7 @@ const NavLinks = (props: {
           </li>
 
           <li className={activeSection === 'O-nas' ? classes.active : ''}>
-            <HashLink to="/#O-nas" scroll={(el) => props.scrollWithOffset(el)}>
+            <HashLink to="/#O-nas" scroll={(el) => scrollWithOffset(el)}>
               O nas
             </HashLink>
           </li>
@@ -81,25 +87,23 @@ const NavLinks = (props: {
           </li>
         </ul>
       </div>
-      {/* /////<--smallDevices */}
-      {props.isMenuVisible && (
+      {/* smallDevices  */}
+      {isMenuVisible && (
         <div>
-          <Modal show={props.isMenuVisible} handler={props.showMenuHandler} />
-          <div
-            className={`${classes[`nav__links--small`]} ${props.animationCss}`}
-          >
+          <Modal show={isMenuVisible} handler={showMenuHandler} />
+          <div className={`${classes[`nav__links--small`]} ${animationCss}`}>
             <TfiClose
               className={classes[`nav__links--close`]}
-              onClick={props.showMenuHandler}
+              onClick={showMenuHandler}
             />
             <ul>
               <li>
                 <HashLink
                   to="/#strona-glowna"
-                  onClick={(e) => {
-                    props.showMenuHandler();
+                  onClick={() => {
+                    showMenuHandler();
                   }}
-                  scroll={(el) => props.scrollWithOffset(el)}
+                  scroll={(el) => scrollWithOffset(el)}
                 >
                   Strona główna
                 </HashLink>
@@ -107,8 +111,8 @@ const NavLinks = (props: {
               <li>
                 <NavLink
                   to="/sklep"
-                  onClick={(e) => {
-                    props.showMenuHandler();
+                  onClick={() => {
+                    showMenuHandler();
                   }}
                 >
                   Sklep On-line
@@ -117,10 +121,10 @@ const NavLinks = (props: {
               <li>
                 <HashLink
                   to="/#O-nas"
-                  onClick={(e) => {
-                    props.showMenuHandler();
+                  onClick={() => {
+                    showMenuHandler();
                   }}
-                  scroll={(el) => props.scrollWithOffset(el)}
+                  scroll={(el) => scrollWithOffset(el)}
                 >
                   O nas
                 </HashLink>
@@ -128,8 +132,8 @@ const NavLinks = (props: {
               <li>
                 <HashLink
                   to="/#kontakt"
-                  onClick={(e) => {
-                    props.showMenuHandler();
+                  onClick={() => {
+                    showMenuHandler();
                   }}
                 >
                   Kontakt

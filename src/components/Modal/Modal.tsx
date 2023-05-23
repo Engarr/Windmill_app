@@ -1,9 +1,15 @@
-import ReactDOM from 'react-dom';
 import classes from './Modal.module.scss';
 
-const Modal = (props: { show: boolean; handler: () => void }) => {
-  if (!props.show) return null;
-  return <div className={classes.backdrop} onClick={props.handler}></div>;
+interface PropsType {
+  show: boolean;
+  handler: () => void;
+}
+
+const Modal = ({ show, handler }: PropsType) => {
+  if (!show) return null;
+
+  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+  return <div className={classes.backdrop} onClick={handler} />;
 };
 
 export default Modal;
