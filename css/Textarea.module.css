@@ -1,0 +1,88 @@
+.textareaBox {
+  position: relative;
+  width: 100%;
+  min-width: 290px;
+  margin-top: 0.5em;
+}
+
+.textareaBox textarea {
+  position: relative;
+  width: 100%;
+  min-height: 250px;
+  padding: 14px;
+  border: 1px solid rgba(2, 2, 2, 0.3);
+  border-radius: 2px;
+  outline: none;
+  font-size: 1.4em;
+  margin-bottom: 1em;
+  font-family: BenchNine;
+  letter-spacing: 2px;
+  resize: vertical;
+}
+
+.textareaBox textarea::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.textareaBox textarea::-moz-placeholder {
+  color: transparent;
+}
+
+.textareaBox textarea:-ms-input-placeholder {
+  color: transparent;
+}
+
+.textareaBox textarea::-ms-input-placeholder {
+  color: transparent;
+}
+
+.textareaBox textarea::placeholder {
+  color: transparent;
+}
+
+.textareaBox label {
+  position: absolute;
+  left: 0;
+  padding: 14px;
+  pointer-events: none;
+  font-size: 1.4em;
+  color: gray;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.textarea:not(:-moz-placeholder-shown).textarea:not(:focus) ~ .label {
+  color: black;
+  transform: translate(15px) translateY(-20px);
+  font-size: 1.4em;
+  padding: 0 10px;
+  letter-spacing: 1px;
+  border: 1px solid var(--menu-color);
+  background-color: #fff;
+}
+
+.textarea:not(:-ms-input-placeholder).textarea:not(:focus) ~ .label {
+  color: black;
+  transform: translate(15px) translateY(-20px);
+  font-size: 1.4em;
+  padding: 0 10px;
+  letter-spacing: 1px;
+  border: 1px solid var(--menu-color);
+  background-color: #fff;
+}
+
+.textareaBox textarea:focus ~ .label,
+.textarea:not(:placeholder-shown).textarea:not(:focus) ~ .label {
+  color: black;
+  -webkit-transform: translate(15px) translateY(-20px);
+          transform: translate(15px) translateY(-20px);
+  font-size: 1.4em;
+  padding: 0 10px;
+  letter-spacing: 1px;
+  border: 1px solid var(--menu-color);
+  background-color: #fff;
+}
+
+.textareaBox textarea:focus {
+  border: 1px solid var(--menu-color);
+}/*# sourceMappingURL=Textarea.module.css.map */

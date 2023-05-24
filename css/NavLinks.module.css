@@ -1,0 +1,104 @@
+.nav__links--big {
+  width: 100%;
+  font-family: "BenchNine", cursive;
+}
+.nav__links--big ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.nav__links--big li {
+  padding: 10px 20px;
+  list-style: none;
+  font-size: 1.8em;
+}
+.nav__links--big li::after {
+  content: "";
+  display: block;
+  width: 0%;
+  height: 2.5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-top: 0.5em;
+  background-color: var(--main-color);
+  -webkit-transition: width 0.3s;
+  transition: width 0.3s;
+}
+.nav__links--big li:hover::after {
+  width: 120%;
+}
+.nav__links--big a {
+  color: black;
+  text-decoration: none;
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+}
+
+.nav__links--small {
+  display: none;
+}
+
+.active a {
+  color: var(--main-color);
+}
+
+@media only screen and (max-width: 1024px) {
+  .nav__links--big {
+    display: none;
+  }
+  .nav__links--small {
+    position: absolute;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.568);
+            box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.568);
+    top: 0;
+    right: 0;
+    background-color: var(--menu-color);
+    width: 60%;
+    font-family: "Pacifico", cursive;
+    height: 100vh;
+    z-index: 1000;
+  }
+  .nav__links--small ul {
+    position: sticky;
+    text-align: center;
+  }
+  .nav__links--small li {
+    padding: 10px 20px;
+    list-style: none;
+    font-size: 1.4em;
+  }
+  .nav__links--small a {
+    color: white;
+    text-decoration: none;
+  }
+  .nav__links--close {
+    position: absolute;
+    color: var(--white);
+    font-size: 2em;
+    top: 20px;
+    right: 20px;
+  }
+  .nav__links--box {
+    margin-top: 2em;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}/*# sourceMappingURL=NavLinks.module.css.map */

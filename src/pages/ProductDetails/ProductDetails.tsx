@@ -1,13 +1,12 @@
-import { Suspense } from 'react';
-import { useRouteLoaderData, redirect, defer, Await } from 'react-router-dom';
+import { redirect, useParams } from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner/Spinner';
 import ProductDetail from '../../components/ProductDetail/ProductDetail';
-import { idLoader, getAuthToken } from '../../util/auth';
-import { ProductType } from '../../types/types';
+import { getAuthToken } from '../../util/auth';
+import { useGetProductDetailQuery } from '../../store/api/productsApiSlice';
+import { useGetUserIdQuery } from '../../store/api/userApiSlice';
 
-interface ProductDetailType {
-  productDetail: ProductType;
-  userId: string;
+interface UserIdType {
+  userId?: string;
 }
 
 interface ParamsType {
@@ -15,47 +14,35 @@ interface ParamsType {
 }
 
 const ProductDetails = () => {
-  const productDetail = useRouteLoaderData(
-    'product-detail'
-  ) as ProductDetailType;
+  const token = getAuthToken();
+  const param = useParams();
+  const { productId } = param;
+  let userId = null;
+  let content;
 
-  return (
-    <div>
-      <Suspense fallback={<Spinner message="Ładowanie..." />}>
-        <Await resolve={productDetail}>
-          {(loadDetail) => <ProductDetail detail={loadDetail} />}
-        </Await>
-      </Suspense>
-    </div>
+  const { data: userData, isLoading: loadingUserId } = useGetUserIdQuery(
+    token as string
   );
+  const { data: productDetails, isLoading: productDetailLoading } =
+    useGetProductDetailQuery(productId as string);
+
+  const userIdData: UserIdType = userData as UserIdType;
+
+  if (loadingUserId && productDetailLoading) {
+    content = <Spinner message="Ładowanie..." />;
+  } else if (!loadingUserId && !productDetailLoading) {
+    userId = userIdData.userId;
+
+    if (productDetails && userId) {
+      content = <ProductDetail detail={productDetails} idUser={userId} />;
+    }
+  }
+
+  return <div>{content}</div>;
 };
 
 export default ProductDetails;
 
-// function for fetching product from database
-const loadDetail = async (id: string): Promise<ProductDetailType> => {
-  const url = `${import.meta.env.VITE_REACT_APP_API_URL}feed/product/${id}`;
-
-  const response = await fetch(url);
-
-  if (!response.ok) {
-    throw new Error('Nie udało się pobrać szczegółów wybranego produktu.');
-  } else {
-    const resData = await response.json();
-    return resData.productDetail;
-  }
-};
-
-export async function loader({ params }: { params: ParamsType }) {
-  const param = params;
-  const productId = param.productId as string;
-
-  return defer({
-    productDetail: await loadDetail(productId),
-    userId: await idLoader(),
-  });
-}
-// function for delete product from database
 export async function action({
   params,
   request,

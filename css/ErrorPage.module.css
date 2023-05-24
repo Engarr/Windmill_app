@@ -1,0 +1,68 @@
+.errorPage__container {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #fff;
+  width: 100%;
+  max-width: 1400px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+.errorPage__Box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 2em;
+}
+.errorPage__Box h2 {
+  text-transform: uppercase;
+  font-family: "Amatic SC", sans-serif;
+  font-size: 3em;
+  letter-spacing: 2px;
+}
+.errorPage__Box h2 span {
+  color: var(--background-color-hover);
+}
+.errorPage__Box p {
+  color: var(--background-color);
+  margin: 1em 0;
+  font-size: 3em;
+  font-family: "BenchNine", sans-serif;
+}
+.errorPage__Box button {
+  margin: 2em 0;
+  padding: 10px 20px;
+  background-color: var(--background-color);
+  border: none;
+  border-radius: 2px;
+  color: white;
+  font-size: 1.4em;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+.errorPage__Box button:hover {
+  background-color: var(--background-color-hover);
+}/*# sourceMappingURL=ErrorPage.module.css.map */

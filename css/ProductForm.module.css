@@ -1,0 +1,293 @@
+@charset "UTF-8";
+.productForm__wrapper {
+  width: 50%;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+  text-align: center;
+}
+.productForm__wrapper--form {
+  width: 80%;
+}
+.productForm__wrapper--form h2 {
+  text-align: left;
+  font-family: BenchNine;
+  font-size: 2em;
+  padding: 10px 0px;
+  margin-bottom: 1em;
+  color: var(--background-color);
+}
+.productForm__wrapper--form button {
+  padding: 10px 20px;
+  font-family: "BenchNine", sans-serif;
+  font-size: 1.5em;
+  border: none;
+  background-color: var(--background-color);
+  margin-bottom: 1em;
+  cursor: pointer;
+  border-radius: 2px;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+  font-weight: bold;
+  color: white;
+}
+.productForm__wrapper--form button:hover {
+  background-color: var(--background-color-hover);
+}
+
+.errorsContainer {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 1em;
+}
+.errorsContainer h3 {
+  font-size: 1.2em;
+  color: var(--background-color);
+  margin-bottom: 0.5em;
+}
+.errorsContainer li {
+  list-style: none;
+  position: relative;
+  padding: 0px 30px;
+  text-align: left;
+  margin-bottom: 0.2em;
+  font-size: 1em;
+}
+.errorsContainer li::before {
+  content: "";
+  height: 10px;
+  width: 10px;
+  background-color: var(--background-color);
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  margin-right: 0.8em;
+}
+
+select {
+  appearance: none;
+  outline: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border: 0;
+  cursor: pointer;
+  color: gray;
+  font-size: 1em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background-image: none;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding: 14px;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  cursor: pointer;
+  color: gray;
+}
+select option {
+  margin: 0.5em;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+.select {
+  height: 3em;
+  line-height: 3;
+  overflow: hidden;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  min-width: 290px;
+  border: 1px solid rgba(2, 2, 2, 0.349);
+  border-radius: 2px;
+  font-size: 1em;
+  margin-bottom: 2em;
+  letter-spacing: 2px;
+}
+
+.select::after {
+  content: "▼";
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 1em;
+  cursor: pointer;
+  pointer-events: none;
+  -webkit-transition: 0.25s all ease;
+  transition: 0.25s all ease;
+}
+
+.select:hover::after {
+  color: grey;
+}
+
+.textareaBox {
+  position: relative;
+  width: 100%;
+  min-width: 290px;
+}
+
+.textareaBox textarea {
+  position: relative;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(2, 2, 2, 0.3);
+  border-radius: 2px;
+  outline: none;
+  font-size: 1em;
+  margin-bottom: 1em;
+  letter-spacing: 2px;
+  resize: vertical;
+  min-height: 300px;
+  font-family: sans-serif;
+}
+
+.textareaBox textarea::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.textareaBox textarea::-moz-placeholder {
+  color: transparent;
+}
+
+.textareaBox textarea:-ms-input-placeholder {
+  color: transparent;
+}
+
+.textareaBox textarea::-ms-input-placeholder {
+  color: transparent;
+}
+
+.textareaBox textarea::placeholder {
+  color: transparent;
+}
+
+.textareaBox label {
+  position: absolute;
+  left: 0;
+  padding: 14px;
+  pointer-events: none;
+  font-size: 1.2em;
+  color: gray;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.textarea:not(:-moz-placeholder-shown).textarea:not(:focus) ~ .label {
+  color: black;
+  transform: translate(15px) translateY(-10px);
+  font-size: 0.8em;
+  padding: 0 10px;
+  letter-spacing: 1px;
+  border: 1px solid var(--menu-color);
+  background-color: #fff;
+}
+
+.textarea:not(:-ms-input-placeholder).textarea:not(:focus) ~ .label {
+  color: black;
+  transform: translate(15px) translateY(-10px);
+  font-size: 0.8em;
+  padding: 0 10px;
+  letter-spacing: 1px;
+  border: 1px solid var(--menu-color);
+  background-color: #fff;
+}
+
+.textareaBox textarea:focus ~ .label,
+.textarea:not(:placeholder-shown).textarea:not(:focus) ~ .label {
+  color: black;
+  -webkit-transform: translate(15px) translateY(-10px);
+          transform: translate(15px) translateY(-10px);
+  font-size: 0.8em;
+  padding: 0 10px;
+  letter-spacing: 1px;
+  border: 1px solid var(--menu-color);
+  background-color: #fff;
+}
+
+.textareaBox textarea:focus {
+  border: 1px solid var(--menu-color);
+}
+
+@media only screen and (max-width: 1024px) {
+  .productForm__wrapper {
+    width: 100%;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    left: 50%;
+    -webkit-transform: translate(-50%);
+            transform: translate(-50%);
+    text-align: center;
+  }
+  .productForm__wrapper--form {
+    width: 90%;
+  }
+  .productForm__wrapper--form h2 {
+    padding: 10px 20px;
+    margin-bottom: 1em;
+  }
+  .productForm__wrapper--form button {
+    padding: 10px 20px;
+    font-family: "BenchNine", sans-serif;
+    font-size: 1.5em;
+    border: none;
+    background-color: var(--background-color);
+    margin-bottom: 1em;
+    cursor: pointer;
+    border-radius: 2px;
+    -webkit-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+  }
+  .productForm__wrapper--form button:hover {
+    background-color: var(--background-color-hover);
+  }
+}/*# sourceMappingURL=ProductForm.module.css.map */

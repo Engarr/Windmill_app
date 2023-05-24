@@ -190,7 +190,7 @@ const ProductForm = ({ detail, userIdNumber }: PropsType) => {
           </label>
         </div>
         <div>
-          <button type="button">{details ? 'Edytuj' : 'Zapisz'} produkt</button>
+          <button type="submit">{details ? 'Edytuj' : 'Zapisz'} produkt</button>
         </div>
       </form>
     </div>

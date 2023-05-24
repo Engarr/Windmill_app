@@ -1,0 +1,160 @@
+.container {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.container__imgBox {
+  width: 100%;
+  text-align: center;
+}
+.container__nameBox a {
+  font-size: 1.4em;
+  color: var(--background-color);
+  font-family: "BenchNine", sans-serif;
+}
+.container__priceBox, .container__sumBox, .container__qtyBox {
+  font-family: "Roboto Condensed", sans-serif;
+}
+.container__qtyBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.container__qtyBox button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0px 5px;
+  font-size: 1.1em;
+  background: none;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  height: 20px;
+  width: 20px;
+  color: var(--background-color);
+  cursor: pointer;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+}
+.container__qtyBox button:hover {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.container__qtyBox p {
+  margin: 0 10px;
+}
+.container__deleteBox {
+  font-size: 1.2em;
+  text-align: center;
+}
+.container__deleteBox--icon {
+  color: var(--background-color);
+  cursor: pointer;
+  -webkit-transition: color 0.3s, -webkit-transform 0.2s;
+  transition: color 0.3s, -webkit-transform 0.2s;
+  transition: color 0.3s, transform 0.2s;
+  transition: color 0.3s, transform 0.2s, -webkit-transform 0.2s;
+}
+.container__deleteBox--icon:hover {
+  color: var(--background-color-hover);
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+.container a {
+  color: black;
+  text-decoration: none;
+}
+.container table {
+  width: 90%;
+  border-collapse: collapse;
+  margin-bottom: 2em;
+}
+.container th,
+.container td {
+  text-align: left;
+  padding: 1rem;
+}
+.container th {
+  color: grey;
+  font-family: "BenchNine", sans-serif;
+  font-size: 1.2em;
+}
+.container tr:nth-of-type(2n) {
+  background-color: rgba(238, 232, 232, 0.2);
+}
+
+@media only screen and (max-width: 1024px) {
+  .container {
+    padding: 10px 20px;
+  }
+  .container table {
+    width: 100%;
+  }
+  .container__deleteBox {
+    font-size: 2em;
+  }
+  .container td:first-child {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding-top: 2rem;
+  }
+  .container td:last-child {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding-bottom: 2rem;
+  }
+  .container th {
+    display: none;
+  }
+  .container td {
+    display: grid;
+    grid-template-columns: 15ch auto;
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+  .container td img {
+    position: relative;
+    width: 250px;
+  }
+  .container td::before {
+    content: attr(data-cell);
+    font-weight: bold;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    color: grey;
+    font-family: "BenchNine", sans-serif;
+    font-size: 1.4em;
+  }
+}/*# sourceMappingURL=CartProduct.module.css.map */

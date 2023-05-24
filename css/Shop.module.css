@@ -1,0 +1,22 @@
+.product__wrappper {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0px 0px;
+  z-index: 10;
+}
+
+@media only screen and (max-width: 1024px) {
+  .product__wrappper {
+    padding: 100px 0px;
+  }
+}/*# sourceMappingURL=Shop.module.css.map */

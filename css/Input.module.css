@@ -1,0 +1,125 @@
+.inputBox {
+  margin-top: 1em;
+  position: relative;
+  min-width: 290px;
+  width: 100%;
+}
+
+.inputBox input {
+  position: relative;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(2, 2, 2, 0.3);
+  border-radius: 2px;
+  outline: none;
+  font-size: 1em;
+  margin-bottom: 1em;
+  letter-spacing: 2px;
+}
+
+.inputBox input[type=number]::-webkit-inner-spin-button {
+  display: none;
+}
+
+.inputBox input::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.inputBox input::-moz-placeholder {
+  color: transparent;
+}
+
+.inputBox input:-ms-input-placeholder {
+  color: transparent;
+}
+
+.inputBox input::-ms-input-placeholder {
+  color: transparent;
+}
+
+.inputBox input::placeholder {
+  color: transparent;
+}
+
+.inputBox label {
+  position: absolute;
+  left: 0;
+  padding: 14px;
+  pointer-events: none;
+  font-size: 1em;
+  color: gray;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.input:not(:-moz-placeholder-shown).input:not(:focus) ~ .label {
+  color: black;
+  transform: translate(15px) translateY(-10px);
+  font-size: 0.8em;
+  padding: 0 10px;
+  letter-spacing: 1px;
+  border: 1px solid var(--menu-color);
+  background-color: #fff;
+}
+
+.input:not(:-ms-input-placeholder).input:not(:focus) ~ .label {
+  color: black;
+  transform: translate(15px) translateY(-10px);
+  font-size: 0.8em;
+  padding: 0 10px;
+  letter-spacing: 1px;
+  border: 1px solid var(--menu-color);
+  background-color: #fff;
+}
+
+.inputBox input:focus ~ .label,
+.input:not(:placeholder-shown).input:not(:focus) ~ .label {
+  color: black;
+  -webkit-transform: translate(15px) translateY(-10px);
+          transform: translate(15px) translateY(-10px);
+  font-size: 0.8em;
+  padding: 0 10px;
+  letter-spacing: 1px;
+  border: 1px solid var(--menu-color);
+  background-color: #fff;
+}
+
+.inputBox input:focus {
+  border: 1px solid var(--menu-color);
+}
+
+.error input {
+  border: 1px solid red;
+}
+
+.error input ~ .label {
+  color: red;
+  -webkit-transform: translate(10px) translateY(-7px);
+          transform: translate(10px) translateY(-7px);
+  font-size: 0.95em;
+  padding: 0 5px;
+  letter-spacing: 1px;
+  border-left: 1px solid red;
+  border-right: 1px solid red;
+  background-color: #fff;
+}
+
+.error input::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.error input::-moz-placeholder {
+  color: transparent;
+}
+
+.error input:-ms-input-placeholder {
+  color: transparent;
+}
+
+.error input::-ms-input-placeholder {
+  color: transparent;
+}
+
+.error input::placeholder {
+  color: transparent;
+}/*# sourceMappingURL=Input.module.css.map */

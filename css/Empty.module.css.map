@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/components/Empty/Empty.module.scss","Empty.module.css"],"names":[],"mappings":"AAAA;EAEE,kBAAA;ACAF;ADEE;EACE,8BAAA;EACA,aAAA;EACA,cAAA;EACA,oCAAA;ACAJ;;ADGA;EAEI;IACE,eAAA;IACA,gBAAA;ECDJ;EDGE;IACE,YAAA;IACA,kBAAA;ECDJ;AACF","file":"Empty.module.css"}

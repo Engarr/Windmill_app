@@ -25,7 +25,7 @@ const ProductManage = () => {
             </Link>
           </div>
           <div>
-            <button type="button" onClick={startDeleteHandler}>
+            <button type="submit" onClick={startDeleteHandler}>
               Usuń produkt
             </button>
           </div>

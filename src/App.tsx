@@ -42,13 +42,12 @@ function App() {
         },
         {
           path: '/produkt/:productId',
-          loader: productsDetailLoader,
           id: 'product-detail',
           children: [
             {
               index: true,
               element: <ProductDetails />,
-              action: deleteProductAction,
+              // action: deleteProductAction,
             },
             { path: 'edit', element: <EditProduct /> },
           ],

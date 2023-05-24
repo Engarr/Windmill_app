@@ -16,13 +16,13 @@ import Empty from '../Empty/Empty';
 interface PropsType {
   detail: {
     productDetail: ProductType;
-    userId: string;
   };
+  idUser: string;
 }
 
-const ProductDetail = ({ detail }: PropsType) => {
+const ProductDetail = ({ detail, idUser }: PropsType) => {
   const details = detail.productDetail;
-  const { userId } = detail;
+  const userId = idUser;
   const [quantity, setQuantity] = useState<number>(1);
   const [products, setProducts] = useState<Products[]>([]);
   const { category } = details;

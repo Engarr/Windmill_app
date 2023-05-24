@@ -1,0 +1,20 @@
+.empty {
+  text-align: center;
+}
+.empty p {
+  color: var(--background-color);
+  margin: 1em 0;
+  font-size: 2em;
+  font-family: "BenchNine", sans-serif;
+}
+
+@media only screen and (max-width: 1024px) {
+  .empty p {
+    margin-top: 1em;
+    font-size: 1.6em;
+  }
+  .empty img {
+    width: 250px;
+    margin-bottom: 1em;
+  }
+}/*# sourceMappingURL=Empty.module.css.map */

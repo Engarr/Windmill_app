@@ -1,0 +1,109 @@
+.wrapper {
+  position: relative;
+  font-family: BenchNine;
+  background-color: rgba(243, 243, 243, 0.3960784314);
+}
+
+.contact__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px 40px;
+}
+.contact__textBox {
+  margin-right: 2em;
+  margin-top: 150px;
+  padding: 10px 20px;
+  font-size: 2.2em;
+  width: 50%;
+}
+.contact__textBox h2 {
+  color: var(--background-color);
+  margin-bottom: 0.5em;
+}
+.contact__textBox h4 {
+  margin-bottom: 1em;
+}
+.contact__adress {
+  text-align: center;
+  margin-top: 100px;
+}
+.contact__adress div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.contact__adress--icon {
+  color: var(--background-color);
+  margin-right: 0.5em;
+}
+.contact__formBox {
+  width: 50%;
+  margin-top: 200px;
+  margin-bottom: 50px;
+}
+.contact__formBox--h2Box {
+  background-color: var(--background-color);
+  color: white;
+  padding: 10px 20px;
+  width: 250px;
+  font-size: 1.2em;
+  border-radius: 2px;
+  margin-bottom: 2em;
+}
+.contact__formBox--inputsBox {
+  width: 70%;
+}
+.contact__formBox button {
+  padding: 10px 20px;
+  border: none;
+  background-color: var(--background-color);
+  border-radius: 2px;
+  color: white;
+  font-size: 1.2em;
+  width: 100px;
+  cursor: pointer;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+}
+.contact__formBox button:hover {
+  background-color: rgb(219, 143, 0);
+}
+
+@media only screen and (max-width: 1024px) {
+  .contact__container {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    padding: 10px 20px;
+  }
+  .contact__textBox {
+    margin-top: 50px;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 0.5em;
+    font-size: 1.8em;
+  }
+  .contact__formBox {
+    text-align: center;
+    padding: 0px 0px;
+    width: 100%;
+    margin-top: 100px;
+  }
+  .contact__formBox--h2Box {
+    width: 100%;
+  }
+  .contact__formBox--inputsBox {
+    width: 100%;
+  }
+  .contact__formBox button {
+    width: 100%;
+  }
+}/*# sourceMappingURL=Contact.module.css.map */

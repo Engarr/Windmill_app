@@ -1,0 +1,75 @@
+.wrapper {
+  position: relative;
+  background-color: rgba(250, 235, 215, 0.507);
+  width: 100%;
+}
+
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-family: BenchNine;
+  padding: 20px 40px;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+.container__yearBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.container__yearBox p {
+  margin-right: 0.5em;
+}
+.container__yearBox a {
+  color: black;
+  text-decoration: none;
+  margin-right: 0.5em;
+}
+.container__iconsBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.container__iconsBox--icon {
+  margin-right: 0.5em;
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+.container__iconsBox--icon:hover {
+  color: var(--background-color);
+}
+
+@media only screen and (max-width: 1024px) {
+  .container {
+    padding: 0px 10px;
+    width: 100%;
+    font-size: 1.1em;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .container__yearBox {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    width: 100%;
+    margin-bottom: 0.5em;
+  }
+  .container__iconsBox {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}/*# sourceMappingURL=Footer.module.css.map */

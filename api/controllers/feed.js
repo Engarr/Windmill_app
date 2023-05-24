@@ -78,6 +78,7 @@ export const editProduct = async (req, res, next) => {
   if (!error.isEmpty()) {
     return res.status(422).json({ errors: error.array() });
   }
+
   const productId = req.body.productId;
   const name = req.body.name;
   const price = req.body.price;
@@ -85,7 +86,7 @@ export const editProduct = async (req, res, next) => {
   const description = req.body.description;
   const creatorId = req.body.creatorId;
   const image = req.file;
-
+  console.log(name);
   let imageUrl = req.body.imageUrl;
   try {
     if (image) {

@@ -1,9 +1,12 @@
 import apiSlice from './apiSlice';
-import { Products } from '../../types/types';
+import { ProductType } from '../../types/types';
 
-interface ProductsResponse {
+export interface ProductsDetailResponse {
+  productDetail: ProductType;
+}
+export interface ProductsResponse {
   message: string;
-  products: Products[];
+  products: ProductType[];
 }
 const productsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -13,7 +16,13 @@ const productsApiSlice = apiSlice.injectEndpoints({
     getCategoryProduct: builder.query<ProductsResponse, string>({
       query: (category) => `feed/products/${category}`,
     }),
+    getProductDetail: builder.query<ProductsDetailResponse, string>({
+      query: (id) => `feed/product/${id}`,
+    }),
   }),
 });
-export const { useGetAllProductsQuery, useGetCategoryProductQuery } =
-  productsApiSlice;
+export const {
+  useGetAllProductsQuery,
+  useGetCategoryProductQuery,
+  useGetProductDetailQuery,
+} = productsApiSlice;
