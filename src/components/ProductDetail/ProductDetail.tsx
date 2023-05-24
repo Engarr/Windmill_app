@@ -8,6 +8,7 @@ import { ProductType, Products } from '../../types/types';
 import classes from './ProductDetail.module.scss';
 import Product from '../Product/Product';
 import Spinner from '../Spinner/Spinner/Spinner';
+import LineWaveLoader from '../Spinner/CircleWave/LineWaveLoader';
 import ProductManage from '../ProductManage/ProductManage';
 import { useSendDataToCartMutation } from '../../store/api/cartApiSlice';
 import { useGetCategoryProductQuery } from '../../store/api/productsApiSlice';
@@ -27,8 +28,8 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
   const [products, setProducts] = useState<Products[]>([]);
   const { category } = details;
   const isAuth = details.creator.toString() === userId;
-  const [addProdToCart] = useSendDataToCartMutation();
-
+  const [addProdToCart, { isError }] = useSendDataToCartMutation();
+  const [isLoading, setIsLoading] = useState(false);
   const IncreaseQuantityHandler = () => {
     setQuantity(quantity + 1);
 
@@ -71,17 +72,24 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryProductsArr]);
+
   // the function for adding product to cart and save it in to backend
   const addItemToCartHandler = async () => {
     try {
-      toast.success(
-        `Produkt:${details.name} sztuk: ${quantity} dodano do koszyka`
-      );
-      await addProdToCart({
+      setIsLoading(true);
+      addProdToCart({
         productId: details._id,
         quantity,
         userId,
       });
+      if (isError) {
+        toast.error('Ups... coś poszło nie tak');
+      } else {
+        toast.success(
+          `Produkt:${details.name} sztuk: ${quantity} dodano do koszyka`
+        );
+      }
+      setIsLoading(false);
     } catch (error) {
       toast.error('Wystąpił błąd podczas dodawania produktu do koszyka.');
     }
@@ -106,7 +114,7 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
 
   return (
     <>
-      {isAuth && <ProductManage />}
+      {isAuth && <ProductManage productId={details._id} />}
 
       <div className={classes.wrapper}>
         <div className={classes.product__imageWrapper}>
@@ -198,7 +206,7 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
                 </Link>
               ) : (
                 <button type="button" onClick={addItemToCartHandler}>
-                  Dodaj do koszyka
+                  {!isLoading ? <p> Dodaj do koszyka</p> : <LineWaveLoader />}
                 </button>
               )}
             </div>

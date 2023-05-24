@@ -9,7 +9,7 @@ import {
 import classes from './AuthForm.module.scss';
 import Input from '../UI/Input/Input';
 import { Data, ErrorsData } from '../../types/types';
-import LineWaveLoader from '../Spinner/CircleWave/CircleWave';
+import LineWaveLoader from '../Spinner/CircleWave/LineWaveLoader';
 
 const AuthForm = () => {
   const navigation = useNavigation();

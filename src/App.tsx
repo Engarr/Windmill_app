@@ -8,10 +8,7 @@ import { tokenLoader, idLoader } from './util/auth.js';
 import NewProduct from './pages/NewProduct/NewProduct';
 import ShopRootNavigation from './pages/SopRootLayout/ShopRootNavigation';
 import logout from './pages/Logout/Logout';
-import ProductDetails, {
-  loader as productsDetailLoader,
-  action as deleteProductAction,
-} from './pages/ProductDetails/ProductDetails';
+import ProductDetails from './pages/ProductDetails/ProductDetails';
 
 import EditProduct from './pages/EditProduct/EditProduct';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
@@ -47,7 +44,6 @@ function App() {
             {
               index: true,
               element: <ProductDetails />,
-              // action: deleteProductAction,
             },
             { path: 'edit', element: <EditProduct /> },
           ],

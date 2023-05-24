@@ -1,4 +1,4 @@
-import { redirect, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner/Spinner';
 import ProductDetail from '../../components/ProductDetail/ProductDetail';
 import { getAuthToken } from '../../util/auth';
@@ -9,24 +9,21 @@ interface UserIdType {
   userId?: string;
 }
 
-interface ParamsType {
-  productId: string;
-}
-
 const ProductDetails = () => {
   const token = getAuthToken();
   const param = useParams();
   const { productId } = param;
   let userId = null;
   let content;
-
+  // function for fetching userId information
   const { data: userData, isLoading: loadingUserId } = useGetUserIdQuery(
     token as string
   );
+  const userIdData: UserIdType = userData as UserIdType;
+
+  // function for fetching product details
   const { data: productDetails, isLoading: productDetailLoading } =
     useGetProductDetailQuery(productId as string);
-
-  const userIdData: UserIdType = userData as UserIdType;
 
   if (loadingUserId && productDetailLoading) {
     content = <Spinner message="Ładowanie..." />;
@@ -42,27 +39,3 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
-
-export async function action({
-  params,
-  request,
-}: {
-  request: Request;
-  params: ParamsType;
-}) {
-  const { productId } = params;
-  const token = getAuthToken();
-  const response = await fetch(
-    `${import.meta.env.VITE_REACT_APP_API_URL}feed/delete/${productId}`,
-    {
-      method: request.method,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-  if (!response.ok) {
-    throw new Error('Niestety nie mogliśmy usunąć produktu');
-  }
-  return redirect('/sklep');
-}

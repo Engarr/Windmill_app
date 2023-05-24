@@ -1,17 +1,42 @@
-import React from 'react';
-import { Link, useSubmit } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import classes from './ProductManage.module.scss';
+import { useDeleteProductMutation } from '../../store/api/productsApiSlice';
+import { getAuthToken } from '../../util/auth';
 
-const ProductManage = () => {
-  const submit = useSubmit();
+interface PropsType {
+  productId: string;
+}
 
-  function startDeleteHandler() {
+const ProductManage = ({ productId }: PropsType) => {
+  const [deleteProduct, { isError }] = useDeleteProductMutation();
+
+  const token = getAuthToken();
+  const id = productId;
+  const navigate = useNavigate();
+
+  const deleteProductHandler = async () => {
     // eslint-disable-next-line no-alert
-    const proceed = window.confirm('Czy na pewno chce uszunąć produkt?');
+    const proceed = window.confirm('Czy na pewno chcesz usunąć produkt?');
     if (proceed) {
-      submit(null, { method: 'DELETE' });
+      try {
+        await deleteProduct({
+          token: token as string,
+          productId: id,
+        });
+
+        if (isError) {
+          toast.error('Ups... coś poszło nie tak');
+        } else {
+          toast.success('Produkt został usunięty');
+          navigate('/sklep');
+        }
+      } catch (error) {
+        toast.error('Wystąpił błąd podczas usuwania produktu');
+      }
     }
-  }
+  };
+
   return (
     <div>
       <div className={classes.productManage}>
@@ -25,7 +50,7 @@ const ProductManage = () => {
             </Link>
           </div>
           <div>
-            <button type="submit" onClick={startDeleteHandler}>
+            <button type="submit" onClick={deleteProductHandler}>
               Usuń produkt
             </button>
           </div>

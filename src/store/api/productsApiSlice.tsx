@@ -19,10 +19,22 @@ const productsApiSlice = apiSlice.injectEndpoints({
     getProductDetail: builder.query<ProductsDetailResponse, string>({
       query: (id) => `feed/product/${id}`,
     }),
+    deleteProduct: builder.mutation<void, { productId: string; token: string }>(
+      {
+        query: ({ productId, token }) => ({
+          url: `feed/delete/${productId}`,
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }),
+      }
+    ),
   }),
 });
 export const {
   useGetAllProductsQuery,
   useGetCategoryProductQuery,
   useGetProductDetailQuery,
+  useDeleteProductMutation,
 } = productsApiSlice;
