@@ -17,7 +17,7 @@ import { imageValidator } from '../validation/validation.js';
 import multer, { memoryStorage } from 'multer';
 const upload = multer({ storage: memoryStorage() });
 
-router.get('/user', isAuth, getUser);
+router.get('/user', getUser);
 router.post(
   '/add-product',
   upload.single('image'),

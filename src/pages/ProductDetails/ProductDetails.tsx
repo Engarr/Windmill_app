@@ -13,8 +13,9 @@ const ProductDetails = () => {
   const token = getAuthToken();
   const param = useParams();
   const { productId } = param;
-  let userId = null;
+  let userId;
   let content;
+
   // function for fetching userId information
   const { data: userData, isLoading: loadingUserId } = useGetUserIdQuery(
     token as string

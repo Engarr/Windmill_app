@@ -28,23 +28,6 @@ export const getAuthToken = () => {
   }
   return token;
 };
-export const idLoader = async () => {
-  const token = getAuthToken();
-  if (!token) {
-    return null;
-  }
-
-  const url = import.meta.env.VITE_REACT_APP_API_URL;
-  const resposne = await fetch(`${url}feed/user`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const user = await resposne.json();
-  const { userId } = user;
-
-  return userId;
-};
 
 export function checkOutLoader() {
   const token = getAuthToken();

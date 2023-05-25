@@ -4,6 +4,7 @@ import UserProfil from '../../components/UserProfil/UserProfil';
 
 const MyAccount = () => {
   const token = useRouteLoaderData('root');
+
   let content;
   if (token) {
     content = <UserProfil />;

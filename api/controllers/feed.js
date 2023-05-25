@@ -10,11 +10,29 @@ import {
   deleteObject,
 } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
+import jwt from 'jsonwebtoken';
 
 export const getUser = async (req, res, next) => {
-  const userId = req.userId;
-
-  res.status(200).json({ userId: userId });
+  const authHeader = req.get('Authorization');
+  const token = authHeader.split(' ')[1];
+  if (token === 'null') {
+    res.status(200).json({ userId: 'notregistered' });
+  } else {
+    let decodedToken;
+    try {
+      decodedToken = jwt.decode(token, process.env.VITE_SECRET_TOKEN);
+    } catch (err) {
+      err.statusCode = 500;
+      throw err;
+    }
+    if (!decodedToken) {
+      const error = new Error('Not authenticated.');
+      error.statusCode = 401;
+      throw error;
+    }
+    const userId = decodedToken.userId;
+    res.status(200).json({ userId: userId });
+  }
 };
 
 export const postAddProduct = async (req, res, next) => {

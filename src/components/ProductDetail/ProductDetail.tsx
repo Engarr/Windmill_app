@@ -24,6 +24,7 @@ interface PropsType {
 const ProductDetail = ({ detail, idUser }: PropsType) => {
   const details = detail.productDetail;
   const userId = idUser;
+
   const [quantity, setQuantity] = useState<number>(1);
   const [products, setProducts] = useState<Products[]>([]);
   const { category } = details;
@@ -75,23 +76,27 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
 
   // the function for adding product to cart and save it in to backend
   const addItemToCartHandler = async () => {
-    try {
-      setIsLoading(true);
-      addProdToCart({
-        productId: details._id,
-        quantity,
-        userId,
-      });
-      if (isError) {
-        toast.error('Ups... coś poszło nie tak');
-      } else {
-        toast.success(
-          `Produkt:${details.name} sztuk: ${quantity} dodano do koszyka`
-        );
+    if (userId !== 'notregistered') {
+      try {
+        setIsLoading(true);
+        addProdToCart({
+          productId: details._id,
+          quantity,
+          userId,
+        });
+        if (isError) {
+          toast.error('Ups... coś poszło nie tak');
+        } else {
+          toast.success(
+            `Produkt:${details.name} sztuk: ${quantity} dodano do koszyka`
+          );
+        }
+        setIsLoading(false);
+      } catch (error) {
+        toast.error('Wystąpił błąd podczas dodawania produktu do koszyka.');
       }
-      setIsLoading(false);
-    } catch (error) {
-      toast.error('Wystąpił błąd podczas dodawania produktu do koszyka.');
+    } else {
+      toast.error('By dokonać zakupu załóż bezpłatne konto');
     }
   };
 

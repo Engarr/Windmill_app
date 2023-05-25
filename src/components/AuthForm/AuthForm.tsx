@@ -52,13 +52,13 @@ const AuthForm = () => {
       }
 
       if (resData.data) {
-        const { token } = resData.data;
-        localStorage.setItem('token', token);
-        const expiration = new Date();
-        expiration.setHours(expiration.getHours() + 24);
-        localStorage.setItem('expiration', expiration.toISOString());
         if (isLogin) {
-          toast.success('Zostałeś pomyślnie zalogowany. Witaj ponownie!');
+          const { token } = resData.data;
+          localStorage.setItem('token', token);
+          const expiration = new Date();
+          expiration.setHours(expiration.getHours() + 24);
+          localStorage.setItem('expiration', expiration.toISOString());
+          toast.success('Zostałeś pomyślnie zalogowany. Witaj!');
           navigate('/');
         } else {
           toast.success('Konto zostało utworzone. Możesz się teraz zalogować');

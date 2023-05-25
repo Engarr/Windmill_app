@@ -4,7 +4,7 @@ import HomePage from './pages/Home/HomePage';
 import Shop from './pages/ShopPage/Shop';
 import MyAccount from './pages/MyAccount/MyAccount';
 import Cart from './pages/Cart/Cart';
-import { tokenLoader, idLoader } from './util/auth.js';
+import { tokenLoader } from './util/auth.js';
 import NewProduct from './pages/NewProduct/NewProduct';
 import ShopRootNavigation from './pages/SopRootLayout/ShopRootNavigation';
 import logout from './pages/Logout/Logout';
@@ -51,7 +51,7 @@ function App() {
         {
           path: '/konto',
           id: 'account',
-          loader: idLoader,
+
           children: [
             { index: true, element: <MyAccount /> },
             { path: 'nowy-produkt', element: <NewProduct /> },

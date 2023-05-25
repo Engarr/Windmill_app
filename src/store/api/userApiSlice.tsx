@@ -3,7 +3,7 @@ import { ResponseType } from '../../types/types';
 
 const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getUserId: builder.query<string, string | null>({
+    getUserId: builder.query<string, string | undefined>({
       query: (token) => ({
         url: 'feed/user',
         headers: {
