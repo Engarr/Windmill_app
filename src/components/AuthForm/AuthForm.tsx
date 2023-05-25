@@ -1,36 +1,81 @@
 import { useEffect, useState } from 'react';
-import {
-  useSearchParams,
-  Link,
-  Form,
-  useActionData,
-  useNavigation,
-} from 'react-router-dom';
+import { useSearchParams, Link, Form, useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import classes from './AuthForm.module.scss';
 import Input from '../UI/Input/Input';
-import { Data, ErrorsData } from '../../types/types';
+import { ErrorsData, ResponseType } from '../../types/types';
 import LineWaveLoader from '../Spinner/CircleWave/LineWaveLoader';
+import {
+  usePostLoginUserMutation,
+  usePutRegisterUserMutation,
+} from '../../store/api/userApiSlice';
 
 const AuthForm = () => {
-  const navigation = useNavigation();
-  const data = useActionData() as Data[];
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const isLogin = searchParams.get('mode') === 'login';
-  const isSubmitting = navigation.state === 'submitting';
-  const [backendErrors, setbackendErrors] = useState<ErrorsData>({});
+  const mode = searchParams.get('mode') || 'login';
+  const [backendErrors, setBackendErrors] = useState<ErrorsData>({});
+  const [userData, setUserData] = useState({
+    email: '',
+    password: '',
+    repeatPassword: '',
+  });
+  const [postLoginUser, { status: loginStatus }] = usePostLoginUserMutation();
+  const [putRegisterUser, { status: registeStatus }] =
+    usePutRegisterUserMutation();
+  const isSubmitting = loginStatus === 'pending' || registeStatus === 'pending';
 
-  useEffect(() => {
-    if (data) {
-      const errorsObj: { [key: string]: string } = {};
-      data.forEach((error) => {
-        errorsObj[error.path] = error.msg;
-      });
+  const handleUserDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserData((prevData) => ({
+      ...prevData,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
-      setbackendErrors(errorsObj);
+  const handleUserButton = async () => {
+    try {
+      const { email, password, repeatPassword } = userData;
+      const response = isLogin
+        ? await postLoginUser({ mode, email, password })
+        : await putRegisterUser({ mode, email, password, repeatPassword });
+
+      const resData = response as ResponseType;
+      if (resData.error) {
+        const errorsObj: { [key: string]: string } = {};
+        if (resData.error.status === 422 || resData.error.status === 401) {
+          resData.error.data.errors.forEach((error) => {
+            errorsObj[error.path] = error.msg;
+          });
+        }
+        setBackendErrors(errorsObj);
+      }
+
+      if (resData.data) {
+        const { token } = resData.data;
+        localStorage.setItem('token', token);
+        const expiration = new Date();
+        expiration.setHours(expiration.getHours() + 24);
+        localStorage.setItem('expiration', expiration.toISOString());
+        if (isLogin) {
+          toast.success('Zostałeś pomyślnie zalogowany. Witaj ponownie!');
+          navigate('/');
+        } else {
+          toast.success('Konto zostało utworzone. Możesz się teraz zalogować');
+          navigate('/');
+        }
+      }
+    } catch (err) {
+      throw new Error(
+        isLogin
+          ? 'Nie można uwierzytelnić użytkownika'
+          : 'Coś poszło nie tak, nie można utworzyć nowego konta'
+      );
     }
-  }, [data]);
+  };
+
   useEffect(() => {
-    setbackendErrors({
+    setBackendErrors({
       email: '',
       password: '',
       repeatPassword: '',
@@ -58,24 +103,41 @@ const AuthForm = () => {
         <div className={classes.errorsContainer}>
           <h3>Błąd autoryzacji:</h3>
           <ul>
-            {Object.entries(backendErrors).map(
-              ([key, value]: [string, string]) => {
-                return value && <li key={key}>{`${value}`}</li>;
-              }
-            )}
+            {Object.entries(backendErrors).map(([key, value]) => {
+              return value && <li key={key}>{value}</li>;
+            })}
           </ul>
         </div>
       )}
       <Form method="post" className={classes.form__container}>
         <h2>{isLogin ? 'Zaloguj się' : 'Zarejestruj się'}</h2>
 
-        <Input type="text" data="email" text="E-mail:" />
-        <Input type="password" data="password" text="Hasło:" />
+        <Input
+          type="text"
+          data="email"
+          text="E-mail:"
+          onChange={handleUserDataChange}
+        />
+        <Input
+          type="password"
+          data="password"
+          text="Hasło:"
+          onChange={handleUserDataChange}
+        />
         {!isLogin && (
-          <Input type="password" data="repeatPassword" text="Powtórz hasło:" />
+          <Input
+            type="password"
+            data="repeatPassword"
+            text="Powtórz hasło:"
+            onChange={handleUserDataChange}
+          />
         )}
         <div className={classes.form__actions}>
-          <button type="submit" disabled={isSubmitting}>
+          <button
+            type="button"
+            disabled={isSubmitting}
+            onClick={handleUserButton}
+          >
             {buttonContent}
           </button>
           <Link to={`?mode=${isLogin ? 'signup' : 'login'}`}>

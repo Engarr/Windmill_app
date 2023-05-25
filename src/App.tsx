@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import RootLayout from './pages/Root/Root';
 import HomePage from './pages/Home/HomePage';
 import Shop from './pages/ShopPage/Shop';
-import MyAccount, { action as authAction } from './pages/MyAccount/MyAccount';
+import MyAccount from './pages/MyAccount/MyAccount';
 import Cart from './pages/Cart/Cart';
 import { tokenLoader, idLoader } from './util/auth.js';
 import NewProduct from './pages/NewProduct/NewProduct';
@@ -53,7 +53,7 @@ function App() {
           id: 'account',
           loader: idLoader,
           children: [
-            { index: true, element: <MyAccount />, action: authAction },
+            { index: true, element: <MyAccount /> },
             { path: 'nowy-produkt', element: <NewProduct /> },
           ],
         },

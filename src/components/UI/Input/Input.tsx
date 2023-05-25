@@ -7,7 +7,7 @@ interface Propstype {
   error?: string;
   step?: number;
   defaultValue?: number | string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input = ({

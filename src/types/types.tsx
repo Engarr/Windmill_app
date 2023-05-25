@@ -47,3 +47,17 @@ export type CartItemsResponse = {
     quantity: number;
   }[];
 };
+
+export type ResponseType = {
+  error: {
+    status: number;
+    data: {
+      errors: Data[];
+    };
+  };
+  data: {
+    email: string;
+    token: string;
+    userId: string;
+  };
+};
