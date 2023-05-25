@@ -1,14 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { CartProductType } from '../types/types';
 
 interface CartState {
-  items: CartProductType[];
+  items: {
+    productId: string;
+    quantity: number;
+  }[];
   totalQuantity: number;
 }
-
+const localStorageItems: CartState = localStorage.getItem('cartItems')
+  ? JSON.parse(localStorage.getItem('cartItems') as string)
+  : {
+      items: [],
+      totalQuantity: 0,
+    };
 const initialState: CartState = {
-  items: [],
-  totalQuantity: 0,
+  items: localStorageItems.items,
+  totalQuantity: localStorageItems.totalQuantity,
 };
 
 const cartItemsSlice = createSlice({
@@ -17,12 +24,13 @@ const cartItemsSlice = createSlice({
   reducers: {
     onAddItem: (state, action) => {
       const newItem = action.payload;
-      const existingItem = state.items.find((item) => item._id === newItem._id);
+      const existingItem = state.items.find(
+        (item) => item.productId === newItem.productId
+      );
       if (!existingItem) {
         state.items.push(newItem);
       } else {
         existingItem.quantity += newItem.quantity;
-        existingItem.price += newItem.price * newItem.quantity;
       }
       // eslint-disable-next-line no-param-reassign
       state.totalQuantity += newItem.quantity;

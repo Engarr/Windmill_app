@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import { GiTwoCoins } from 'react-icons/gi';
-import { Link } from 'react-router-dom';
 import { TbTruckDelivery } from 'react-icons/tb';
 import { VscCalendar } from 'react-icons/vsc';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import store from '../../store/store';
+import { cartItemAction } from '../../store/cartSlice';
 import { ProductType, Products } from '../../types/types';
 import classes from './ProductDetail.module.scss';
 import Product from '../Product/Product';
@@ -24,13 +27,13 @@ interface PropsType {
 const ProductDetail = ({ detail, idUser }: PropsType) => {
   const details = detail.productDetail;
   const userId = idUser;
-
   const [quantity, setQuantity] = useState<number>(1);
   const [products, setProducts] = useState<Products[]>([]);
   const { category } = details;
   const isAuth = details.creator.toString() === userId;
   const [addProdToCart, { isError }] = useSendDataToCartMutation();
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
   const IncreaseQuantityHandler = () => {
     setQuantity(quantity + 1);
 
@@ -64,39 +67,48 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
 
   useEffect(() => {
     fetchProducts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, details]);
-
-  useEffect(() => {
     if (categoryProductsArr) {
       fetchProducts();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryProductsArr]);
+  }, [categoryProductsArr, category, details]);
 
   // the function for adding product to cart and save it in to backend
+
   const addItemToCartHandler = async () => {
-    if (userId !== 'notregistered') {
-      try {
-        setIsLoading(true);
+    try {
+      setIsLoading(true);
+
+      if (userId !== 'notregistered') {
         addProdToCart({
           productId: details._id,
           quantity,
           userId,
         });
-        if (isError) {
-          toast.error('Ups... coś poszło nie tak');
-        } else {
-          toast.success(
-            `Produkt:${details.name} sztuk: ${quantity} dodano do koszyka`
-          );
-        }
-        setIsLoading(false);
-      } catch (error) {
-        toast.error('Wystąpił błąd podczas dodawania produktu do koszyka.');
+      } else {
+        dispatch(
+          cartItemAction.onAddItem({
+            productId: details._id,
+            quantity,
+          })
+        );
+        localStorage.setItem(
+          'cartItems',
+          JSON.stringify(store.getState().cartItems)
+        );
       }
-    } else {
-      toast.error('By dokonać zakupu załóż bezpłatne konto');
+
+      if (isError) {
+        toast.error('Ups... coś poszło nie tak');
+      } else {
+        toast.success(
+          `Produkt:${details.name} sztuk: ${quantity} dodano do koszyka`
+        );
+      }
+
+      setIsLoading(false);
+    } catch (error) {
+      toast.error('Wystąpił błąd podczas dodawania produktu do koszyka.');
     }
   };
 

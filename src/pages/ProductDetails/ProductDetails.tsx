@@ -30,7 +30,6 @@ const ProductDetails = () => {
     content = <Spinner message="Ładowanie..." />;
   } else if (!loadingUserId && !productDetailLoading) {
     userId = userIdData.userId;
-
     if (productDetails && userId) {
       content = <ProductDetail detail={productDetails} idUser={userId} />;
     }
