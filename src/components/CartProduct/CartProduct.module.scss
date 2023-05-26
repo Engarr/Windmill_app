@@ -21,7 +21,9 @@
   &__qtyBox {
     font-family: 'Roboto Condensed', sans-serif;
   }
-
+  &__sumBox {
+    width: 100px;
+  }
   &__qtyBox {
     display: flex;
     justify-content: flex-start;
@@ -50,6 +52,8 @@
 
     p {
       margin: 0 10px;
+      width: 20px;
+      text-align: center;
     }
   }
 
@@ -96,8 +100,6 @@
     background-color: rgb(238, 232, 232, 0.2);
   }
 }
-
-
 
 @media only screen and (max-width: 1024px) {
   .container {

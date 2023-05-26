@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { stat } from 'fs';
 
 interface CartState {
   items: {
@@ -32,8 +33,31 @@ const cartItemsSlice = createSlice({
       } else {
         existingItem.quantity += newItem.quantity;
       }
+
       // eslint-disable-next-line no-param-reassign
       state.totalQuantity += newItem.quantity;
+    },
+    onIncreaseQty: (state, action) => {
+      const itemId = action.payload;
+      const existingItem = state.items.find(
+        (item) => item.productId === itemId
+      );
+      if (existingItem) {
+        existingItem.quantity += 1;
+        // eslint-disable-next-line no-param-reassign
+        state.totalQuantity += 1;
+      }
+    },
+    onDecreaseQty: (state, action) => {
+      const itemId = action.payload;
+      const existingItem = state.items.find(
+        (item) => item.productId === itemId
+      );
+      if (existingItem && existingItem.quantity > 1) {
+        existingItem.quantity -= 1;
+        // eslint-disable-next-line no-param-reassign
+        state.totalQuantity -= 1;
+      }
     },
   },
 });

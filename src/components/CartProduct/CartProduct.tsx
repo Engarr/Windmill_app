@@ -11,9 +11,16 @@ interface PropsType {
     quantity: number;
   }[];
   token?: string;
+  increaseHandler: (id: string) => void;
+  decreaseHandler: (id: string) => void;
 }
 
-const CartProduct = ({ products, token }: PropsType) => {
+const CartProduct = ({
+  products,
+  token,
+  increaseHandler,
+  decreaseHandler,
+}: PropsType) => {
   const [deleteProductFromCart] = useDeleteCartProductMutation();
   const removeProduct = async (prodId: string, name: string) => {
     if (token !== 'null') {
@@ -31,13 +38,17 @@ const CartProduct = ({ products, token }: PropsType) => {
   return (
     <div className={classes.container}>
       <table>
+        <thead>
+          <tr>
+            <th>{}</th>
+            <th>Nazwa</th>
+            <th>Cena</th>
+            <th>Ilość</th>
+            <th>Suma</th>
+            <th>{}</th>
+          </tr>
+        </thead>
         <tbody>
-          <th>{}</th>
-          <th>Nazwa</th>
-          <th>Cena</th>
-          <th>Ilość</th>
-          <th>Suma</th>
-          <th>{}</th>
           {products.map((product) => (
             <tr key={product.product._id}>
               <td>
@@ -63,9 +74,23 @@ const CartProduct = ({ products, token }: PropsType) => {
               </td>
               <td data-cell="Ilość:">
                 <div className={classes.container__qtyBox}>
-                  <button type="button">+</button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      decreaseHandler(product.product._id);
+                    }}
+                  >
+                    -
+                  </button>
                   <p> {product.quantity}</p>
-                  <button type="button">-</button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      increaseHandler(product.product._id);
+                    }}
+                  >
+                    +
+                  </button>
                 </div>
               </td>
               <td data-cell="Suma:">

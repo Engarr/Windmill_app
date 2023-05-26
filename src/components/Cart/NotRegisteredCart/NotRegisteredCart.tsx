@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { cartItemAction } from '../../../store/cartSlice';
 import { useGetProductsByIdQuery } from '../../../store/api/productsApiSlice';
 import Spinner from '../../Spinner/Spinner/Spinner';
 import CartProduct from '../../CartProduct/CartProduct';
@@ -16,6 +17,7 @@ interface StorageItemsArrType {
 }
 
 const NotRegisteredCart = () => {
+  const dispatch = useDispatch();
   const storageItems = useSelector((state: RootState) => state.cartItems.items);
   const idArr = storageItems.map(({ productId }) => productId);
 
@@ -39,6 +41,13 @@ const NotRegisteredCart = () => {
     return [];
   }, [storageItems, storageItemsArr]);
 
+  const increaseHandler = (id: string) => {
+    dispatch(cartItemAction.onIncreaseQty(id));
+  };
+  const decreaseHandler = (id: string) => {
+    dispatch(cartItemAction.onDecreaseQty(id));
+  };
+
   let content;
   if (isLoading) {
     content = <Spinner message="Ladowanie.." />;
@@ -52,7 +61,13 @@ const NotRegisteredCart = () => {
       </div>
     );
   } else if (newArr) {
-    content = <CartProduct products={newArr as []} />;
+    content = (
+      <CartProduct
+        products={newArr as []}
+        increaseHandler={increaseHandler}
+        decreaseHandler={decreaseHandler}
+      />
+    );
   }
 
   return <div>{content}</div>;
