@@ -10,21 +10,22 @@ interface PropsType {
     product: ProductType;
     quantity: number;
   }[];
-  token: string;
+  token?: string;
 }
 
 const CartProduct = ({ products, token }: PropsType) => {
   const [deleteProductFromCart] = useDeleteCartProductMutation();
-
   const removeProduct = async (prodId: string, name: string) => {
-    try {
-      toast.success(`Produkt: ${name} został usunięty z koszyka`);
-      await deleteProductFromCart({
-        productId: prodId,
-        token,
-      });
-    } catch (error) {
-      toast.error('Wystąpił błąd podczas dodawania produktu do koszyka.');
+    if (token !== 'null') {
+      try {
+        toast.success(`Produkt: ${name} został usunięty z koszyka`);
+        await deleteProductFromCart({
+          productId: prodId,
+          token,
+        });
+      } catch (error) {
+        toast.error('Wystąpił błąd podczas dodawania produktu do koszyka.');
+      }
     }
   };
   return (

@@ -23,7 +23,7 @@ const cartApiSlice = apiSlice.injectEndpoints({
     }),
     deleteCartProduct: builder.mutation<
       void,
-      { productId: string; token: string }
+      { productId: string; token?: string }
     >({
       query: ({ token, productId }) => ({
         url: 'cartFeed/deleteProduct',

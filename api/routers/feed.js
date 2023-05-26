@@ -10,14 +10,16 @@ import {
   getProductDetails,
   editProduct,
   deleteProduct,
+  getLocalStorageProducts,
 } from '../controllers/feed.js';
 import { body } from 'express-validator';
 import { imageValidator } from '../validation/validation.js';
+import getUserId from '../middleware/get-userId.js';
 
 import multer, { memoryStorage } from 'multer';
 const upload = multer({ storage: memoryStorage() });
 
-router.get('/user', getUser);
+router.get('/user', getUserId, getUser);
 router.post(
   '/add-product',
   upload.single('image'),
@@ -43,6 +45,7 @@ router.post(
 router.get('/products', getProducts);
 router.get('/products/:category', getCategoryProducts);
 router.get('/product/:productId', getProductDetails);
+router.get('/storage', getLocalStorageProducts);
 router.put(
   '/editProduct/:productId',
   upload.single('image'),

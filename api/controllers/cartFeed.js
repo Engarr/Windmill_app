@@ -30,27 +30,30 @@ export const addToCart = async (req, res, next) => {
 };
 export const getCartProducts = async (req, res, next) => {
   const userId = req.userId;
+  if (userId !== 'notregistered') {
+    try {
+      const user = await User.findById(userId);
+      if (!user) {
+        const error = new Error('Could not find user.');
+        error.statusCode = 404;
+        throw error;
+      }
+      const userCart = user.cart;
 
-  try {
-    const user = await User.findById(userId);
-    if (!user) {
-      const error = new Error('Could not find user.');
-      error.statusCode = 404;
-      throw error;
+      const promises = userCart.map(async (item) => {
+        const product = await Product.findById(item.productId);
+        return { product: product, quantity: item.quantity };
+      });
+      const prodArr = await Promise.all(promises);
+      res.status(200).json({ prodArr: prodArr });
+    } catch (err) {
+      if (!err) {
+        err.statusCode = 500;
+      }
+      next(err);
     }
-    const userCart = user.cart;
-
-    const promises = userCart.map(async (item) => {
-      const product = await Product.findById(item.productId);
-      return { product: product, quantity: item.quantity };
-    });
-    const prodArr = await Promise.all(promises);
-    res.status(200).json({ prodArr: prodArr });
-  } catch (err) {
-    if (!err) {
-      err.statusCode = 500;
-    }
-    next(err);
+  } else {
+    res.status(200).json({ prodArr: [] });
   }
 };
 export const removeProduct = async (req, res, next) => {

@@ -19,6 +19,14 @@ const productsApiSlice = apiSlice.injectEndpoints({
     getProductDetail: builder.query<ProductsDetailResponse, string>({
       query: (id) => `feed/product/${id}`,
     }),
+    getProductsById: builder.query<ProductType[], string[] | undefined>({
+      query: (productIds) => ({
+        url: 'feed/storage',
+        params: {
+          ids: productIds?.join(','),
+        },
+      }),
+    }),
     deleteProduct: builder.mutation<void, { productId: string; token: string }>(
       {
         query: ({ productId, token }) => ({
@@ -36,5 +44,6 @@ export const {
   useGetAllProductsQuery,
   useGetCategoryProductQuery,
   useGetProductDetailQuery,
+  useGetProductsByIdQuery,
   useDeleteProductMutation,
 } = productsApiSlice;
