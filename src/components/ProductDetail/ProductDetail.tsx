@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import store from '../../store/store';
-// import { cartItemAction } from '../../store/cartSlice';
+import { cartItemAction } from '../../store/cartSlice';
 import { ProductType, Products } from '../../types/types';
 import classes from './ProductDetail.module.scss';
 import Product from '../Product/Product';
@@ -86,16 +86,16 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
           userId,
         });
       } else {
-        // dispatch(
-        //   cartItemAction.onAddItem({
-        //     productId: details._id,
-        //     quantity,
-        //   })
-        // );
-        // localStorage.setItem(
-        //   'cartItems',
-        //   JSON.stringify(store.getState().cartItems)
-        // );
+        dispatch(
+          cartItemAction.onAddItem({
+            productId: details._id,
+            quantity,
+          })
+        );
+        localStorage.setItem(
+          'cartItems',
+          JSON.stringify(store.getState().cartItems)
+        );
       }
 
       if (isError) {
