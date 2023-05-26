@@ -4,11 +4,5 @@
       "source": "/(.*)",
       "destination": "/"
     }
-  ],
-  "crons": [
-    {
-      "path": "*",
-      "schedule": "0 10 * * *"
-    }
   ]
 }
