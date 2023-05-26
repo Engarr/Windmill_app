@@ -11,6 +11,8 @@ const RegisteredCart = () => {
     refetchOnMountOrArgChange: true,
   });
   const productsArr = cartItems?.prodArr;
+  const increaseHandler = (id: string) => {};
+  const decreaseHandler = (id: string) => {};
 
   let content;
   if (isLoading) {
@@ -25,7 +27,14 @@ const RegisteredCart = () => {
       </div>
     );
   } else if (productsArr) {
-    content = <CartProduct products={productsArr} token={token} />;
+    content = (
+      <CartProduct
+        products={productsArr}
+        token={token}
+        increaseHandler={increaseHandler}
+        decreaseHandler={decreaseHandler}
+      />
+    );
   }
 
   return <div>{content}</div>;
