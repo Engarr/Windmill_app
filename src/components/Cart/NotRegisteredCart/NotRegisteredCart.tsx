@@ -1,3 +1,11 @@
+import React from 'react';
+
+const NotRegisteredCart = () => {
+  return <div>NotRegisteredCart</div>;
+};
+
+export default NotRegisteredCart;
+
 // import { useMemo } from 'react';
 // import { Link } from 'react-router-dom';
 // import { useSelector, useDispatch } from 'react-redux';
