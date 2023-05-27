@@ -18,6 +18,7 @@ const ProductForm = ({ detail, userIdNumber }: PropsType) => {
   const details = detail?.productDetail;
   const IdUser = detail?.userId || userIdNumber;
   const creatorId = details?.creator.toString();
+
   const navigate = useNavigate();
   let isAuth = true;
   if (creatorId) {
@@ -69,10 +70,10 @@ const ProductForm = ({ detail, userIdNumber }: PropsType) => {
   };
   // A function for sending data to backend for add new product or editing existing product
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    let url = 'feed/add-product';
+    let url = '/feed/add-product';
     let typeOfMethod = 'POST';
     if (details) {
-      url = `feed/editProduct/${details._id}`;
+      url = `/feed/editProduct/${details._id}`;
       typeOfMethod = 'PUT';
     }
     e.preventDefault();
@@ -88,7 +89,7 @@ const ProductForm = ({ detail, userIdNumber }: PropsType) => {
       formData.append('productId', details?._id);
       formData.append('creatorId', details.creator.toString());
     }
-
+    console.log(formData.get('price'));
     const response = await fetch(import.meta.env.VITE_REACT_APP_API_URL + url, {
       method: typeOfMethod,
       headers: {
