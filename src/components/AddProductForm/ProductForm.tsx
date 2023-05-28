@@ -89,7 +89,7 @@ const ProductForm = ({ detail, userIdNumber }: PropsType) => {
       formData.append('productId', details?._id);
       formData.append('creatorId', details.creator.toString());
     }
-    console.log(formData.get('price'));
+   
     const response = await fetch(import.meta.env.VITE_REACT_APP_API_URL + url, {
       method: typeOfMethod,
       headers: {

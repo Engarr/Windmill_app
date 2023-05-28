@@ -17,7 +17,9 @@ const Shop = () => {
 
   // function for fetching all or category products
   const { data: allProductsArr, isLoading: isAllProductsLoading } =
-    useGetAllProductsQuery();
+    useGetAllProductsQuery(undefined, {
+      refetchOnMountOrArgChange: true,
+    });
   const { data: categoryProductsArr, isLoading: isCategoryProductsLoading } =
     useGetCategoryProductQuery(category);
 

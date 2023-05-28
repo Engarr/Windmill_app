@@ -5,7 +5,7 @@ const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_REACT_APP_API_URL,
   }),
-  tagTypes: ['CartFeed'],
+  tagTypes: ['CartFeed', 'ProductDelete'],
   endpoints: () => ({}),
 });
 export default apiSlice;
