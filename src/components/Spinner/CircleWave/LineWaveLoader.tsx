@@ -1,4 +1,4 @@
-import classes from './CircleWave.module.scss';
+import classes from './LineWaveLoader.module.scss';
 
 const LineWaveLoader = () => {
   return (

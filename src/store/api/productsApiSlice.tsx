@@ -1,5 +1,5 @@
 import apiSlice from './apiSlice';
-import { ProductType } from '../../types/types';
+import { ProductFormResponseType, ProductType } from '../../types/types';
 
 export interface ProductsDetailResponse {
   productDetail: ProductType;
@@ -9,12 +9,12 @@ export interface ProductsResponse {
   products: ProductType[];
 }
 export interface FormDataType {
-  image: File;
-  name: string;
-  price: string;
-  description: string;
-  category: string;
-  userId: string;
+  image?: File;
+  name?: string;
+  price?: string;
+  description?: string;
+  category?: string;
+  userId?: string;
   imageUrl?: string;
   productId?: string;
   creatorId?: string;
@@ -23,13 +23,15 @@ const productsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllProducts: builder.query<ProductsResponse, void>({
       query: () => 'feed/products',
-      providesTags: [{ type: 'ProductDelete' }],
+      providesTags: [{ type: 'ProductManipulate' }],
     }),
     getCategoryProduct: builder.query<ProductsResponse, string>({
       query: (category) => `feed/products/${category}`,
+      providesTags: [{ type: 'ProductManipulate' }],
     }),
     getProductDetail: builder.query<ProductsDetailResponse, string>({
       query: (id) => `feed/product/${id}`,
+      providesTags: [{ type: 'ProductManipulate' }],
     }),
     getProductsById: builder.query<ProductType[], string[] | undefined>({
       query: (productIds) => ({
@@ -39,15 +41,16 @@ const productsApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
-    addProduct: builder.mutation<void, FormDataType>({
+    addProduct: builder.mutation<ProductFormResponseType, FormDataType>({
       query: (FormData) => ({
         url: `feed/add-product`,
         method: 'POST',
         body: FormData,
       }),
+      invalidatesTags: [{ type: 'ProductManipulate' }],
     }),
     edditProduct: builder.mutation<
-      void,
+      ProductFormResponseType,
       { formData: FormDataType; id: string; token: string }
     >({
       query: ({ formData, id, token }) => ({
@@ -58,6 +61,7 @@ const productsApiSlice = apiSlice.injectEndpoints({
         },
         body: formData,
       }),
+      invalidatesTags: [{ type: 'ProductManipulate' }],
     }),
     deleteProduct: builder.mutation<void, { productId: string; token: string }>(
       {
@@ -68,7 +72,7 @@ const productsApiSlice = apiSlice.injectEndpoints({
             Authorization: `Bearer ${token}`,
           },
         }),
-        invalidatesTags: [{ type: 'ProductDelete' }],
+        invalidatesTags: [{ type: 'ProductManipulate' }],
       }
     ),
   }),

@@ -61,3 +61,16 @@ export type ResponseType = {
     userId: string;
   };
 };
+
+export type ProductFormResponseType = {
+  data?: {
+    data: ProductType;
+    message: string;
+  };
+  error?: {
+    data: {
+      errors: Data[];
+    };
+    status: number;
+  };
+};

@@ -1,10 +1,22 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useRouteLoaderData } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+import LineWaveLoader from '../Spinner/CircleWave/LineWaveLoader';
 import Input from '../UI/Input/Input';
 import classes from './ProductForm.module.scss';
 import { categories } from '../../util/data';
 import UploadFile from '../UI/UploadFile/UploadFile';
-import { Data, ErrorsData, ProductType } from '../../types/types';
+import {
+  ErrorsData,
+  ProductType,
+  ProductFormResponseType,
+} from '../../types/types';
+import {
+  useAddProductMutation,
+  useEdditProductMutation,
+  FormDataType,
+} from '../../store/api/productsApiSlice';
+import { getAuthToken } from '../../util/auth';
 
 interface PropsType {
   detail?: {
@@ -18,17 +30,12 @@ const ProductForm = ({ detail, userIdNumber }: PropsType) => {
   const details = detail?.productDetail;
   const IdUser = detail?.userId || userIdNumber;
   const creatorId = details?.creator.toString();
-
   const navigate = useNavigate();
-  let isAuth = true;
-  if (creatorId) {
-    isAuth = IdUser?.toString() === creatorId.toString();
-  }
-  const token = useRouteLoaderData('root') as string;
+  const isAuth = creatorId ? IdUser?.toString() === creatorId.toString() : true;
+  let buttonContent;
   const [selectedImage, setSelectedImage] = useState<string | null>(
     details?.imageUrl || null
   );
-
   const [productData, setProductData] = useState({
     name: details?.name || '',
     price: details?.price || '',
@@ -37,6 +44,12 @@ const ProductForm = ({ detail, userIdNumber }: PropsType) => {
   });
   const [backendErrors, setBackendErrors] = useState<ErrorsData>({});
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [onAddProduct, { isLoading: isLoadingAdd, isSuccess: addSuccess }] =
+    useAddProductMutation();
+  const [
+    onEdditProduct,
+    { isSuccess: edditSuccess, isLoading: isLoadingEddit },
+  ] = useEdditProductMutation();
 
   // The function responsible for receiving and manage a photo file
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,15 +81,11 @@ const ProductForm = ({ detail, userIdNumber }: PropsType) => {
     }));
     return e.target.value;
   };
+
   // A function for sending data to backend for add new product or editing existing product
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    let url = '/feed/add-product';
-    let typeOfMethod = 'POST';
-    if (details) {
-      url = `/feed/editProduct/${details._id}`;
-      typeOfMethod = 'PUT';
-    }
     e.preventDefault();
+
     const formData = new FormData();
     formData.append('image', selectedFile as File);
     formData.append('name', productData.name);
@@ -84,33 +93,63 @@ const ProductForm = ({ detail, userIdNumber }: PropsType) => {
     formData.append('description', productData.description);
     formData.append('category', productData.category);
     formData.append('userId', IdUser as string);
+
     if (details?._id && details?.creator && details?.imageUrl) {
       formData.append('imageUrl', details.imageUrl);
       formData.append('productId', details?._id);
       formData.append('creatorId', details.creator.toString());
     }
-   
-    const response = await fetch(import.meta.env.VITE_REACT_APP_API_URL + url, {
-      method: typeOfMethod,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData,
-    });
-    const data = await response.json();
-    if (!response.ok) {
-      const errorArray = data.errors as Data[];
-      const errorsObj: { [key: string]: string } = {};
-      errorArray.forEach((error) => {
-        errorsObj[error.path] = error.msg;
-      });
-      setBackendErrors(errorsObj);
-      window.scroll(0, 0);
-    } else {
-      navigate('/sklep');
-      window.location.reload();
+
+    try {
+      const token = getAuthToken() as string;
+      let response: ProductFormResponseType;
+
+      if (details) {
+        const editResponse = await onEdditProduct({
+          id: details._id,
+          formData: formData as FormDataType,
+          token,
+        });
+        response = editResponse as ProductFormResponseType;
+      } else {
+        const addResponse = await onAddProduct(formData as FormDataType);
+        response = addResponse as ProductFormResponseType;
+      }
+
+      if (response.error) {
+        const errorArray = response.error.data.errors;
+        const errorsObj: { [key: string]: string } = {};
+        errorArray.forEach((error) => {
+          errorsObj[error.path] = error.msg;
+        });
+        setBackendErrors(errorsObj);
+        window.scroll(0, 0);
+      }
+    } catch (err) {
+      throw new Error(
+        details
+          ? 'Coś poszło nie tak, nie można edutować produktu'
+          : 'Nie można utworzyć nowego produktu'
+      );
     }
   };
+
+  useEffect(() => {
+    if (addSuccess || edditSuccess) {
+      toast.success(
+        addSuccess
+          ? 'Pomyślnie dodano nowy produkt'
+          : 'Pomyślnie edytowano produkt'
+      );
+      navigate('/sklep');
+    }
+  }, [addSuccess, edditSuccess, navigate]);
+
+  if (isLoadingAdd || isLoadingEddit) {
+    buttonContent = <LineWaveLoader />;
+  } else {
+    buttonContent = details ? 'Edytuj produkt' : 'Zapisz produkt';
+  }
   // function responsible for redirecting unauthorized users
   useEffect(() => {
     if (!isAuth) {
@@ -191,7 +230,7 @@ const ProductForm = ({ detail, userIdNumber }: PropsType) => {
           </label>
         </div>
         <div>
-          <button type="submit">{details ? 'Edytuj' : 'Zapisz'} produkt</button>
+          <button type="submit">{buttonContent}</button>
         </div>
       </form>
     </div>

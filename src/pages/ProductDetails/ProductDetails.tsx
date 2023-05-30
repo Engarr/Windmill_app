@@ -24,7 +24,9 @@ const ProductDetails = () => {
 
   // function for fetching product details
   const { data: productDetails, isLoading: productDetailLoading } =
-    useGetProductDetailQuery(productId as string);
+    useGetProductDetailQuery(productId as string, {
+      refetchOnMountOrArgChange: true,
+    });
 
   if (loadingUserId && productDetailLoading) {
     content = <Spinner message="Ładowanie..." />;
