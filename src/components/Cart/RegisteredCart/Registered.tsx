@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useRouteLoaderData, Link } from 'react-router-dom';
 import {
   useGetCartProductsQuery,
@@ -22,11 +23,10 @@ const RegisteredCart = () => {
   const increaseHandler = async (id: string, tokenNum?: string) => {
     try {
       if (tokenNum) {
-        window.location.reload();
         await increaseQty({
           id,
           tokenNum,
-        });
+        }).unwrap();
       }
     } catch (err) {
       throw new Error('Coś poszło nie tak');
@@ -36,11 +36,10 @@ const RegisteredCart = () => {
   const decreaseHandler = async (id: string, tokenNum?: string) => {
     try {
       if (tokenNum) {
-        window.location.reload();
         await decreaseQty({
           id,
           tokenNum,
-        });
+        }).unwrap();
       }
     } catch (err) {
       throw new Error('Coś poszło nie tak');
