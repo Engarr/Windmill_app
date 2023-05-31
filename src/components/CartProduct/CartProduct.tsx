@@ -11,8 +11,8 @@ interface PropsType {
     quantity: number;
   }[];
   token?: string;
-  increaseHandler: (id: string) => void;
-  decreaseHandler: (id: string) => void;
+  increaseHandler: (id: string, tokenNum?: string) => void;
+  decreaseHandler: (id: string, tokenNum?: string) => void;
 }
 
 const CartProduct = ({
@@ -35,6 +35,7 @@ const CartProduct = ({
       }
     }
   };
+
   return (
     <div className={classes.container}>
       <table>
@@ -77,7 +78,7 @@ const CartProduct = ({
                   <button
                     type="button"
                     onClick={() => {
-                      decreaseHandler(product.product._id);
+                      decreaseHandler(product.product._id, token);
                     }}
                   >
                     -
@@ -86,7 +87,7 @@ const CartProduct = ({
                   <button
                     type="button"
                     onClick={() => {
-                      increaseHandler(product.product._id);
+                      increaseHandler(product.product._id, token);
                     }}
                   >
                     +

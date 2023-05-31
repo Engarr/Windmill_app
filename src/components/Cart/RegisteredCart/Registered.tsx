@@ -1,5 +1,9 @@
 import { useRouteLoaderData, Link } from 'react-router-dom';
-import { useGetCartProductsQuery } from '../../../store/api/cartApiSlice';
+import {
+  useGetCartProductsQuery,
+  useIncreaseQtyMutation,
+  useDecreaseQtyMutation,
+} from '../../../store/api/cartApiSlice';
 import Spinner from '../../Spinner/Spinner/Spinner';
 import CartProduct from '../../CartProduct/CartProduct';
 import classes from '../../../pages/Cart/Cart.module.scss';
@@ -10,9 +14,38 @@ const RegisteredCart = () => {
   const { data: cartItems, isLoading } = useGetCartProductsQuery(token, {
     refetchOnMountOrArgChange: true,
   });
+  const [increaseQty] = useIncreaseQtyMutation();
+  const [decreaseQty] = useDecreaseQtyMutation();
+
   const productsArr = cartItems?.prodArr;
-  const increaseHandler = (id: string) => {};
-  const decreaseHandler = (id: string) => {};
+
+  const increaseHandler = async (id: string, tokenNum?: string) => {
+    try {
+      if (tokenNum) {
+        window.location.reload();
+        await increaseQty({
+          id,
+          tokenNum,
+        });
+      }
+    } catch (err) {
+      throw new Error('Coś poszło nie tak');
+    }
+  };
+
+  const decreaseHandler = async (id: string, tokenNum?: string) => {
+    try {
+      if (tokenNum) {
+        window.location.reload();
+        await decreaseQty({
+          id,
+          tokenNum,
+        });
+      }
+    } catch (err) {
+      throw new Error('Coś poszło nie tak');
+    }
+  };
 
   let content;
   if (isLoading) {

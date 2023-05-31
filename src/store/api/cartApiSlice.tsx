@@ -33,10 +33,28 @@ const cartApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'CartFeed' }],
     }),
+    increaseQty: builder.mutation<void, { id: string; tokenNum: string }>({
+      query: ({ id, tokenNum }) => ({
+        url: `cartFeed/product-incQty/${id}`,
+        headers: { Authorization: `Bearer ${tokenNum}` },
+        method: 'PUT',
+      }),
+      invalidatesTags: [{ type: 'CartFeed' }],
+    }),
+    decreaseQty: builder.mutation<void, { id: string; tokenNum: string }>({
+      query: ({ id, tokenNum }) => ({
+        url: `cartFeed/product-decQty/${id}`,
+        headers: { Authorization: `Bearer ${tokenNum}` },
+        method: 'PUT',
+      }),
+      invalidatesTags: [{ type: 'CartFeed' }],
+    }),
   }),
 });
 export const {
   useSendDataToCartMutation,
   useGetCartProductsQuery,
   useDeleteCartProductMutation,
+  useIncreaseQtyMutation,
+  useDecreaseQtyMutation,
 } = cartApiSlice;
