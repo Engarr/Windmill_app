@@ -137,7 +137,9 @@ const CartProduct = ({
       </div>
       <Summary totalSum={totalSum} />
       <div className={classes.buttonBox}>
-        <button type="button">Przejdz do płatności</button>
+        <Link to="/zamowienie">
+          <button type="button">Przejdz do płatności</button>
+        </Link>
       </div>
     </>
   );

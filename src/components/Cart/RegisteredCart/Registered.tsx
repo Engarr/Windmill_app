@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useRouteLoaderData, Link } from 'react-router-dom';
 import {
   useGetCartProductsQuery,
@@ -26,7 +25,7 @@ const RegisteredCart = () => {
         await increaseQty({
           id,
           tokenNum,
-        }).unwrap();
+        });
       }
     } catch (err) {
       throw new Error('Coś poszło nie tak');
@@ -39,7 +38,7 @@ const RegisteredCart = () => {
         await decreaseQty({
           id,
           tokenNum,
-        }).unwrap();
+        });
       }
     } catch (err) {
       throw new Error('Coś poszło nie tak');

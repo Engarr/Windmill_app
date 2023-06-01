@@ -9,9 +9,9 @@ import NewProduct from './pages/NewProduct/NewProduct';
 import ShopRootNavigation from './pages/SopRootLayout/ShopRootNavigation';
 import logout from './pages/Logout/Logout';
 import ProductDetails from './pages/ProductDetails/ProductDetails';
-
 import EditProduct from './pages/EditProduct/EditProduct';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
+import OrderPage from './pages/OrderPage/OrderPage';
 
 function App() {
   const router = createBrowserRouter([
@@ -58,6 +58,7 @@ function App() {
           ],
         },
         { path: '/koszyk', element: <Cart /> },
+        { path: '/zamowienie', element: <OrderPage /> },
         {
           path: '/logout',
           action: logout,

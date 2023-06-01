@@ -73,11 +73,3 @@ const NotRegisteredCart = () => {
   return <div>{content}</div>;
 };
 export default NotRegisteredCart;
-
-// import React from 'react';
-
-// const NotRegisteredCart = () => {
-//   return <div>NotRegisteredCart</div>;
-// };
-
-// export default NotRegisteredCart;
