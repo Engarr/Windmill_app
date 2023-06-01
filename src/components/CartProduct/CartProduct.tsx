@@ -41,6 +41,9 @@ const CartProduct = ({
     const productTotal = product.price * quantity;
     return sum + productTotal;
   }, 0);
+  const scrollUp = () => {
+    window.scroll(0, 0);
+  };
 
   return (
     <>
@@ -139,7 +142,9 @@ const CartProduct = ({
         <Summary totalSum={totalSum} />
         <div className={classes.buttonBox}>
           <Link to="/zamowienie">
-            <button type="button">Przejdz do płatności</button>
+            <button type="button" onClick={scrollUp}>
+              Przejdz do płatności
+            </button>
           </Link>
         </div>
       </div>

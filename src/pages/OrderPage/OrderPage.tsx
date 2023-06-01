@@ -8,6 +8,7 @@ import Spinner from '../../components/Spinner/Spinner/Spinner';
 import classes from './OrderPage.module.scss';
 import DeliveryForm from '../../components/DeliveryForm/DeliveryForm';
 import Summary from '../../components/DeliveryMethod/DeliveryMethod';
+import PaymentMethod from '../../components/PaymentMethod/PaymentMethod';
 
 interface StorageItemsArrType {
   data: {
@@ -22,7 +23,6 @@ interface ProductArrType {
 
 const OrderPage = () => {
   const token = useRouteLoaderData('root') as string;
-
   let productsArr: ProductArrType[] = [];
   let totalSum = 0;
   const { data: cartItems, isLoading: cartItemsLoading } =
@@ -97,6 +97,10 @@ const OrderPage = () => {
             ))}
         </div>
         <Summary totalSum={totalSum} />
+        <PaymentMethod />
+        <button className={classes.submitButton} type="button">
+          Kupuje i płacę
+        </button>
       </div>
     </div>
   );

@@ -25,17 +25,19 @@
       td {
         padding: 0px 5px;
         text-align: left;
+        width: 30%;
         label {
           margin: 0 2em;
         }
         li {
           list-style: none;
+
           div {
             display: flex;
             padding: 5px 0px;
             input,
             p {
-              margin-right: 10px;
+              margin-right: 5px;
             }
             span {
               color: var(--background-color);

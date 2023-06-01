@@ -46,13 +46,13 @@ const Summary = ({ totalSum }: PropsType) => {
                     <div>
                       <input
                         type="radio"
-                        id="option1"
-                        name="radio-group1"
+                        id={method.name}
+                        name={method.name}
                         value={method.option}
                         checked={selectedOption === method.option}
                         onChange={handleDeliveryOption}
                       />
-                      <p>{method.name}</p>
+                      <label htmlFor={method.name}>{method.name}</label>
                       <p>
                         <span>{method.price} zł</span>
                       </p>

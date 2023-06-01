@@ -2,8 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 20px 30px;
+  padding: 0px 20px;
   &__orders {
+    padding: 0px 20px;
     width: 100%;
     &--title {
       margin-bottom: 1.6rem;
@@ -46,13 +47,33 @@
     }
   }
 }
-@media only screen and (max-width: 1024px) {
+.submitButton {
+  position: relative;
+  padding: 15px 20px;
+  width: 50%;
+  left: 50%;
+  transform: translate(-50%);
+  border: none;
+  border-radius: 2px;
+  color: white;
+  font-size: 2em;
+  background-color: var(--background-color);
+  margin-bottom: 2em;
+  font-family: 'Amatic SC', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.submitButton:hover {
+  background-color: var(--background-color-hover);
+}
+@media only screen and (max-width: 1200px) {
   .orderContainer {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    padding: 20px 30px;
+    padding: 0px 0px;
     width: 100%;
     &__orders {
       width: 100%;

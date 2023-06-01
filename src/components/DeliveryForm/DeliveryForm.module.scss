@@ -1,4 +1,7 @@
 .mainContainer {
+  width: 100%;
+  left: 0%;
+  transform: translate(0%);
   h2 {
     font-family: 'Amatic SC', sans-serif;
     font-size: 2em;
@@ -27,7 +30,9 @@
     div:first-child {
       display: flex;
       flex-direction: column;
-      
+      div:first-child {
+        padding-right: 0px;
+      }
     }
   }
 }
