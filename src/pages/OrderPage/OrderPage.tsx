@@ -6,6 +6,8 @@ import { RootState } from '../../store/store';
 import { ProductType } from '../../types/types';
 import Spinner from '../../components/Spinner/Spinner/Spinner';
 import classes from './OrderPage.module.scss';
+import DeliveryForm from '../../components/DeliveryForm/DeliveryForm';
+import Summary from '../../components/DeliveryMethod/DeliveryMethod';
 
 interface StorageItemsArrType {
   data: {
@@ -22,7 +24,7 @@ const OrderPage = () => {
   const token = useRouteLoaderData('root') as string;
 
   let productsArr: ProductArrType[] = [];
-
+  let totalSum = 0;
   const { data: cartItems, isLoading: cartItemsLoading } =
     useGetCartProductsQuery(token, {
       refetchOnMountOrArgChange: true,
@@ -48,11 +50,18 @@ const OrderPage = () => {
       } as ProductArrType;
     });
   }
+  if (productsArr) {
+    totalSum = productsArr.reduce((sum, { product, quantity }) => {
+      const productTotal = product.price * quantity;
+      return (sum + productTotal) as number;
+    }, 0);
+  }
   if (cartItemsLoading || storageItemsLoading) {
     return <Spinner message="Ładowanie..." />;
   }
   return (
     <div className={classes.orderContainer}>
+      <DeliveryForm />
       <div className={classes.orderContainer__orders}>
         <div className={classes[`orderContainer__orders--title`]}>
           <h2>Twoje zamówienie</h2>
@@ -87,8 +96,8 @@ const OrderPage = () => {
               </div>
             ))}
         </div>
+        <Summary totalSum={totalSum} />
       </div>
-      <div>Formularz</div>
     </div>
   );
 };

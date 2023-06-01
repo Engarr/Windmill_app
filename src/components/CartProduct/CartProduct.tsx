@@ -135,11 +135,13 @@ const CartProduct = ({
           </tbody>
         </table>
       </div>
-      <Summary totalSum={totalSum} />
-      <div className={classes.buttonBox}>
-        <Link to="/zamowienie">
-          <button type="button">Przejdz do płatności</button>
-        </Link>
+      <div className={classes.summaryBox}>
+        <Summary totalSum={totalSum} />
+        <div className={classes.buttonBox}>
+          <Link to="/zamowienie">
+            <button type="button">Przejdz do płatności</button>
+          </Link>
+        </div>
       </div>
     </>
   );

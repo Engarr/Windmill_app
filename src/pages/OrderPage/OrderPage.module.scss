@@ -1,9 +1,10 @@
 .orderContainer {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
   padding: 20px 30px;
   &__orders {
+    width: 100%;
     &--title {
       margin-bottom: 1.6rem;
       h2 {
