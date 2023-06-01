@@ -1,14 +1,9 @@
-import { Link, Form } from 'react-router-dom';
+import Tabs from '../Tabs/Tabs';
 
 const UserProfil = () => {
   return (
     <div>
-      <Link to="/konto/nowy-produkt">
-        <button type="button">DODAJ PRODUKT</button>
-      </Link>
-      <Form action="/logout" method="post">
-        <button type="submit">Logout</button>
-      </Form>
+      <Tabs />
     </div>
   );
 };

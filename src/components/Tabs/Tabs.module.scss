@@ -1,0 +1,54 @@
+.main__container {
+  padding: 1px 20px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  margin: 0px auto 2em;
+  word-break: break-all;
+
+  &__blocTtabs {
+    display: flex;
+  }
+  &__contentTabs {
+    border: 1px solid var();
+  }
+}
+.button {
+  position: relative;
+  margin-bottom: 1em;
+  font-size: 1.6em;
+  padding: 10px 0px;
+  width: 150px;
+  border-radius: 5px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-family: 'BenchNine', sans-serif;
+  transition: background-color 0.3s;
+}
+.button::before {
+  content: '';
+  position: absolute;
+  bottom: 0%;
+  left: 0;
+  border-top: 2px solid var(--background-color);
+  width: 0%;
+  transition: width 0.3s;
+}
+.activeTab {
+  background-color: rgba(141, 141, 141, 0.05);
+}
+.activeTab::before {
+  font-weight: bold;
+  width: 100%;
+}
+
+.content {
+  display: none;
+}
+.activeContent {
+  display: block;
+}
