@@ -2,7 +2,6 @@
   &__container {
     position: relative;
     width: 100%;
-
     padding: 20px 20px;
     font-family: 'BenchNine', sans-serif;
     font-size: 1.4em;
@@ -62,7 +61,12 @@
         width: 100%;
 
         td {
-          padding: 10px 0px;
+          font-size: 0.8em;
+          text-align: center;
+          padding: 0px 0px;
+          label {
+            margin: 0 0.2em;
+          }
         }
       }
     }

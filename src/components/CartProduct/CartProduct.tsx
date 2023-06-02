@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast';
 import { ProductType } from '../../types/types';
 import classes from './CartProduct.module.scss';
 import { useDeleteCartProductMutation } from '../../store/api/cartApiSlice';
-import Summary from '../DeliveryMethod/DeliveryMethod';
+import DeliveryMethod from '../DeliveryMethod/DeliveryMethod';
 
 interface PropsType {
   products: {
@@ -139,7 +139,7 @@ const CartProduct = ({
         </table>
       </div>
       <div className={classes.summaryBox}>
-        <Summary totalSum={totalSum} />
+        <DeliveryMethod totalSum={totalSum} />
         <div className={classes.buttonBox}>
           <Link to="/zamowienie">
             <button type="button" onClick={scrollUp}>

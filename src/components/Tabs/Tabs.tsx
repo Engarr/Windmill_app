@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Link, Form } from 'react-router-dom';
 import classes from './Tabs.module.scss';
+import AccountManage from './AccountManage/AccountManage';
+import ProductsManage from './ProductsManage/ProductsManage';
 
 const Tabs = () => {
   const [toggleState, setToggleState] = useState(1);
@@ -44,10 +45,7 @@ const Tabs = () => {
                 : classes.content
             }
           >
-            <h4>Zarządzaj kontem:</h4>
-            <Form action="/logout" method="post">
-              <button type="submit">Logout</button>
-            </Form>
+            <AccountManage />
           </div>
           <div
             className={
@@ -56,10 +54,7 @@ const Tabs = () => {
                 : classes.content
             }
           >
-            <h4>Zarządzaj asortymentem:</h4>
-            <Link to="/konto/nowy-produkt">
-              <button type="button">DODAJ PRODUKT</button>
-            </Link>
+            <ProductsManage />
           </div>
         </div>
       </div>

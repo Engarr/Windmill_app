@@ -22,12 +22,12 @@
   font-size: 1.6em;
   padding: 10px 0px;
   width: 150px;
-  border-radius: 5px;
+  border-top-left-radius: 8px;
   border: none;
-  background-color: transparent;
   cursor: pointer;
   font-family: 'BenchNine', sans-serif;
   transition: background-color 0.3s;
+  background-color: rgba(141, 141, 141, 0.05);
 }
 .button::before {
   content: '';
@@ -39,7 +39,7 @@
   transition: width 0.3s;
 }
 .activeTab {
-  background-color: rgba(141, 141, 141, 0.05);
+  background-color: transparent;
 }
 .activeTab::before {
   font-weight: bold;

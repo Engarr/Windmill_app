@@ -12,7 +12,7 @@ interface ShippingType {
   option: number;
 }
 
-const Summary = ({ totalSum }: PropsType) => {
+const DeliveryMethod = ({ totalSum }: PropsType) => {
   const [selectedOption, setSelectedOption] = useState<number>(0);
   const ShippingMethodTable: ShippingType[] = shippingCost;
 
@@ -72,4 +72,4 @@ const Summary = ({ totalSum }: PropsType) => {
   );
 };
 
-export default Summary;
+export default DeliveryMethod;

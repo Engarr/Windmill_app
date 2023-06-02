@@ -7,7 +7,7 @@ import { ProductType } from '../../types/types';
 import Spinner from '../../components/Spinner/Spinner/Spinner';
 import classes from './OrderPage.module.scss';
 import DeliveryForm from '../../components/DeliveryForm/DeliveryForm';
-import Summary from '../../components/DeliveryMethod/DeliveryMethod';
+import DeliveryMethod from '../../components/DeliveryMethod/DeliveryMethod';
 import PaymentMethod from '../../components/PaymentMethod/PaymentMethod';
 
 interface StorageItemsArrType {
@@ -96,7 +96,7 @@ const OrderPage = () => {
               </div>
             ))}
         </div>
-        <Summary totalSum={totalSum} />
+        <DeliveryMethod totalSum={totalSum} />
         <PaymentMethod />
         <button className={classes.submitButton} type="button">
           Kupuje i płacę
