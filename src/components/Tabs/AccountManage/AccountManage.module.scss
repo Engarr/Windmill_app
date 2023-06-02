@@ -1,6 +1,7 @@
 .mainContainer {
   font-family: 'BenchNine', sans-serif;
-  text-align: center;
+  text-align: left;
+  width: 100%;
 
   h5 {
     font-size: 1.4em;
@@ -52,7 +53,7 @@
 .acctionsConatiner {
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
 }
 @media only screen and (max-width: 1024px) {
   .newPasswordContainer,

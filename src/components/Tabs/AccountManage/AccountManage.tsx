@@ -1,8 +1,62 @@
-import { Form } from 'react-router-dom';
+import { useState } from 'react';
+
+import { Form, useRouteLoaderData } from 'react-router-dom';
 import Input from '../../UI/Input/Input';
 import classes from './AccountManage.module.scss';
+import { usePostChangeUserPasswordMutation } from '../../../store/api/userApiSlice';
+import { Data } from '../../../types/types';
+
+interface ResposneDataType {
+  error?: {
+    status: number;
+    data: {
+      errors: Data[];
+    };
+  };
+  data?: { message: string };
+}
 
 const AccountManage = () => {
+  const token = useRouteLoaderData('root') as string;
+  const [changePassword] = usePostChangeUserPasswordMutation();
+
+  const [newPawsswordData, setNewPawsswordData] = useState({
+    oldPassword: '',
+    newPassword: '',
+    repeatNewPassword: '',
+  });
+  const [newEmailData, setNewEmailData] = useState({
+    password: '',
+    newEmail: '',
+  });
+  const newPasswordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewPawsswordData((prevData) => ({
+      ...prevData,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  const newEmailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewEmailData((prevData) => ({
+      ...prevData,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  const changePasswordHandler = async () => {
+    try {
+      const { oldPassword, newPassword, repeatNewPassword } = newPawsswordData;
+      const response = await changePassword({
+        oldPassword,
+        newPassword,
+        repeatNewPassword,
+        token,
+      });
+      const resData = response as ResposneDataType;
+      console.log(resData);
+    } catch (err) {
+      throw new Error('Coś poszło nie tak.');
+    }
+  };
+
   return (
     <div className={classes.mainContainer}>
       <h4>Zarządzaj kontem:</h4>
@@ -19,26 +73,45 @@ const AccountManage = () => {
         <div className={classes.newPasswordContainer}>
           <h5>Zmiana hasła:</h5>
           <form>
-            <Input type="text" text="Stare hasło:" data="old-password" />
-            <Input type="text" text="Nowe hasło:" data="new-password" />
             <Input
-              type="text"
-              text="Powtórz nowe hasło:"
-              data="repeat-new-password"
+              type="password"
+              text="Stare hasło:"
+              data="oldPassword"
+              onChange={newPasswordHandler}
             />
-            <button type="submit">Zapisz zmiany</button>
+            <Input
+              type="password"
+              text="Nowe hasło:"
+              data="newPassword"
+              onChange={newPasswordHandler}
+            />
+            <Input
+              type="password"
+              text="Powtórz nowe hasło:"
+              data="repeatNewPassword"
+              onChange={newPasswordHandler}
+            />
+            <button type="button" onClick={changePasswordHandler}>
+              Zapisz zmiany
+            </button>
           </form>
         </div>
         <div className={classes.newEmailContainer}>
           <h5>Zmiana adresu email:</h5>
           <form>
-            <Input type="text" text="Stare hasło:" data="old-password" />
-            <Input type="text" text="Nowe hasło:" data="new-password" />
             <Input
               type="text"
-              text="Powtórz nowe hasło:"
-              data="repeat-new-password"
+              text="Hasło:"
+              data="password"
+              onChange={newEmailHandler}
             />
+            <Input
+              type="text"
+              text="Nowy adres Email:"
+              data="new-Email"
+              onChange={newEmailHandler}
+            />
+
             <button type="submit">Zapisz zmiany</button>
           </form>
         </div>
