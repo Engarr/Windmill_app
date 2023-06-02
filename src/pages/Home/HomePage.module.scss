@@ -7,7 +7,6 @@
   position: relative;
   height: 400px;
   width: 100%;
-  background-attachment: fixed;
   background-position: center;
   overflow: hidden;
   background-image: url(../../assets/maka-background.webp);
@@ -60,7 +59,7 @@
 }
 @media only screen and (max-width: 1024px) {
   .container {
-    height: 500px;
+    height: 300px;
 
     &__frame {
       width: 90%;
@@ -70,8 +69,8 @@
       }
     }
     &__text {
-      top: 25%;
-      font-size: 2em;
+      top: 5%;
+      font-size: 1.8em;
     }
   }
 }

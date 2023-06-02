@@ -1,0 +1,68 @@
+.mainContainer {
+  font-family: 'BenchNine', sans-serif;
+  text-align: center;
+
+  h5 {
+    font-size: 1.4em;
+  }
+  p {
+    font-size: 1.2em;
+  }
+}
+
+.logoutButton {
+  padding: 10px 5px;
+  font-size: 1em;
+  background-color: transparent;
+  border: none;
+  border-radius: 2px;
+  color: var(--background-color);
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+.logoutButton:hover {
+  background-color: var(--background-color);
+  color: white;
+}
+.newPasswordContainer,
+.newEmailContainer {
+  width: 30%;
+  margin-bottom: 1em;
+  h5 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    margin-top: 1em;
+    font-size: 1.4em;
+    width: 100%;
+    border-bottom: 1px solid var(--background-color);
+  }
+  button {
+    padding: 5px 10px;
+    border: 1px solid var(--background-color);
+    border-radius: 2px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  button:hover {
+    background-color: var(--background-color-hover);
+    color: white;
+  }
+}
+.acctionsConatiner {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+@media only screen and (max-width: 1024px) {
+  .newPasswordContainer,
+  .newEmailContainer {
+    width: 100%;
+  }
+  .acctionsConatiner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
