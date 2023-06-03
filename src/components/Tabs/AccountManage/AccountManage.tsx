@@ -1,24 +1,28 @@
 import { useState } from 'react';
 
 import { Form, useRouteLoaderData } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import Input from '../../UI/Input/Input';
 import classes from './AccountManage.module.scss';
 import { usePostChangeUserPasswordMutation } from '../../../store/api/userApiSlice';
-import { Data } from '../../../types/types';
+import { Data, ErrorsData } from '../../../types/types';
 
 interface ResposneDataType {
   error?: {
     status: number;
     data: {
       errors: Data[];
+      message: string;
     };
   };
+
   data?: { message: string };
 }
 
 const AccountManage = () => {
   const token = useRouteLoaderData('root') as string;
   const [changePassword] = usePostChangeUserPasswordMutation();
+  const [backendErrors, setBackendErrors] = useState<ErrorsData>({});
 
   const [newPawsswordData, setNewPawsswordData] = useState({
     oldPassword: '',
@@ -51,7 +55,21 @@ const AccountManage = () => {
         token,
       });
       const resData = response as ResposneDataType;
-      console.log(resData);
+
+      if (resData.error) {
+        const errorsObj: { [key: string]: string } = {};
+        if (resData.error.status === 422 || resData.error.status === 401) {
+          resData.error.data.errors.forEach((error) => {
+            errorsObj[error.path] = error.msg;
+          });
+        }
+        setBackendErrors(errorsObj);
+      }
+      if (resData.error) {
+        toast.error(resData.error.data.message);
+      } else if (resData.data) {
+        toast.success(resData.data.message);
+      }
     } catch (err) {
       throw new Error('Coś poszło nie tak.');
     }
