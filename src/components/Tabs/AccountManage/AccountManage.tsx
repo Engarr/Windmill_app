@@ -12,7 +12,7 @@ interface ResposneDataType {
     status: number;
     data: {
       errors: Data[];
-      message: string;
+      message?: string;
     };
   };
 
@@ -22,7 +22,8 @@ interface ResposneDataType {
 const AccountManage = () => {
   const token = useRouteLoaderData('root') as string;
   const [changePassword] = usePostChangeUserPasswordMutation();
-  const [backendErrors, setBackendErrors] = useState<ErrorsData>({});
+  const [passwordbackendErrors, setPasswordBackendErrors] =
+    useState<ErrorsData>({});
 
   const [newPawsswordData, setNewPawsswordData] = useState({
     oldPassword: '',
@@ -34,17 +35,20 @@ const AccountManage = () => {
     newEmail: '',
   });
   const newPasswordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     setNewPawsswordData((prevData) => ({
       ...prevData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
   };
   const newEmailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     setNewEmailData((prevData) => ({
       ...prevData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
   };
+
   const changePasswordHandler = async () => {
     try {
       const { oldPassword, newPassword, repeatNewPassword } = newPawsswordData;
@@ -63,12 +67,19 @@ const AccountManage = () => {
             errorsObj[error.path] = error.msg;
           });
         }
-        setBackendErrors(errorsObj);
+        setPasswordBackendErrors(errorsObj);
       }
-      if (resData.error) {
+
+      if (resData.error?.data.message) {
         toast.error(resData.error.data.message);
       } else if (resData.data) {
         toast.success(resData.data.message);
+        setPasswordBackendErrors({});
+        setNewPawsswordData({
+          oldPassword: '',
+          newPassword: '',
+          repeatNewPassword: '',
+        });
       }
     } catch (err) {
       throw new Error('Coś poszło nie tak.');
@@ -90,23 +101,38 @@ const AccountManage = () => {
       <div className={classes.acctionsConatiner}>
         <div className={classes.newPasswordContainer}>
           <h5>Zmiana hasła:</h5>
+          {Object.values(passwordbackendErrors).some(
+            (error) => error !== ''
+          ) && (
+            <div className={classes.errorsContainer}>
+              <h3>Błąd autoryzacji:</h3>
+              <ul>
+                {Object.entries(passwordbackendErrors).map(([key, value]) => {
+                  return value && <li key={key}>{value}</li>;
+                })}
+              </ul>
+            </div>
+          )}
           <form>
             <Input
               type="password"
               text="Stare hasło:"
               data="oldPassword"
+              defaultValue={newPawsswordData.oldPassword}
               onChange={newPasswordHandler}
             />
             <Input
               type="password"
               text="Nowe hasło:"
               data="newPassword"
+              defaultValue={newPawsswordData.newPassword}
               onChange={newPasswordHandler}
             />
             <Input
               type="password"
               text="Powtórz nowe hasło:"
               data="repeatNewPassword"
+              defaultValue={newPawsswordData.repeatNewPassword}
               onChange={newPasswordHandler}
             />
             <button type="button" onClick={changePasswordHandler}>

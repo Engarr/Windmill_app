@@ -27,7 +27,7 @@ const Input = ({
         id={data}
         name={data}
         className={classes.input}
-        defaultValue={defaultValue}
+        value={defaultValue}
         onChange={onChange}
         step={step}
       />
