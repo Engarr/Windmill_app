@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import { Form, useRouteLoaderData } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import Input from '../../UI/Input/Input';
@@ -9,6 +8,7 @@ import {
   usePostChangeUserEmailMutation,
 } from '../../../store/api/userApiSlice';
 import { Data, ErrorsData } from '../../../types/types';
+import LineWaveLoader from '../../Spinner/CircleWave/LineWaveLoader';
 
 interface ResposneDataType {
   error?: {
@@ -24,8 +24,10 @@ interface ResposneDataType {
 
 const AccountManage = () => {
   const token = useRouteLoaderData('root') as string;
-  const [changePassword] = usePostChangeUserPasswordMutation();
-  const [changeEmail] = usePostChangeUserEmailMutation();
+  const [changePassword, { isLoading: changePasswordLoading }] =
+    usePostChangeUserPasswordMutation();
+  const [changeEmail, { isLoading: changeEmailLoading }] =
+    usePostChangeUserEmailMutation();
   const [passwordbackendErrors, setPasswordBackendErrors] =
     useState<ErrorsData>({});
   const [emailbackendErrors, setEmailBackendErrors] = useState<ErrorsData>({});
@@ -174,7 +176,7 @@ const AccountManage = () => {
               onChange={newPasswordHandler}
             />
             <button type="button" onClick={changePasswordHandler}>
-              Zapisz zmiany
+              {changePasswordLoading ? <LineWaveLoader /> : 'Zapisz zmiany'}
             </button>
           </form>
         </div>
@@ -207,7 +209,7 @@ const AccountManage = () => {
             />
 
             <button type="button" onClick={changeEmailHandler}>
-              Zapisz zmiany
+              {changeEmailLoading ? <LineWaveLoader /> : 'Zapisz zmiany'}
             </button>
           </form>
         </div>

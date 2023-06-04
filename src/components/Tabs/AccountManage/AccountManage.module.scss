@@ -40,15 +40,17 @@
   }
   button {
     padding: 5px 10px;
-    border: 1px solid var(--background-color);
     border-radius: 2px;
-    background-color: transparent;
+    border: 1px solid var(--background-color-hover);
+    background-color: var(--background-color);
+    color: white;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
+    width: 150px;
+    height: 45px;
   }
   button:hover {
     background-color: var(--background-color-hover);
-    color: white;
   }
 }
 .acctionsConatiner {
