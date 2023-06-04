@@ -4,7 +4,10 @@ import { Form, useRouteLoaderData } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import Input from '../../UI/Input/Input';
 import classes from './AccountManage.module.scss';
-import { usePostChangeUserPasswordMutation } from '../../../store/api/userApiSlice';
+import {
+  usePostChangeUserPasswordMutation,
+  usePostChangeUserEmailMutation,
+} from '../../../store/api/userApiSlice';
 import { Data, ErrorsData } from '../../../types/types';
 
 interface ResposneDataType {
@@ -22,8 +25,10 @@ interface ResposneDataType {
 const AccountManage = () => {
   const token = useRouteLoaderData('root') as string;
   const [changePassword] = usePostChangeUserPasswordMutation();
+  const [changeEmail] = usePostChangeUserEmailMutation();
   const [passwordbackendErrors, setPasswordBackendErrors] =
     useState<ErrorsData>({});
+  const [emailbackendErrors, setEmailBackendErrors] = useState<ErrorsData>({});
 
   const [newPawsswordData, setNewPawsswordData] = useState({
     oldPassword: '',
@@ -79,6 +84,39 @@ const AccountManage = () => {
           oldPassword: '',
           newPassword: '',
           repeatNewPassword: '',
+        });
+      }
+    } catch (err) {
+      throw new Error('Coś poszło nie tak.');
+    }
+  };
+  const changeEmailHandler = async () => {
+    try {
+      const { password, newEmail } = newEmailData;
+      const response = await changeEmail({
+        password,
+        newEmail,
+        token,
+      });
+      const resData = response as ResposneDataType;
+
+      if (resData.error) {
+        const errorsObj: { [key: string]: string } = {};
+        if (resData.error.status === 422 || resData.error.status === 401) {
+          resData.error.data.errors.forEach((error) => {
+            errorsObj[error.path] = error.msg;
+          });
+        }
+        setEmailBackendErrors(errorsObj);
+      }
+      if (resData.error?.data.message) {
+        toast.error(resData.error.data.message);
+      } else if (resData.data) {
+        toast.success(resData.data.message);
+        setPasswordBackendErrors({});
+        setEmailBackendErrors({
+          password: '',
+          newEmail: '',
         });
       }
     } catch (err) {
@@ -142,21 +180,35 @@ const AccountManage = () => {
         </div>
         <div className={classes.newEmailContainer}>
           <h5>Zmiana adresu email:</h5>
+          {Object.values(emailbackendErrors).some((error) => error !== '') && (
+            <div className={classes.errorsContainer}>
+              <h3>Błąd autoryzacji:</h3>
+              <ul>
+                {Object.entries(emailbackendErrors).map(([key, value]) => {
+                  return value && <li key={key}>{value}</li>;
+                })}
+              </ul>
+            </div>
+          )}
           <form>
             <Input
-              type="text"
+              type="password"
               text="Hasło:"
               data="password"
+              defaultValue={newEmailData.password}
               onChange={newEmailHandler}
             />
             <Input
               type="text"
               text="Nowy adres Email:"
-              data="new-Email"
+              data="newEmail"
+              defaultValue={newEmailData.newEmail}
               onChange={newEmailHandler}
             />
 
-            <button type="submit">Zapisz zmiany</button>
+            <button type="button" onClick={changeEmailHandler}>
+              Zapisz zmiany
+            </button>
           </form>
         </div>
       </div>

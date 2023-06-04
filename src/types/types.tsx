@@ -14,6 +14,7 @@ export type ErrorsData = {
   category?: string;
   description?: string;
   image?: string;
+  newEmail?: string;
 };
 
 export type Products = {

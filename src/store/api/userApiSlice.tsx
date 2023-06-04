@@ -56,6 +56,26 @@ const userApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+    postChangeUserEmail: builder.mutation<
+      void,
+      {
+        password: string;
+        newEmail: string;
+        token: string;
+      }
+    >({
+      query: ({ token, password, newEmail }) => ({
+        url: `auth/change-email`,
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: {
+          password,
+          newEmail,
+        },
+      }),
+    }),
   }),
 });
 // eslint-disable-next-line import/prefer-default-export
@@ -64,4 +84,5 @@ export const {
   usePostLoginUserMutation,
   usePutRegisterUserMutation,
   usePostChangeUserPasswordMutation,
+  usePostChangeUserEmailMutation,
 } = userApiSlice;
