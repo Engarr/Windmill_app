@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Form, useRouteLoaderData } from 'react-router-dom';
+import { Form } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import Input from '../../UI/Input/Input';
 import classes from './AccountManage.module.scss';
@@ -21,9 +21,10 @@ interface ResposneDataType {
 
   data?: { message: string };
 }
-
-const AccountManage = () => {
-  const token = useRouteLoaderData('root') as string;
+interface PropsType {
+  token: string;
+}
+const AccountManage = ({ token }: PropsType) => {
   const [changePassword, { isLoading: changePasswordLoading }] =
     usePostChangeUserPasswordMutation();
   const [changeEmail, { isLoading: changeEmailLoading }] =
@@ -56,6 +57,7 @@ const AccountManage = () => {
     }));
   };
 
+  // Password change function
   const changePasswordHandler = async () => {
     try {
       const { oldPassword, newPassword, repeatNewPassword } = newPawsswordData;
@@ -92,6 +94,8 @@ const AccountManage = () => {
       throw new Error('Coś poszło nie tak.');
     }
   };
+
+  // Email change function
   const changeEmailHandler = async () => {
     try {
       const { password, newEmail } = newEmailData;

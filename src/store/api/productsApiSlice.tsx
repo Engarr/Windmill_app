@@ -41,6 +41,15 @@ const productsApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+    getUserProduct: builder.query<{ products: ProductType[] }, string>({
+      query: (token) => ({
+        url: 'feed/user-products',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      providesTags: [{ type: 'ProductManipulate' }],
+    }),
     addProduct: builder.mutation<ProductFormResponseType, FormDataType>({
       query: (FormData) => ({
         url: `feed/add-product`,
@@ -82,6 +91,7 @@ export const {
   useGetCategoryProductQuery,
   useGetProductDetailQuery,
   useGetProductsByIdQuery,
+  useGetUserProductQuery,
   useAddProductMutation,
   useEdditProductMutation,
   useDeleteProductMutation,

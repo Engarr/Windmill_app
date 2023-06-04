@@ -45,7 +45,7 @@ const ProductManage = ({ productId }: PropsType) => {
         </div>
         <div className={classes.productManage__buttonBox}>
           <div>
-            <Link to="edit">
+            <Link to={`/produkt/${productId}/edit`}>
               <button type="button">Edytuj produkt</button>
             </Link>
           </div>

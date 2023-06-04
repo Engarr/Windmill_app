@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useRouteLoaderData } from 'react-router-dom';
 import classes from './Tabs.module.scss';
 import AccountManage from './AccountManage/AccountManage';
 import ProductsManage from './ProductsManage/ProductsManage';
 
 const Tabs = () => {
   const [toggleState, setToggleState] = useState(1);
+  const token = useRouteLoaderData('root') as string;
 
   const toggleTab = (index: number) => {
     setToggleState(index);
@@ -45,7 +47,7 @@ const Tabs = () => {
                 : classes.content
             }
           >
-            <AccountManage />
+            <AccountManage token={token} />
           </div>
           <div
             className={
@@ -54,7 +56,7 @@ const Tabs = () => {
                 : classes.content
             }
           >
-            <ProductsManage />
+            <ProductsManage token={token} />
           </div>
         </div>
       </div>
