@@ -13,6 +13,7 @@
   align-items: center;
   margin: 0 2em;
   font-family: 'Amatic SC', sans-serif;
+  z-index: 100;
   &__nav {
     display: flex;
     font-size: 1.1em;
@@ -57,5 +58,22 @@
 @media only screen and (max-width: 1024px) {
   .product__wrappper {
     padding: 100px 0px;
+  }
+  .navigation {
+    position: relative;
+    top: 80px;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0 1em;
+
+    &__sorting {
+      font-family: 'BenchNine', sans-serif;
+      font-size: 1.2em;
+      select {
+        font-family: 'BenchNine', sans-serif;
+        color: black;
+        font-weight: bold;
+      }
+    }
   }
 }
