@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
+import { BsFillTrashFill } from 'react-icons/bs';
+import { AiFillEdit } from 'react-icons/ai';
 import { toast } from 'react-hot-toast';
 import {
   useGetUserProductQuery,
   useDeleteProductMutation,
 } from '../../../store/api/productsApiSlice';
 import Spinner from '../../Spinner/Spinner/Spinner';
+import classes from './ProductsManage.module.scss';
 
 interface PropsType {
   token: string;
@@ -42,25 +45,33 @@ const ProductsManage = ({ token }: PropsType) => {
     content = (
       <>
         {userProducts.products.map((product) => (
-          <div key={product._id}>
-            <div>
+          <div key={product._id} className={classes.productsBox__product}>
+            <div className={classes[`productsBox__product--name`]}>
               <img src={product.imageUrl} alt={product.name} width={100} />
               <p>{product.name}</p>
             </div>
-            <div>
-              <Link to={`/produkt/${product._id}/edit`}>
-                <button type="button">Edytuj produkt</button>
-              </Link>
-            </div>
-            <div>
-              <button
-                type="submit"
-                onClick={() => {
-                  deleteProductHandler(product._id);
-                }}
-              >
-                Usuń produkt
-              </button>
+            <div className={classes[`productsBox__product--buttons`]}>
+              <div>
+                <Link to={`/produkt/${product._id}/edit`}>
+                  <button
+                    type="button"
+                    className={classes[`productsBox__product--button`]}
+                  >
+                    <AiFillEdit />
+                  </button>
+                </Link>
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  onClick={() => {
+                    deleteProductHandler(product._id);
+                  }}
+                  className={classes[`productsBox__product--button`]}
+                >
+                  <BsFillTrashFill />
+                </button>
+              </div>
             </div>
           </div>
         ))}
@@ -68,12 +79,15 @@ const ProductsManage = ({ token }: PropsType) => {
     );
   }
   return (
-    <div>
+    <div className={classes.mainContainer}>
       <h4>Zarządzaj asortymentem:</h4>
-      <Link to="/konto/nowy-produkt">
-        <button type="button">DODAJ PRODUKT</button>
-      </Link>
-      <div>
+      <div className={classes.newProductBox}>
+        <h5>Dodaj nowy produkt za pomocą poniższego przycisku:</h5>
+        <Link to="/konto/nowy-produkt">
+          <button type="button">DODAJ PRODUKT</button>
+        </Link>
+      </div>
+      <div className={classes.productsBox}>
         <h5>Twoje produkty:</h5>
         {content}
       </div>

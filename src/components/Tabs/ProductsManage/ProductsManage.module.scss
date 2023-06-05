@@ -1,0 +1,93 @@
+.mainContainer {
+  h5 {
+    font-size: 1.4em;
+    font-family: 'BenchNine', sans-serif;
+    margin: 0.5em 0;
+  }
+}
+.newProductBox {
+  margin: 0.5em 0;
+
+  button {
+    padding: 10px 15px;
+    border-radius: 2px;
+    border: none;
+    color: white;
+    width: 200px;
+    background-color: var(--background-color);
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  button:hover {
+    background-color: var(--background-color-hover);
+  }
+}
+.productsBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  h5 {
+    font-size: 1.6em;
+    text-transform: uppercase;
+  }
+  &__product {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 40px;
+    &--name,
+    &--buttons {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      text-align: left;
+    }
+    &--name {
+      width: 100%;
+    }
+    &--button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background-color: transparent;
+      color: var(--background-color);
+      font-size: 1.2em;
+      margin: 0.1em;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    &--button:hover {
+      color: var(--background-color-hover);
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+  &__product:nth-of-type(2n) {
+    background-color: rgba(208, 208, 208, 0.15);
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .productsBox {
+    &__product {
+      width: 100%;
+      flex-direction: column;
+      padding: 5px 20px;
+      &--name {
+        justify-content: flex-start;
+
+        img {
+          width: 80px;
+        }
+        p {
+          font-size: 0.8em;
+        }
+      }
+    }
+  }
+}
