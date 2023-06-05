@@ -25,10 +25,20 @@ const ProductsManage = ({ token }: PropsType) => {
 
   const [deleteProduct, { isError }] = useDeleteProductMutation();
   let content;
+  // Product search function among selected products
   const searchValueHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
+  const searchProductsHanlder = () => {
+    if (userProducts) {
+      const filteredProducts = userProducts.products.filter((product) =>
+        product.name.toLowerCase().startsWith(searchValue.toLowerCase())
+      );
 
+      setSearchResults(filteredProducts);
+    }
+  };
+  // Detelete product function
   const deleteProductHandler = async (id: string) => {
     // eslint-disable-next-line no-alert
     const proceed = window.confirm('Czy na pewno chcesz usunąć produkt?');
@@ -50,22 +60,11 @@ const ProductsManage = ({ token }: PropsType) => {
     }
   };
 
-  const searchProductsHanlder = () => {
-    if (userProducts) {
-      const filteredProducts = userProducts.products.filter((product) =>
-        product.name.toLowerCase().startsWith(searchValue.toLowerCase())
-      );
-
-      setSearchResults(filteredProducts);
-    }
-  };
-
   if (isLoading) {
     content = <Spinner message="Ładowanie produktów" />;
   } else if (userProducts?.products) {
     const productsToDisplay =
-      searchResults.length > 0 ? searchResults : userProducts.products;
-
+      searchResults.length === 0 ? searchResults : userProducts.products;
     if (productsToDisplay.length === 0) {
       content = <p>Brak wyników dla podanej frazy wyszukiwania.</p>;
     } else {
