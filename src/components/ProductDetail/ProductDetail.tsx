@@ -115,7 +115,7 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
   let similarContent;
   if (isCategoryProductsLoading) {
     similarContent = <Spinner message="Wczytywanie produktów.." />;
-  } else if (products.length >= 0) {
+  } else if (products.length > 0) {
     similarContent = (
       <>
         {products.map((product) => {
@@ -123,7 +123,7 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
         })}
       </>
     );
-  } else {
+  } else if (products.length === 0) {
     similarContent = (
       <Empty message="Nie posiadamy innych podobnych produktów" width={200} />
     );
@@ -131,8 +131,6 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
 
   return (
     <>
-      {isAuth && <ProductManage productId={details._id} />}
-
       <div className={classes.wrapper}>
         <div className={classes.product__imageWrapper}>
           <div>
@@ -230,6 +228,7 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
           </div>
         </div>
       </div>
+      {isAuth && <ProductManage productId={details._id} />}
 
       <div className={classes.similarlyProduct__container}>
         <div>

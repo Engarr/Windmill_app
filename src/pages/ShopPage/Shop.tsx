@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Products } from '../../types/types';
 import Product from '../../components/Product/Product';
@@ -39,9 +39,10 @@ const Shop = () => {
     isCategoryProductsLoading,
   ]);
   let content;
+
   if (isAllProductsLoading || isCategoryProductsLoading) {
     content = <Spinner message="Wczytywanie produktów.." />;
-  } else if (products.length >= 0) {
+  } else if (products.length > 0) {
     content = (
       <>
         {products.map((product) => {
@@ -49,7 +50,7 @@ const Shop = () => {
         })}
       </>
     );
-  } else {
+  } else if (products.length === 0) {
     content = (
       <Empty message="Nie posiadamy produktów w tej kategorii" width={300} />
     );
@@ -57,6 +58,13 @@ const Shop = () => {
 
   return (
     <section id="sklep">
+      <div className={classes.navigation}>
+        <Link to="/">
+          <p>Strona główna</p>
+        </Link>
+        <span>/</span>
+        <p className={classes.navigation__active}>{category}</p>
+      </div>
       <div className={classes.product__wrappper}>{content}</div>
     </section>
   );
