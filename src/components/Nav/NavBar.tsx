@@ -4,6 +4,7 @@ import { HashLink } from 'react-router-hash-link';
 import { Link, useRouteLoaderData } from 'react-router-dom';
 import { GiFlour } from 'react-icons/gi';
 import { VscAccount } from 'react-icons/vsc';
+import { BsSearch } from 'react-icons/bs';
 import { FaEnvelope, FaFacebookF, FaArrowUp } from 'react-icons/fa';
 import { CiMenuBurger } from 'react-icons/ci';
 import NavLinks from '../NavLinks/NavLinks';
@@ -108,6 +109,11 @@ const NavBar = () => {
             <Link to="/koszyk">
               <GiFlour />
             </Link>
+          </div>
+          <div className={classes['nav__box--icons-search']}>
+            <button type="button">
+              <BsSearch />
+            </button>
           </div>
           <div className={classes['nav__box--icons-envelope']}>
             <FaEnvelope />

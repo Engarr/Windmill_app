@@ -44,7 +44,6 @@
       transform: translate(0, -50%);
       transition: font-size 0.3s;
 
-      &-cart,
       &-account,
       &-envelope,
       &-fb,
@@ -67,12 +66,32 @@
       &-burger {
         display: none;
       }
-      &-cart:hover,
+
       &-account:hover,
       &-envelope:hover,
       &-fb:hover,
       &-burger:hover {
         color: var(--main-color);
+      }
+      &-cart {
+        a {
+          transition: color 0.3s;
+        }
+        a:hover {
+          color: var(--main-color);
+        }
+      }
+      &-search {
+        button {
+          font-size: 0.8em;
+          background-color: transparent;
+          border: none;
+          transition: color 0.3s;
+          cursor: pointer;
+        }
+        button:hover {
+          color: var(--main-color);
+        }
       }
     }
   }
@@ -152,6 +171,9 @@
         &-envelope,
         &-fb {
           display: none;
+        }
+        &-search {
+          margin-left: 0.3em;
         }
       }
     }
