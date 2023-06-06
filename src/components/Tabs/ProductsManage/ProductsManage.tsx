@@ -59,12 +59,12 @@ const ProductsManage = ({ token }: PropsType) => {
       }
     }
   };
-
+ 
   if (isLoading) {
     content = <Spinner message="Ładowanie produktów" />;
   } else if (userProducts?.products) {
     const productsToDisplay =
-      searchResults.length === 0 ? searchResults : userProducts.products;
+      searchResults.length > 0 ? userProducts.products : searchResults;
     if (productsToDisplay.length === 0) {
       content = <p>Brak wyników dla podanej frazy wyszukiwania.</p>;
     } else {
