@@ -41,6 +41,9 @@ const productsApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+    getSearchProducts: builder.query<ProductType[], string | boolean>({
+      query: (value) => `feed/search/${value}`,
+    }),
     getUserProduct: builder.query<{ products: ProductType[] }, string>({
       query: (token) => ({
         url: 'feed/user-products',
@@ -91,6 +94,7 @@ export const {
   useGetCategoryProductQuery,
   useGetProductDetailQuery,
   useGetProductsByIdQuery,
+  useGetSearchProductsQuery,
   useGetUserProductQuery,
   useAddProductMutation,
   useEdditProductMutation,

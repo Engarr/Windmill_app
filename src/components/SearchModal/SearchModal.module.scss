@@ -11,6 +11,7 @@
   &__searchBox {
     position: relative;
     padding: 10px 20px;
+    max-height: 500px;
     input {
       padding: 20px 10px 5px;
       position: relative;
@@ -62,7 +63,38 @@
     }
   }
 }
+.contentContainer {
+  margin: 2em 0 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
+  &__product {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    &--price {
+      p {
+        margin-left: 10px;
+        color: var(--background-color-hover);
+      }
+    }
+  }
+  &__product:nth-of-type(2n) {
+    background-color: rgba(128, 128, 128, 0.1);
+  }
+  a {
+    color: black;
+    text-decoration: none;
+  }
+  p {
+    font-family: 'Amatic SC', sans-serif;
+    font-size: 1.6em;
+    font-weight: bold;
+  }
+}
 
 @media only screen and (max-width: 1024px) {
   .searchContainer {
