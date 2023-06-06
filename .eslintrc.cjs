@@ -44,5 +44,7 @@ module.exports = {
         endOfLine: 'auto',
       },
     ],
+
+    'no-param-reassign': [2, { props: false }],
   },
 };

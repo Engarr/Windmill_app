@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
 import { RiDeleteBinLine } from 'react-icons/ri';
-import { toast } from 'react-hot-toast';
 import { ProductType } from '../../types/types';
 import classes from './CartProduct.module.scss';
-import { useDeleteCartProductMutation } from '../../store/api/cartApiSlice';
+
 import DeliveryMethod from '../DeliveryMethod/DeliveryMethod';
 
 interface PropsType {
@@ -14,6 +13,7 @@ interface PropsType {
   token?: string;
   increaseHandler: (id: string, tokenNum?: string) => void;
   decreaseHandler: (id: string, tokenNum?: string) => void;
+  removeProduct: (prodId: string, name: string) => void;
 }
 
 const CartProduct = ({
@@ -21,22 +21,8 @@ const CartProduct = ({
   token,
   increaseHandler,
   decreaseHandler,
+  removeProduct,
 }: PropsType) => {
-  const [deleteProductFromCart] = useDeleteCartProductMutation();
-  const removeProduct = async (prodId: string, name: string) => {
-    if (token !== 'null') {
-      try {
-        toast.success(`Produkt: ${name} został usunięty z koszyka`);
-        await deleteProductFromCart({
-          productId: prodId,
-          token,
-        });
-      } catch (error) {
-        toast.error('Wystąpił błąd podczas dodawania produktu do koszyka.');
-      }
-    }
-  };
-
   const totalSum = products.reduce((sum, { product, quantity }) => {
     const productTotal = product.price * quantity;
     return sum + productTotal;

@@ -33,7 +33,6 @@ const cartItemsSlice = createSlice({
         existingItem.quantity += newItem.quantity;
       }
 
-      // eslint-disable-next-line no-param-reassign
       state.totalQuantity += newItem.quantity;
     },
     onIncreaseQty: (state, action) => {
@@ -43,7 +42,6 @@ const cartItemsSlice = createSlice({
       );
       if (existingItem) {
         existingItem.quantity += 1;
-        // eslint-disable-next-line no-param-reassign
         state.totalQuantity += 1;
       }
     },
@@ -54,8 +52,20 @@ const cartItemsSlice = createSlice({
       );
       if (existingItem && existingItem.quantity > 1) {
         existingItem.quantity -= 1;
-        // eslint-disable-next-line no-param-reassign
         state.totalQuantity -= 1;
+      } else if (existingItem && existingItem.quantity === 1) {
+        state.items = state.items.filter((item) => item !== existingItem);
+        state.totalQuantity -= existingItem.quantity;
+      }
+    },
+    onRemoveProduct: (state, action) => {
+      const itemId = action.payload;
+      const existingItem = state.items.find(
+        (item) => item.productId === itemId
+      );
+      if (existingItem) {
+        state.items = state.items.filter((item) => item !== existingItem);
+        state.totalQuantity -= existingItem.quantity;
       }
     },
   },

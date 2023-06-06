@@ -6,7 +6,7 @@ import { useGetProductsByIdQuery } from '../../../store/api/productsApiSlice';
 import Spinner from '../../Spinner/Spinner/Spinner';
 import CartProduct from '../../CartProduct/CartProduct';
 import classes from '../../../pages/Cart/Cart.module.scss';
-import { RootState } from '../../../store/store';
+import store, { RootState } from '../../../store/store';
 import { ProductType } from '../../../types/types';
 
 interface StorageItemsArrType {
@@ -43,11 +43,25 @@ const NotRegisteredCart = () => {
 
   const increaseHandler = (id: string) => {
     dispatch(cartItemAction.onIncreaseQty(id));
+    localStorage.setItem(
+      'cartItems',
+      JSON.stringify(store.getState().cartItems)
+    );
   };
   const decreaseHandler = (id: string) => {
     dispatch(cartItemAction.onDecreaseQty(id));
+    localStorage.setItem(
+      'cartItems',
+      JSON.stringify(store.getState().cartItems)
+    );
   };
-
+  const removeProduct = (id: string) => {
+    dispatch(cartItemAction.onRemoveProduct(id));
+    localStorage.setItem(
+      'cartItems',
+      JSON.stringify(store.getState().cartItems)
+    );
+  };
   let content;
   if (isLoading) {
     content = <Spinner message="Ladowanie.." />;
@@ -66,6 +80,7 @@ const NotRegisteredCart = () => {
         products={newArr as []}
         increaseHandler={increaseHandler}
         decreaseHandler={decreaseHandler}
+        removeProduct={removeProduct}
       />
     );
   }

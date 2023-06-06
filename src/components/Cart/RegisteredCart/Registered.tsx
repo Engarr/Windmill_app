@@ -1,8 +1,10 @@
 import { useRouteLoaderData, Link } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import {
   useGetCartProductsQuery,
   useIncreaseQtyMutation,
   useDecreaseQtyMutation,
+  useDeleteCartProductMutation,
 } from '../../../store/api/cartApiSlice';
 import Spinner from '../../Spinner/Spinner/Spinner';
 import CartProduct from '../../CartProduct/CartProduct';
@@ -16,6 +18,7 @@ const RegisteredCart = () => {
   });
   const [increaseQty] = useIncreaseQtyMutation();
   const [decreaseQty] = useDecreaseQtyMutation();
+  const [deleteProductFromCart] = useDeleteCartProductMutation();
 
   const productsArr = cartItems?.prodArr;
 
@@ -44,6 +47,19 @@ const RegisteredCart = () => {
       throw new Error('Coś poszło nie tak');
     }
   };
+  const removeProduct = async (prodId: string, name: string) => {
+    if (token !== 'null') {
+      try {
+        toast.success(`Produkt: ${name} został usunięty z koszyka`);
+        await deleteProductFromCart({
+          productId: prodId,
+          token,
+        });
+      } catch (error) {
+        toast.error('Wystąpił błąd podczas dodawania produktu do koszyka.');
+      }
+    }
+  };
 
   let content;
   if (isLoading) {
@@ -64,6 +80,7 @@ const RegisteredCart = () => {
         token={token}
         increaseHandler={increaseHandler}
         decreaseHandler={decreaseHandler}
+        removeProduct={removeProduct}
       />
     );
   }
