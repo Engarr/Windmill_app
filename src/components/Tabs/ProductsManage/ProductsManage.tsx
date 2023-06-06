@@ -59,7 +59,7 @@ const ProductsManage = ({ token }: PropsType) => {
       }
     }
   };
- 
+
   if (isLoading) {
     content = <Spinner message="Ładowanie produktów" />;
   } else if (userProducts?.products) {

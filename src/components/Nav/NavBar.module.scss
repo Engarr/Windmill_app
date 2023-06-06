@@ -154,6 +154,30 @@
     right: -250px;
   }
 }
+.showSearchBox {
+  animation: showAnimation 0.5s ease-in forwards;
+}
+
+@keyframes showAnimation {
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 0%;
+  }
+}
+.hideSearchBox {
+  animation: hideAnimation 0.3s ease-in forwards;
+}
+
+@keyframes hideAnimation {
+  0% {
+    top: 0%;
+  }
+  100% {
+    top: -100%;
+  }
+}
 @media only screen and (max-width: 1024px) {
   .nav {
     &__box {

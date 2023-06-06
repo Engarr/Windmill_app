@@ -4,12 +4,14 @@ interface UiState {
   isMenuVisible: boolean;
   scrollPosition: number;
   isCategoryMenu: boolean;
+  isSearchModalVisible: boolean;
 }
 
 const initialState: UiState = {
   isMenuVisible: false,
   scrollPosition: 0,
   isCategoryMenu: false,
+  isSearchModalVisible: false,
 };
 
 const uiSlice = createSlice({
@@ -28,6 +30,10 @@ const uiSlice = createSlice({
     CategoryMenuHandler: (state) => {
       // eslint-disable-next-line no-param-reassign
       state.isCategoryMenu = !state.isCategoryMenu;
+    },
+    SearchModalVisibleHandler: (state) => {
+      // eslint-disable-next-line no-param-reassign
+      state.isSearchModalVisible = !state.isSearchModalVisible;
     },
   },
 });

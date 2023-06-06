@@ -13,19 +13,26 @@ import { RootState } from '../../store/store';
 import logo from '../../assets/logo.png';
 import Toast from '../Toast/Toast';
 import classes from './NavBar.module.scss';
+import SearchModal from '../SearchModal/SearchModal';
 
 const NavBar = () => {
   const token = useRouteLoaderData('root');
+  const dispatch = useDispatch();
 
   const [animationCss, setanimationCss] = useState('');
+  const [searchBoxAnimation, setSearchBoxAnimation] = useState('');
+
   const scrollPosition = useSelector(
     (state: RootState) => state.ui.scrollPosition
   );
-  const dispatch = useDispatch();
   const isMenuVisible = useSelector(
     (state: RootState) => state.ui.isMenuVisible
   );
+  const isSearchBoxVisible = useSelector(
+    (state: RootState) => state.ui.isSearchModalVisible
+  );
 
+  // Animation function for flyout menu
   const showMenuHandler = () => {
     if (isMenuVisible) {
       setTimeout(() => {
@@ -37,13 +44,26 @@ const NavBar = () => {
     setanimationCss(isMenuVisible ? classes.inactive : classes.active);
   };
 
+  // animation broadcast function for search
+  const showSearchModalHandler = () => {
+    if (isSearchBoxVisible) {
+      setTimeout(() => {
+        dispatch(uiActions.SearchModalVisibleHandler());
+      }, 400);
+    } else {
+      dispatch(uiActions.SearchModalVisibleHandler());
+    }
+    setSearchBoxAnimation(
+      isSearchBoxVisible ? classes.hideSearchBox : classes.showSearchBox
+    );
+  };
+
   // The function handleScroll is used to change the styling of the navigation
   useEffect(() => {
     function handleScroll() {
       const position = window.pageYOffset;
       dispatch(uiActions.scrollPositionHandler(position));
     }
-
     window.addEventListener('scroll', handleScroll);
 
     return () => {
@@ -111,7 +131,7 @@ const NavBar = () => {
             </Link>
           </div>
           <div className={classes['nav__box--icons-search']}>
-            <button type="button">
+            <button type="button" onClick={showSearchModalHandler}>
               <BsSearch />
             </button>
           </div>
@@ -138,7 +158,11 @@ const NavBar = () => {
         </div>
         <Toast />
       </div>
-
+      <SearchModal
+        showSearchModalHandler={showSearchModalHandler}
+        isSearchBoxVisible={isSearchBoxVisible}
+        searchBoxAnimation={searchBoxAnimation}
+      />
       <NavLinks
         isMenuVisible={isMenuVisible}
         showMenuHandler={showMenuHandler}
