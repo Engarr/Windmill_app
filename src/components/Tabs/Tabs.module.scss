@@ -1,5 +1,6 @@
 .main__container {
   padding: 1px 20px;
+  word-wrap: break-word;
 
 }
 .container {
@@ -17,6 +18,7 @@
   &__contentTabs {
     margin-top: 1em;
     padding: 20px 40px;
+   
     h4 {
       font-family: 'BenchNine', sans-serif;
       font-size: 2em;
