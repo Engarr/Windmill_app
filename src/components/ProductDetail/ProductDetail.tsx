@@ -131,6 +131,15 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
 
   return (
     <>
+      <div className={classes.navigation}>
+        <div className={classes.navigation__nav}>
+          <Link to="/">Strona główna</Link>
+          <span>/</span>
+          <Link to={`/sklep/${details.category}`}>{details.category}</Link>
+          <span>/</span>
+          <p className={classes[`navigation__nav--active`]}>{details.name}</p>
+        </div>
+      </div>
       <div className={classes.wrapper}>
         <div className={classes.product__imageWrapper}>
           <div>

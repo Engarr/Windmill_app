@@ -37,7 +37,7 @@ const NavBar = () => {
     if (isMenuVisible) {
       setTimeout(() => {
         dispatch(uiActions.MenuHandler());
-      }, 1000);
+      }, 400);
     } else {
       dispatch(uiActions.MenuHandler());
     }
@@ -49,7 +49,7 @@ const NavBar = () => {
     if (isSearchBoxVisible) {
       setTimeout(() => {
         dispatch(uiActions.SearchModalVisibleHandler());
-      }, 400);
+      }, 300);
     } else {
       dispatch(uiActions.SearchModalVisibleHandler());
     }

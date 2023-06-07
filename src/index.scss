@@ -12,10 +12,25 @@ body {
 
   overflow-x: hidden;
 }
+::-webkit-scrollbar {
+  width: 0.7em;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--main-color);
+  border-radius: 5px;
+}
+
 :root {
   --white: white;
   --main-color: rgb(252, 194, 141);
   --menu-color: rgb(231, 157, 20);
   --background-color: rgb(231, 157, 20);
   --background-color-hover: rgb(207, 137, 7);
+}
+@media only screen and (max-width: 1024px) {
+  ::-webkit-scrollbar {
+    width: 0.4em;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 }

@@ -69,7 +69,7 @@ const ProductsManage = ({ token }: PropsType) => {
       ? userProducts.products
       : searchResults;
 
-    if (searchResults?.length === 0) {
+    if (searchResults?.length === 0 || userProducts?.products.length === 0) {
       content = <p>Brak wyników dla podanej frazy wyszukiwania.</p>;
     } else {
       content = (

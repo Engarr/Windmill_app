@@ -12,11 +12,11 @@
   justify-content: space-between;
   align-items: center;
   margin: 0 2em;
-  font-family: 'Amatic SC', sans-serif;
+  font-family: 'BenchNine', sans-serif;
   z-index: 15;
   &__nav {
     display: flex;
-    font-size: 1.1em;
+    font-size: 1.2em;
     letter-spacing: 1px;
     &--active {
       font-weight: bold;
@@ -73,6 +73,18 @@
         font-family: 'BenchNine', sans-serif;
         color: black;
         font-weight: bold;
+      }
+    }
+  }
+  .navigation {
+    z-index: 15;
+    &__nav {
+      font-size: 1em;
+    }
+    &__sorting {
+      font-size: 1.1em;
+      select {
+        padding: 10px 10px;
       }
     }
   }

@@ -41,9 +41,9 @@
   &--textBox {
     display: flex;
     flex-direction: column;
-    
+    text-align: center;
     width: 100%;
-    // background-color: aqua;
+
     h4 {
       color: var(--background-color);
       margin-bottom: 0.2em;
@@ -52,7 +52,6 @@
     }
     p {
       font-family: 'BenchNine', sans-serif;
-
       font-size: 25px;
     }
   }
@@ -69,8 +68,6 @@
 
     &--textBox {
       p {
-        font-family: sans-serif;
-
         font-size: 1.4em;
       }
     }
