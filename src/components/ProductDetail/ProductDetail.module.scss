@@ -182,6 +182,9 @@
     &__imageWrapper {
       width: 100%;
       text-align: center;
+      img {
+        width: 300px;
+      }
     }
     &__infoWrapper {
       width: 100%;

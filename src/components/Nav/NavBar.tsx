@@ -37,7 +37,7 @@ const NavBar = () => {
     if (isMenuVisible) {
       setTimeout(() => {
         dispatch(uiActions.MenuHandler());
-      }, 400);
+      }, 1000);
     } else {
       dispatch(uiActions.MenuHandler());
     }

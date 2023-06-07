@@ -100,7 +100,7 @@
     height: 100px;
   }
   &__icons {
-    font-size: 1.4em;
+    font-size: 1.5em;
   }
   &__height {
     height: 90px;
@@ -155,27 +155,31 @@
   }
 }
 .showSearchBox {
-  animation: showAnimation 0.5s ease-in forwards;
+  animation: showAnimation 0.3s ease-in forwards;
 }
 
 @keyframes showAnimation {
   0% {
-    top: -100%;
+    opacity: 0;
   }
   100% {
-    top: 5%;
+    opacity: 1;
+    top: 0%;
+    min-height: 200px;
   }
 }
 .hideSearchBox {
-  animation: hideAnimation 0.3s ease-in forwards;
+  animation: hideAnimation 0.3s linear forwards;
 }
 
 @keyframes hideAnimation {
   0% {
     top: 0%;
+    opacity: 1;
   }
   100% {
-    top: -100%;
+    opacity: 0;
+    height: 0px;
   }
 }
 @media only screen and (max-width: 1024px) {
@@ -189,6 +193,7 @@
       &--icons {
         flex-direction: row;
         top: 50%;
+        font-size: 1.6em;
         &-burger {
           display: flex;
         }
@@ -205,13 +210,16 @@
       left: 20%;
     }
     &__icons {
-      font-size: 1.7em;
+      font-size: 1em;
     }
     &__height {
       height: 140px;
     }
     &__arrowUp {
       display: none;
+    }
+    &__icons {
+      font-size: 1.5em;
     }
   }
 }

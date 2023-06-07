@@ -1,17 +1,16 @@
 .searchContainer {
   position: absolute;
   background-color: #ffffff;
-  z-index: 100;
+  z-index: 10000;
   left: 50%;
   transform: translate(-50%);
-  max-width: 1200px;
+  max-width: 1400px;
   width: 100%;
-  top: 0%;
+  top: -100%;
   text-align: center;
   &__searchBox {
     position: relative;
     padding: 10px 20px;
-    max-height: 500px;
     input {
       padding: 20px 10px 5px;
       position: relative;
@@ -67,9 +66,10 @@
   margin: 2em 0 1em;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-
+  max-height: 560px;
+  overflow-y: scroll;
   &__product {
     display: flex;
     justify-content: center;
@@ -98,10 +98,29 @@
 
 @media only screen and (max-width: 1024px) {
   .searchContainer {
+    width: 100%;
     &__searchBox {
+      padding: 0px 10px;
       input {
         width: 100%;
       }
+      &--close {
+        right: 10%;
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+  .contentContainer {
+    margin: 1em 0 0.5em;
+    max-height: 400px;
+    &__product {
+      img {
+        width: 80px;
+      }
+    }
+    p {
+      font-size: 1.4em;
     }
   }
 }

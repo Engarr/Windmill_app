@@ -71,7 +71,8 @@ const SearchModal = ({
   }
 
   return (
-    <div>
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+    <>
       {isSearchBoxVisible && (
         <>
           <Modal show={isSearchBoxVisible} handler={showSearchModalHandler} />
@@ -80,6 +81,7 @@ const SearchModal = ({
               <input
                 name="search"
                 placeholder="Szukaj..."
+                value={searchValue}
                 onChange={(e) => searchValueHandler(e)}
               />
 
@@ -103,7 +105,7 @@ const SearchModal = ({
           </div>
         </>
       )}
-    </div>
+    </>
   );
 };
 

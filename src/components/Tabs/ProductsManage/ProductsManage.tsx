@@ -21,7 +21,9 @@ const ProductsManage = ({ token }: PropsType) => {
     refetchOnMountOrArgChange: true,
   });
   const [searchValue, setSearchValue] = useState('');
-  const [searchResults, setSearchResults] = useState<ProductType[]>([]);
+  const [searchResults, setSearchResults] = useState<
+    ProductType[] | undefined
+  >();
 
   const [deleteProduct, { isError }] = useDeleteProductMutation();
   let content;
@@ -63,10 +65,11 @@ const ProductsManage = ({ token }: PropsType) => {
   if (isLoading) {
     content = <Spinner message="Ładowanie produktów" />;
   } else if (userProducts?.products) {
-    const productsToDisplay =
-      searchResults.length === 0 ? userProducts.products : searchResults;
+    const productsToDisplay = !searchResults
+      ? userProducts.products
+      : searchResults;
 
-    if (searchResults.length === 0) {
+    if (searchResults?.length === 0) {
       content = <p>Brak wyników dla podanej frazy wyszukiwania.</p>;
     } else {
       content = (
