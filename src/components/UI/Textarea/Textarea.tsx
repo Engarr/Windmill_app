@@ -1,6 +1,11 @@
 import classes from './Textarea.module.scss';
 
-const Textarea = () => {
+interface PropsType {
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  defaultValue: string;
+}
+
+const Textarea = ({ onChange, defaultValue }: PropsType) => {
   return (
     <div className={classes.textareaBox}>
       <textarea
@@ -8,6 +13,8 @@ const Textarea = () => {
         id="message"
         placeholder="Twoja wiaodmość:"
         className={classes.textarea}
+        onChange={onChange}
+        value={defaultValue}
       />
       <label htmlFor="message" className={classes.label}>
         Twoja wiadomość:

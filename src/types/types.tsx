@@ -15,6 +15,9 @@ export type ErrorsData = {
   description?: string;
   image?: string;
   newEmail?: string;
+  userName?: string;
+  message?: string;
+  subject?: string;
 };
 
 export type Products = {
@@ -69,6 +72,18 @@ export type ProductFormResponseType = {
     message: string;
   };
   error?: {
+    data: {
+      errors: Data[];
+    };
+    status: number;
+  };
+};
+
+export type FormResponseType = {
+  data: {
+    message: string;
+  };
+  error: {
     data: {
       errors: Data[];
     };

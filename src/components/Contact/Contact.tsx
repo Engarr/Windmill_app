@@ -1,9 +1,82 @@
+import { useState, useEffect } from 'react';
 import { HiLocationMarker, HiPhone, HiOutlineMail } from 'react-icons/hi';
+import { BsFillSignpostSplitFill } from 'react-icons/bs';
+import { toast } from 'react-hot-toast';
 import Input from '../UI/Input/Input';
 import Textarea from '../UI/Textarea/Textarea';
 import classes from './Contact.module.scss';
+import { usePutContactMessageMutation } from '../../store/api/userApiSlice';
+import { FormResponseType, ErrorsData } from '../../types/types';
+import LineWaveLoader from '../Spinner/CircleWave/LineWaveLoader';
 
 const Contact = () => {
+  const [onContact, { isSuccess, isLoading, isError }] =
+    usePutContactMessageMutation();
+  const [backendErrors, setBackendErrors] = useState<ErrorsData>({
+    userName: '',
+    email: '',
+    message: '',
+    subject: '',
+  });
+  const [contactData, setContactData] = useState({
+    userName: '',
+    email: '',
+    message: '',
+    subject: '',
+  });
+  useEffect(() => {
+    if (isSuccess) {
+      setContactData({
+        userName: '',
+        email: '',
+        message: '',
+        subject: '',
+      });
+    }
+  }, [isSuccess]);
+
+  const contacDataHandler = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setContactData((prevData) => ({
+      ...prevData,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  const contactHandler = async () => {
+    try {
+      const { userName, email, message, subject } = contactData;
+      const response = await onContact({
+        userName,
+        email,
+        message,
+        subject,
+      });
+      const data = response as FormResponseType;
+      if (!data.error) {
+        toast.success(data.data.message);
+      } else {
+        const errorArray = data.error.data.errors;
+        const errorsObj: { [key: string]: string } = {};
+        errorArray.forEach((error) => {
+          errorsObj[error.path] = error.msg;
+        });
+        setBackendErrors(errorsObj);
+      }
+      toast.error('Nieprawidłowo uzupełniony formularz');
+    } catch (err) {
+      throw new Error('Error: Nie udalo się wysłać wiaodmości');
+    }
+  };
+  let buttonContent;
+  if (isLoading) {
+    buttonContent = <LineWaveLoader />;
+  } else if (isError) {
+    buttonContent = 'Popraw błędy formularza';
+  } else {
+    buttonContent = 'Wyślij';
+  }
+
   return (
     <div className={classes.wrapper}>
       <div className={classes.contact__container}>
@@ -14,10 +87,13 @@ const Contact = () => {
           <div className={classes.contact__adress}>
             <h2>Gdzie nasz znajdziesz?</h2>
             <div>
-              <HiLocationMarker className={classes[`contact__adress--icon`]} />
+              <BsFillSignpostSplitFill
+                className={classes[`contact__adress--icon`]}
+              />
               <p>ul. Młyńska 29</p>
             </div>
             <div>
+              <HiLocationMarker className={classes[`contact__adress--icon`]} />
               <p> 37-716 Orły</p>
             </div>
             <div>
@@ -35,12 +111,51 @@ const Contact = () => {
             <div className={classes[`contact__formBox--h2Box`]}>
               <h2>Formularz kontaktowy</h2>
             </div>
-            <div className={classes[`contact__formBox--inputsBox`]}>
-              <Input type="text" data="name" text="Imię:" />
-              <Input type="text" data="email" text="E-mail:" />
-              <Textarea />
+            <div>
+              {Object.values(backendErrors).some((error) => error !== '') && (
+                <div className={classes.errorsContainer}>
+                  <h3>Błąd formularza:</h3>
+                  <ul>
+                    {Object.entries(backendErrors).map(
+                      ([key, value]: [string, string]) => {
+                        return value && <li key={key}>{`${value}`}</li>;
+                      }
+                    )}
+                  </ul>
+                </div>
+              )}
             </div>
-            <button type="button">Wyślij</button>
+            <div className={classes[`contact__formBox--inputsBox`]}>
+              <Input
+                type="text"
+                data="subject"
+                text="Tytuł wiadomości:"
+                onChange={contacDataHandler}
+                defaultValue={contactData.subject}
+                error={backendErrors.subject}
+              />
+              <Input
+                type="text"
+                data="userName"
+                text="Twoje imię:"
+                onChange={contacDataHandler}
+                defaultValue={contactData.userName}
+              />
+              <Input
+                type="text"
+                data="email"
+                text="Twój e-mail:"
+                onChange={contacDataHandler}
+                defaultValue={contactData.email}
+              />
+              <Textarea
+                onChange={contacDataHandler}
+                defaultValue={contactData.message}
+              />
+            </div>
+            <button type="button" onClick={contactHandler}>
+              {buttonContent}
+            </button>
           </form>
         </div>
       </div>

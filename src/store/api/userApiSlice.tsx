@@ -1,5 +1,5 @@
 import apiSlice from './apiSlice';
-import { ResponseType } from '../../types/types';
+import { ResponseType, FormResponseType } from '../../types/types';
 
 const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -76,13 +76,29 @@ const userApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+    putContactMessage: builder.mutation<
+      FormResponseType,
+      { userName: string; email: string; message: string; subject: string }
+    >({
+      query: ({ userName, email, message, subject }) => ({
+        url: 'auth/contact',
+        method: 'PUT',
+        body: {
+          userName,
+          email,
+          message,
+          subject,
+        },
+      }),
+    }),
   }),
 });
-// eslint-disable-next-line import/prefer-default-export
+
 export const {
   useGetUserIdQuery,
   usePostLoginUserMutation,
   usePutRegisterUserMutation,
   usePostChangeUserPasswordMutation,
   usePostChangeUserEmailMutation,
+  usePutContactMessageMutation,
 } = userApiSlice;
