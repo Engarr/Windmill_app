@@ -10,8 +10,7 @@ import { FormResponseType, ErrorsData } from '../../types/types';
 import LineWaveLoader from '../Spinner/CircleWave/LineWaveLoader';
 
 const Contact = () => {
-  const [onContact, { isSuccess, isLoading, isError }] =
-    usePutContactMessageMutation();
+  const [onContact, { isLoading, isError }] = usePutContactMessageMutation();
   const [backendErrors, setBackendErrors] = useState<ErrorsData>({
     userName: '',
     email: '',
@@ -24,16 +23,6 @@ const Contact = () => {
     message: '',
     subject: '',
   });
-  useEffect(() => {
-    if (isSuccess) {
-      setContactData({
-        userName: '',
-        email: '',
-        message: '',
-        subject: '',
-      });
-    }
-  }, [isSuccess]);
 
   const contacDataHandler = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -53,8 +42,15 @@ const Contact = () => {
         subject,
       });
       const data = response as FormResponseType;
+
       if (!data.error) {
         toast.success(data.data.message);
+        setContactData({
+          userName: '',
+          email: '',
+          message: '',
+          subject: '',
+        });
       } else {
         const errorArray = data.error.data.errors;
         const errorsObj: { [key: string]: string } = {};
@@ -140,6 +136,7 @@ const Contact = () => {
                 text="Twoje imię:"
                 onChange={contacDataHandler}
                 defaultValue={contactData.userName}
+                error={backendErrors.userName}
               />
               <Input
                 type="text"
@@ -147,10 +144,12 @@ const Contact = () => {
                 text="Twój e-mail:"
                 onChange={contacDataHandler}
                 defaultValue={contactData.email}
+                error={backendErrors.email}
               />
               <Textarea
                 onChange={contacDataHandler}
                 defaultValue={contactData.message}
+                error={backendErrors.message}
               />
             </div>
             <button type="button" onClick={contactHandler}>

@@ -44,6 +44,7 @@ const SearchModal = ({
                 onClick={() => {
                   showSearchModalHandler();
                   setSearchValue('');
+                  window.scroll(0, 0);
                 }}
               >
                 <div>

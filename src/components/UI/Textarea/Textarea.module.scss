@@ -45,3 +45,19 @@
 .textareaBox textarea:focus {
   border: 1px solid var(--menu-color);
 }
+.error textarea {
+  border: 1px solid red;
+}
+.error textarea ~ .label {
+  color: rgb(223, 81, 81);
+  transform: translate(10px) translateY(-7px);
+  font-size: 0.95em;
+  padding: 0 5px;
+  letter-spacing: 1px;
+  border-left: 1px solid red;
+  border-right: 1px solid red;
+  background-color: #fff;
+}
+.error textarea::placeholder {
+  color: transparent;
+}

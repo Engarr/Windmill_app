@@ -119,19 +119,28 @@ const NavBar = () => {
         </div>
 
         <div className={`${classes['nav__box--icons']} ${styleIconsCss}`}>
-          <Link to={token ? '/konto' : '/konto?mode=login'}>
+          <Link
+            to={token ? '/konto' : '/konto?mode=login'}
+            onClick={scrolToTop}
+          >
             <div className={classes['nav__box--icons-account']}>
               <VscAccount />
             </div>
           </Link>
 
           <div className={classes['nav__box--icons-cart']}>
-            <Link to="/koszyk">
+            <Link to="/koszyk" onClick={scrolToTop}>
               <GiFlour />
             </Link>
           </div>
           <div className={classes['nav__box--icons-search']}>
-            <button type="button" onClick={showSearchModalHandler}>
+            <button
+              type="button"
+              onClick={() => {
+                showSearchModalHandler();
+                scrolToTop();
+              }}
+            >
               <BsSearch />
             </button>
           </div>

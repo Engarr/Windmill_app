@@ -2,12 +2,13 @@ import classes from './Textarea.module.scss';
 
 interface PropsType {
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  defaultValue: string;
+  defaultValue?: string;
+  error?: string;
 }
 
-const Textarea = ({ onChange, defaultValue }: PropsType) => {
+const Textarea = ({ onChange, defaultValue, error }: PropsType) => {
   return (
-    <div className={classes.textareaBox}>
+    <div className={`${classes.textareaBox} ${error ? classes.error : ''}`}>
       <textarea
         name="message"
         id="message"

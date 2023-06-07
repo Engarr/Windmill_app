@@ -42,6 +42,7 @@ const AuthForm = () => {
 
       const resData = response as ResponseType;
       if (resData.error) {
+        window.scroll(0, 0);
         const errorsObj: { [key: string]: string } = {};
         if (resData.error.status === 422 || resData.error.status === 401) {
           resData.error.data.errors.forEach((error) => {
@@ -117,12 +118,14 @@ const AuthForm = () => {
           data="email"
           text="E-mail:"
           onChange={handleUserDataChange}
+          error={backendErrors.email}
         />
         <Input
           type="password"
           data="password"
           text="Hasło:"
           onChange={handleUserDataChange}
+          error={backendErrors.password}
         />
         {!isLogin && (
           <Input
@@ -130,6 +133,7 @@ const AuthForm = () => {
             data="repeatPassword"
             text="Powtórz hasło:"
             onChange={handleUserDataChange}
+            error={backendErrors.repeatPassword}
           />
         )}
         <div className={classes.form__actions}>

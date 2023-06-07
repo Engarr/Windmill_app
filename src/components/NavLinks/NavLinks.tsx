@@ -51,6 +51,9 @@ const NavLinks = ({
   const activeNavHandler = () => {
     setActiveSection('sklep');
   };
+  const scrollTop = () => {
+    window.scroll(0, 0);
+  };
 
   return (
     // bigDevices
@@ -71,7 +74,13 @@ const NavLinks = ({
             className={activeSection === 'sklep' ? classes.active : ''}
             id="nav"
           >
-            <NavLink to="/sklep" onClick={activeNavHandler}>
+            <NavLink
+              to="/sklep"
+              onClick={() => {
+                activeNavHandler();
+                scrollTop();
+              }}
+            >
               Sklep On-line
             </NavLink>
           </li>
@@ -83,7 +92,9 @@ const NavLinks = ({
           </li>
 
           <li className={activeSection === 'kontakt' ? classes.active : ''}>
-            <a href="/#kontakt">Kontakt</a>
+            <HashLink to="/#kontakt" scroll={(el) => scrollWithOffset(el)}>
+              Kontakt
+            </HashLink>
           </li>
         </ul>
       </div>
@@ -113,6 +124,7 @@ const NavLinks = ({
                   to="/sklep"
                   onClick={() => {
                     showMenuHandler();
+                    scrollTop();
                   }}
                 >
                   Sklep On-line
