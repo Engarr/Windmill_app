@@ -21,10 +21,10 @@ const AuthForm = () => {
     password: '',
     repeatPassword: '',
   });
-  const [postLoginUser, { status: loginStatus }] = usePostLoginUserMutation();
-  const [putRegisterUser, { status: registeStatus }] =
+  const [postLoginUser, { isLoading: isLoginLoading }] =
+    usePostLoginUserMutation();
+  const [putRegisterUser, { isLoading: isRegisterLoading }] =
     usePutRegisterUserMutation();
-  const isSubmitting = loginStatus === 'pending' || registeStatus === 'pending';
 
   const handleUserDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserData((prevData) => ({
@@ -41,7 +41,15 @@ const AuthForm = () => {
         : await putRegisterUser({ mode, email, password, repeatPassword });
 
       const resData = response as ResponseType;
+
       if (resData.error) {
+        if (resData.error.status === 500) {
+          toast.error(resData.error.data.message);
+          setUserData((prevData) => ({
+            ...prevData,
+            password: '',
+          }));
+        }
         window.scroll(0, 0);
         const errorsObj: { [key: string]: string } = {};
         if (resData.error.status === 422 || resData.error.status === 401) {
@@ -52,13 +60,6 @@ const AuthForm = () => {
         setBackendErrors(errorsObj);
       }
 
-      if (resData.error.status === 500) {
-        toast.error(resData.error.data.message);
-        setUserData((prevData) => ({
-          ...prevData,
-          password: '',
-        }));
-      }
       if (resData.data) {
         if (isLogin) {
           const { token } = resData.data;
@@ -92,13 +93,13 @@ const AuthForm = () => {
 
   let buttonContent;
   if (isLogin) {
-    if (isSubmitting) {
+    if (isLoginLoading) {
       buttonContent = <LineWaveLoader />;
     } else {
       buttonContent = 'Zaloguj się';
     }
   } else if (!isLogin) {
-    if (isSubmitting) {
+    if (isRegisterLoading) {
       buttonContent = <LineWaveLoader />;
     } else {
       buttonContent = 'Utwórz konto';
@@ -148,7 +149,7 @@ const AuthForm = () => {
         <div className={classes.form__actions}>
           <button
             type="button"
-            disabled={isSubmitting}
+            disabled={isRegisterLoading || isLoginLoading}
             onClick={handleUserButton}
           >
             {buttonContent}

@@ -26,6 +26,7 @@ const Category = () => {
       dispatch(uiActions.CategoryMenuHandler());
     }
     setanimationCss(isCategoryMenu ? classes.inactive : classes.active);
+
     setanimationCssArrow(isCategoryMenu ? classes.arrowUp : classes.arrowDown);
   };
   return (

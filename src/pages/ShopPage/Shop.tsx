@@ -76,7 +76,10 @@ const Shop = () => {
     );
   } else {
     content = (
-      <Empty message="Nie posiadamy produktów w tej kategorii" width={300} />
+      <Empty
+        message="Nie posiadamy jeszcze produktów w tej kategorii"
+        width={300}
+      />
     );
   }
 
@@ -91,7 +94,6 @@ const Shop = () => {
           <p className={classes[`navigation__nav--active`]}>{category}</p>
         </div>
         <div className={classes.navigation__sorting}>
-          {/* <MdKeyboardArrowDown className={classes.arrow} /> */}
           <label>Opcje sortowania:</label>
           <select
             name="sorting"

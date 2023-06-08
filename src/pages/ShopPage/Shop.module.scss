@@ -51,6 +51,10 @@
       font-family: 'BenchNine', sans-serif;
       color: black;
       font-weight: bold;
+      background-color: transparent;
+    }
+    select:focus {
+      outline: auto;
     }
   }
 }
