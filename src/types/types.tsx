@@ -57,6 +57,7 @@ export type ResponseType = {
     status: number;
     data: {
       errors: Data[];
+      message: string;
     };
   };
   data: {

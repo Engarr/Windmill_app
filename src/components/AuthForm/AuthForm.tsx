@@ -52,6 +52,13 @@ const AuthForm = () => {
         setBackendErrors(errorsObj);
       }
 
+      if (resData.error.status === 500) {
+        toast.error(resData.error.data.message);
+        setUserData((prevData) => ({
+          ...prevData,
+          password: '',
+        }));
+      }
       if (resData.data) {
         if (isLogin) {
           const { token } = resData.data;
@@ -119,11 +126,13 @@ const AuthForm = () => {
           text="E-mail:"
           onChange={handleUserDataChange}
           error={backendErrors.email}
+          defaultValue={userData.email}
         />
         <Input
           type="password"
           data="password"
           text="Hasło:"
+          defaultValue={userData.password}
           onChange={handleUserDataChange}
           error={backendErrors.password}
         />
