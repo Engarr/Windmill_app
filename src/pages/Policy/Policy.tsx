@@ -15,11 +15,10 @@ const Policy = () => {
       </p>
       <h2>ADMINISTRATOR DANYCH OSOBOWYCH</h2>
       <p>
-        Piotr Szabat, przedsiębiorca prowadzący działalność nierejestrowaną pod
-        nazwą Wickerland o, , NIP 6020140463 ul. Żwirki i Wigury 32, 37-420
-        Rudnik nad Sanem Chcesz skontaktować się z nami w związku z
-        przetwarzaniem przez nas Twoich danych osobowych, napisz do nas na adres
-        e-mail: kontakt@wickerland.pl
+        Polski-Młyn sp. z o.o., Przedsiębiorstwo prowadzące działalność NIP
+        00000000000 ul. Młyńska 29, 37-716 Orły Chcesz skontaktować się z nami w
+        związku z przetwarzaniem przez nas Twoich danych osobowych, napisz do
+        nas na adres e-mail: kontakt-mlyn@gmail.com
       </p>
       <h2>TWOJE UPRAWNIENIA</h2>
       <div>Przysługuje Ci prawo żądania:</div>
