@@ -12,6 +12,8 @@ import ProductDetails from './pages/ProductDetails/ProductDetails';
 import EditProduct from './pages/EditProduct/EditProduct';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
 import OrderPage from './pages/OrderPage/OrderPage';
+import Statute from './pages/Statute/Statute';
+import Policy from './pages/Policy/Policy';
 
 function App() {
   const router = createBrowserRouter([
@@ -63,6 +65,8 @@ function App() {
           path: '/logout',
           action: logout,
         },
+        { path: '/regulamin', element: <Statute /> },
+        { path: '/polityka', element: <Policy /> },
       ],
     },
   ]);

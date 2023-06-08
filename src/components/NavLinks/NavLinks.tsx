@@ -158,7 +158,7 @@ const NavLinks = ({
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="">
+                  <NavLink to="https://www.facebook.com/profile.php?id=100001584875603">
                     <FaFacebookF />
                   </NavLink>
                 </li>

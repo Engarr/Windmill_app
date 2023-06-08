@@ -79,7 +79,7 @@ const NavBar = () => {
 
   const scrollWithOffset = (el: HTMLElement) => {
     const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
-    const yOffset = 260;
+    const yOffset = 220;
     window.scrollTo({ top: yCoordinate - yOffset, behavior: 'smooth' });
   };
   const scrolToTop = () => {
@@ -148,7 +148,9 @@ const NavBar = () => {
             <FaEnvelope />
           </div>
           <div className={classes['nav__box--icons-fb']}>
-            <FaFacebookF />
+            <Link to="https://www.facebook.com/profile.php?id=100001584875603">
+              <FaFacebookF />
+            </Link>
           </div>
 
           <div

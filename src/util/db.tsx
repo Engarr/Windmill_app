@@ -22,3 +22,4 @@ export const shippingCost: ShippingType[] = [
     option: 2,
   },
 ];
+
