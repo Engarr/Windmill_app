@@ -14,6 +14,7 @@ import ErrorPage from './pages/ErrorPage/ErrorPage';
 import OrderPage from './pages/OrderPage/OrderPage';
 import Statute from './pages/Statute/Statute';
 import Policy from './pages/Policy/Policy';
+import ResetPage from './pages/ResetPasswordPage/ResetPage';
 
 function App() {
   const router = createBrowserRouter([
@@ -67,6 +68,7 @@ function App() {
         },
         { path: '/regulamin', element: <Statute /> },
         { path: '/polityka', element: <Policy /> },
+        { path: '/reset', element: <ResetPage /> },
       ],
     },
   ]);

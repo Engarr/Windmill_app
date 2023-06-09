@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams, Link, Form, useNavigate } from 'react-router-dom';
+import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import classes from './AuthForm.module.scss';
 import Input from '../UI/Input/Input';
@@ -160,7 +160,7 @@ const AuthForm = () => {
           onChange={handleUserDataChange}
           error={backendErrors.password}
         />
-        {!isLogin && (
+        {!isLogin ? (
           <Input
             type="password"
             data="repeatPassword"
@@ -168,6 +168,10 @@ const AuthForm = () => {
             onChange={handleUserDataChange}
             error={backendErrors.repeatPassword}
           />
+        ) : (
+          <div className={classes[`form__container--forgotPassword`]}>
+            <Link to="/reset">Nie pamiętasz hasła?</Link>
+          </div>
         )}
         <div className={classes.form__actions}>
           <button

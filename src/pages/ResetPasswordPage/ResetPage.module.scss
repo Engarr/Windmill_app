@@ -1,0 +1,34 @@
+.mainContainer {
+  padding: 10px 20px;
+  min-height: 400px;
+  max-height: 500px;
+  font-family: 'Roboto Condensed', sans-serif;
+  &__textBox {
+    h2 {
+      margin-bottom: 0.5em;
+      color: var(--background-color-hover);
+      letter-spacing: 1px;
+    }
+    p {
+      margin-bottom: 0.2em;
+    }
+    p:last-of-type {
+      margin-bottom: 2em;
+    }
+  }
+  &__inputBox {
+    max-width: 400px;
+    button {
+      padding: 10px 30px;
+      background-color: var(--background-color);
+      color: antiquewhite;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: var(--background-color-hover);
+    }
+  }
+}
