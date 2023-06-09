@@ -91,6 +91,29 @@ const AuthForm = () => {
     });
   }, [isLogin]);
 
+  const sendDemoRequest = async () => {
+    try {
+      const response = await postLoginUser({
+        mode: 'login',
+        email: 'pocztademo@poczta.pl',
+        password: 'haslodemo123Q!',
+      });
+
+      const resData = response as ResponseType;
+      if (resData.data) {
+        const { token } = resData.data;
+        localStorage.setItem('token', token);
+        const expiration = new Date();
+        expiration.setHours(expiration.getHours() + 24);
+        localStorage.setItem('expiration', expiration.toISOString());
+        toast.success('Zostałeś pomyślnie zalogowany. Witaj!');
+        navigate('/');
+      }
+    } catch (err) {
+      throw new Error('Coś poszło nie tak, spróbuj ponownie później');
+    }
+  };
+
   let buttonContent;
   if (isLogin) {
     if (isLoginLoading) {
@@ -118,7 +141,7 @@ const AuthForm = () => {
           </ul>
         </div>
       )}
-      <Form method="post" className={classes.form__container}>
+      <form method="post" className={classes.form__container}>
         <h2>{isLogin ? 'Zaloguj się' : 'Zarejestruj się'}</h2>
 
         <Input
@@ -158,7 +181,14 @@ const AuthForm = () => {
             {isLogin ? 'Załóż konto nowe konto' : 'Zaloguj się'}
           </Link>
         </div>
-      </Form>
+        {isLogin && (
+          <div className={classes.demoButton}>
+            <button type="button" onClick={sendDemoRequest}>
+              Demo
+            </button>
+          </div>
+        )}
+      </form>
     </div>
   );
 };
