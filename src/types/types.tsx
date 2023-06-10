@@ -103,6 +103,7 @@ export type ResetPasswordResponseType = {
   error: {
     data: {
       errors: Data[];
+      message: string;
     };
     status: number;
   };

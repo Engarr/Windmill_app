@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import classes from '../../pages/ResetPasswordPage/ResetPage.module.scss';
 import Input from '../UI/Input/Input';
 import { usePutResetSendEmailCodeMutation } from '../../store/api/userApiSlice';
-import { FormResponseType, ErrorsData } from '../../types/types';
+import { ResetPasswordResponseType, ErrorsData } from '../../types/types';
 import LineWaveLoader from '../Spinner/CircleWave/LineWaveLoader';
 
 interface PropsType {
@@ -17,16 +17,20 @@ const SendCode = ({ email, setEmail, setMode }: PropsType) => {
   const resetEmailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
+
   const [onSendEmail, { isLoading: isSendEmailLoading }] =
     usePutResetSendEmailCodeMutation();
   const sendEmailHandler = async () => {
     try {
       const response = await onSendEmail({ email });
 
-      const resData = response as FormResponseType;
+      const resData = response as ResetPasswordResponseType;
 
       if (resData.error) {
         window.scroll(0, 0);
+        if (resData.error.status === 404) {
+          toast.error(resData.error.data.message);
+        }
         const errorsObj: { [key: string]: string } = {};
         if (resData.error.status === 422 || resData.error.status === 401) {
           resData.error.data.errors.forEach((error) => {
