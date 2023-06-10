@@ -8,7 +8,9 @@ export type Data = {
 export type ErrorsData = {
   email?: string;
   password?: string;
+  newPassword?: string;
   repeatPassword?: string;
+
   name?: string;
   price?: string;
   category?: string;
@@ -18,6 +20,8 @@ export type ErrorsData = {
   userName?: string;
   message?: string;
   subject?: string;
+  code?: string;
+  user?: string;
 };
 
 export type Products = {
@@ -82,6 +86,18 @@ export type ProductFormResponseType = {
 
 export type FormResponseType = {
   data: {
+    message: string;
+  };
+  error: {
+    data: {
+      errors: Data[];
+    };
+    status: number;
+  };
+};
+export type ResetPasswordResponseType = {
+  data: {
+    userId: string;
     message: string;
   };
   error: {

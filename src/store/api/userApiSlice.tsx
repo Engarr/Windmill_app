@@ -1,5 +1,9 @@
 import apiSlice from './apiSlice';
-import { ResponseType, FormResponseType } from '../../types/types';
+import {
+  ResponseType,
+  FormResponseType,
+  ResetPasswordResponseType,
+} from '../../types/types';
 
 const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -76,6 +80,44 @@ const userApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+    putResetSendEmailCode: builder.mutation<
+      FormResponseType,
+      { email: string }
+    >({
+      query: ({ email }) => ({
+        url: 'auth/reset-send',
+        method: 'PUT',
+        body: {
+          email,
+        },
+      }),
+    }),
+    putVerifyCode: builder.mutation<
+      ResetPasswordResponseType,
+      { code: string }
+    >({
+      query: ({ code }) => ({
+        url: 'auth/send-code',
+        method: 'PUT',
+        body: {
+          code,
+        },
+      }),
+    }),
+    putCreateNewPassword: builder.mutation<
+      ResetPasswordResponseType,
+      { newPassword: string; repeatNewPassword: string; userId: string }
+    >({
+      query: ({ newPassword, repeatNewPassword, userId }) => ({
+        url: 'auth/send-new-password',
+        method: 'PUT',
+        body: {
+          newPassword,
+          repeatPassword: repeatNewPassword,
+          userId,
+        },
+      }),
+    }),
     putContactMessage: builder.mutation<
       FormResponseType,
       { userName: string; email: string; message: string; subject: string }
@@ -100,5 +142,8 @@ export const {
   usePutRegisterUserMutation,
   usePostChangeUserPasswordMutation,
   usePostChangeUserEmailMutation,
+  usePutResetSendEmailCodeMutation,
+  usePutVerifyCodeMutation,
+  usePutCreateNewPasswordMutation,
   usePutContactMessageMutation,
 } = userApiSlice;

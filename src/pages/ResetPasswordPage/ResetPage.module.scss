@@ -16,8 +16,14 @@
       margin-bottom: 2em;
     }
   }
-  &__inputBox {
+  &__inputBox,
+  &__CodeInputBox,
+  &__newPasswordBox {
     max-width: 400px;
+    p {
+      color: red;
+      margin-bottom: 0.8em;
+    }
     button {
       padding: 10px 30px;
       background-color: var(--background-color);
@@ -26,9 +32,37 @@
       border-radius: 2px;
       cursor: pointer;
       transition: background-color 0.3s;
+      font-weight: bold;
     }
     button:hover {
       background-color: var(--background-color-hover);
+    }
+  }
+  &__CodeInputBox {
+    input {
+      display: flex;
+      font-family: 'Roboto Condensed', sans-serif;
+      padding: 5px 10px;
+      font-size: 1.2em;
+      font-weight: bold;
+      letter-spacing: 10px;
+      text-align: center;
+    }
+    button {
+      margin-top: 0.5em;
+    }
+  }
+}
+@media screen and (max-width: 1024px) {
+  .mainContainer {
+    &__CodeInputBox {
+      input {
+        width: 100%;
+        padding: 10px 10px;
+      }
+      button {
+        width: 100%;
+      }
     }
   }
 }
