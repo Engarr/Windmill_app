@@ -2,7 +2,7 @@ import { useState } from 'react';
 import classes from './ResetPage.module.scss';
 import SendCode from '../../components/ResetComponents/SendCode';
 import VerifyCode from '../../components/ResetComponents/VerifyCode';
-import AddNewPassword from '../../components/ResetComponents/addNewPassword';
+import AddNewPassword from '../../components/ResetComponents/AddNewPassword';
 
 const ResetPage = () => {
   const [email, setEmail] = useState<string>('');
