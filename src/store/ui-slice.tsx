@@ -5,6 +5,7 @@ interface UiState {
   scrollPosition: number;
   isCategoryMenu: boolean;
   isSearchModalVisible: boolean;
+  deliveryMethod: number;
 }
 
 const initialState: UiState = {
@@ -12,6 +13,7 @@ const initialState: UiState = {
   scrollPosition: 0,
   isCategoryMenu: false,
   isSearchModalVisible: false,
+  deliveryMethod: 0,
 };
 
 const uiSlice = createSlice({
@@ -34,6 +36,9 @@ const uiSlice = createSlice({
     SearchModalVisibleHandler: (state) => {
       // eslint-disable-next-line no-param-reassign
       state.isSearchModalVisible = !state.isSearchModalVisible;
+    },
+    selectDeliveryMethod: (state, action: PayloadAction<number>) => {
+      return { ...state, deliveryMethod: action.payload };
     },
   },
 });
