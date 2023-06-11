@@ -14,13 +14,41 @@ import logo from '../../assets/logo.png';
 import Toast from '../Toast/Toast';
 import classes from './NavBar.module.scss';
 import SearchModal from '../SearchModal/SearchModal';
+import { useGetCartProductsQuery } from '../../store/api/cartApiSlice';
 
 const NavBar = () => {
-  const token = useRouteLoaderData('root');
+  const token = useRouteLoaderData('root') as string;
   const dispatch = useDispatch();
+  const [isClassAdded, setIsClassAdded] = useState(false);
 
   const [animationCss, setanimationCss] = useState('');
   const [searchBoxAnimation, setSearchBoxAnimation] = useState('');
+  let qty;
+  const totalQuantity = useSelector(
+    (state: RootState) => state.cartItems.totalQuantity
+  );
+
+  const { data: cartItems } = useGetCartProductsQuery(token, {
+    refetchOnMountOrArgChange: true,
+  });
+
+  if (!token) {
+    qty = totalQuantity;
+  } else if (cartItems) {
+    const totalSum = cartItems.prodArr.reduce((sum, { quantity }) => {
+      return sum + quantity;
+    }, 0);
+    qty = totalSum;
+  }
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsClassAdded(true);
+      setTimeout(() => {
+        setIsClassAdded(false);
+      }, 300);
+    }, 400);
+    return () => clearTimeout(timeout);
+  }, [qty]);
 
   const scrollPosition = useSelector(
     (state: RootState) => state.ui.scrollPosition
@@ -88,6 +116,20 @@ const NavBar = () => {
       behavior: 'smooth',
     });
   };
+  let qtyContent;
+  if (qty && qty <= 0) {
+    qtyContent = null;
+  } else if (qty && qty > 0) {
+    qtyContent = (
+      <div
+        className={`${classes['nav__box--icons-qty']} ${
+          isClassAdded ? classes.shake : ''
+        }`}
+      >
+        <span>{qty}</span>
+      </div>
+    );
+  }
 
   return (
     <header className={classes.nav}>
@@ -132,6 +174,7 @@ const NavBar = () => {
             <Link to="/koszyk" onClick={scrolToTop}>
               <GiFlour />
             </Link>
+            {qtyContent}
           </div>
           <div className={classes['nav__box--icons-search']}>
             <button
