@@ -52,17 +52,17 @@
 @media only screen and (max-width: 1024px) {
   .summary {
     &__container {
-      width: 100%;
-      left: 0%;
-      padding: 0px 10px;
-      margin-bottom: 3rem;
-
+      padding: 0px 5px;
+      margin-bottom: 2rem;
+      h4 {
+        font-size: 1.2em;
+      }
       table {
         width: 100%;
 
         td {
-          font-size: 0.8em;
-          text-align: center;
+          font-size: 0.9em;
+          text-align: left;
           padding: 0px 0px;
           label {
             margin: 0 0.2em;

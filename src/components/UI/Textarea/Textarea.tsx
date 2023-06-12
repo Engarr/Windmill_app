@@ -4,21 +4,22 @@ interface PropsType {
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   defaultValue?: string;
   error?: string;
+  text: string;
 }
 
-const Textarea = ({ onChange, defaultValue, error }: PropsType) => {
+const Textarea = ({ onChange, defaultValue, error, text }: PropsType) => {
   return (
     <div className={`${classes.textareaBox} ${error ? classes.error : ''}`}>
       <textarea
         name="message"
         id="message"
-        placeholder="Twoja wiaodmość:"
+        placeholder={text}
         className={classes.textarea}
         onChange={onChange}
         value={defaultValue}
       />
       <label htmlFor="message" className={classes.label}>
-        Twoja wiadomość:
+        {text}
       </label>
     </div>
   );

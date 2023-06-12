@@ -1,9 +1,17 @@
+import { useState } from 'react';
 import { useRouteLoaderData, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useGetCartProductsQuery } from '../../store/api/cartApiSlice';
+import {
+  useGetCartProductsQuery,
+  useSendOrderMutation,
+} from '../../store/api/cartApiSlice';
 import { useGetProductsByIdQuery } from '../../store/api/productsApiSlice';
 import { RootState } from '../../store/store';
-import { ProductType } from '../../types/types';
+import {
+  ProductType,
+  ErrorOrderPageType,
+  ResponseType,
+} from '../../types/types';
 import Spinner from '../../components/Spinner/Spinner/Spinner';
 import classes from './OrderPage.module.scss';
 import DeliveryForm from '../../components/DeliveryForm/DeliveryForm';
@@ -25,6 +33,27 @@ const OrderPage = () => {
   const token = useRouteLoaderData('root') as string;
   let productsArr: ProductArrType[] = [];
   let totalSum = 0;
+  const [orderData, setOrderData] = useState({
+    name: '',
+    surename: '',
+    companyName: '',
+    city: '',
+    street: '',
+    zipCode: '',
+    phone: '',
+    email: '',
+    message: '',
+  });
+  const [paymentMethod, setPaymentMethod] = useState<string>('Przelew bankowy');
+  const [status, setStatus] = useState(false);
+  const [deliveryMehtod, setDeliveryMehtod] = useState({
+    name: 'Kurier DPD',
+    price: 14.99,
+  });
+
+  const [backendErrors, setBackendErrors] = useState<ErrorOrderPageType>({});
+
+  const [onSendOrder] = useSendOrderMutation();
   const { data: cartItems, isLoading: cartItemsLoading } =
     useGetCartProductsQuery(token, {
       refetchOnMountOrArgChange: true,
@@ -50,6 +79,7 @@ const OrderPage = () => {
       } as ProductArrType;
     });
   }
+
   if (productsArr) {
     totalSum = productsArr.reduce((sum, { product, quantity }) => {
       const productTotal = product.price * quantity;
@@ -59,9 +89,39 @@ const OrderPage = () => {
   if (cartItemsLoading || storageItemsLoading) {
     return <Spinner message="Ładowanie..." />;
   }
+
+  const sendOrderHandler = async () => {
+    try {
+      const response = await onSendOrder({
+        productsArr,
+        orderData,
+        paymentMethod,
+        status,
+        deliveryMehtod,
+        token,
+      });
+      const resData = response as ResponseType;
+      if (resData.error) {
+        window.scroll(0, 0);
+        const errorsObj: { [key: string]: string } = {};
+        if (resData.error.status === 422 || resData.error.status === 401) {
+          resData.error.data.errors.forEach((error) => {
+            errorsObj[error.path] = error.msg;
+          });
+        }
+        setBackendErrors(errorsObj);
+      }
+    } catch (err) {
+      throw new Error('Coś poszło nie tak, spróbuj ponownie później');
+    }
+  };
   return (
     <div className={classes.orderContainer}>
-      <DeliveryForm />
+      <DeliveryForm
+        setOrderData={setOrderData}
+        orderData={orderData}
+        backendErrors={backendErrors}
+      />
       <div className={classes.orderContainer__orders}>
         <div className={classes[`orderContainer__orders--title`]}>
           <h2>Twoje zamówienie</h2>
@@ -83,11 +143,15 @@ const OrderPage = () => {
                     width={100}
                   />
                 </div>
-                <div>
+                <div
+                  className={classes[`orderContainer__orders--product-info`]}
+                >
                   <p>{product.product?.name}</p>
                   <p>ilość: {product.quantity}</p>
                 </div>
-                <div>
+                <div
+                  className={classes[`orderContainer__orders--product-price`]}
+                >
                   <p>
                     {(product.quantity * product.product.price).toFixed(2)}
                     zł
@@ -96,9 +160,22 @@ const OrderPage = () => {
               </div>
             ))}
         </div>
-        <DeliveryMethod totalSum={totalSum} />
-        <PaymentMethod />
-        <button className={classes.submitButton} type="button">
+        <DeliveryMethod
+          totalSum={totalSum}
+          setDeliveryMehtod={setDeliveryMehtod}
+        />
+        <PaymentMethod
+          paymentMethod={paymentMethod}
+          setPaymentMethod={setPaymentMethod}
+          setStatus={setStatus}
+          status={status}
+          backendErrors={backendErrors}
+        />
+        <button
+          className={classes.submitButton}
+          type="button"
+          onClick={sendOrderHandler}
+        >
           Kupuje i płacę
         </button>
       </div>

@@ -1,20 +1,28 @@
-import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import classes from './PaymentMethod.module.scss';
+import { ErrorOrderPageType } from '../../types/types';
 
-const PaymentMethod = () => {
-  const [selectedOption, setSelectedOption] =
-    useState<string>('Przelew bankowy');
+interface PropsType {
+  setStatus: React.Dispatch<React.SetStateAction<boolean>>;
+  setPaymentMethod: React.Dispatch<React.SetStateAction<string>>;
+  status: boolean;
+  paymentMethod: string;
+  backendErrors: ErrorOrderPageType;
+}
 
-  const [status, setStatus] = useState(false);
-
+const PaymentMethod = ({
+  setStatus,
+  status,
+  setPaymentMethod,
+  paymentMethod,
+  backendErrors,
+}: PropsType) => {
   const handlePaymentOption = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedOption(e.target.value);
+    setPaymentMethod(e.target.value);
   };
   const handleStatus = () => {
     setStatus(!status);
   };
-
   return (
     <div className={classes.paymentMethod__container}>
       <h4>Metody płatności</h4>
@@ -24,7 +32,7 @@ const PaymentMethod = () => {
           type="radio"
           name="Przelew bankowy"
           value="Przelew bankowy"
-          checked={selectedOption === 'Przelew bankowy'}
+          checked={paymentMethod === 'Przelew bankowy'}
           onChange={handlePaymentOption}
         />
         <label htmlFor="Przelew bankowy">Przelew tradycyjny</label>
@@ -35,7 +43,7 @@ const PaymentMethod = () => {
           type="radio"
           name="PayU"
           value="PayU"
-          checked={selectedOption === 'PayU'}
+          checked={paymentMethod === 'PayU'}
           onChange={handlePaymentOption}
         />
         <label htmlFor="PayU">Przelew PayU lub Przelewy24</label>
@@ -46,11 +54,14 @@ const PaymentMethod = () => {
         Twoje zamówienie zostanie zrealizowane po zaksięgowaniu wpłaty na naszym
         koncie.
       </p>
-      <div>
+      <div className={classes[`paymentMethod__container--checkbox`]}>
         <input type="checkbox" checked={status} onChange={handleStatus} />
         <label>
-          Przeczytałem/am i akceptuję <Link to="/regulamin">regulamin</Link>
-          <span>*</span>
+          Przeczytałem/am i akceptuję{' '}
+          <Link to="/regulamin">
+            regulamin<span>*</span>
+          </Link>
+          {backendErrors.status && <p>{backendErrors.status}</p>}
         </label>
       </div>
     </div>

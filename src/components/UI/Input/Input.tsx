@@ -32,7 +32,7 @@ const Input = ({
         step={step}
       />
       <label htmlFor={data} className={classes.label}>
-        {text}
+        {error || text}
       </label>
     </div>
   );

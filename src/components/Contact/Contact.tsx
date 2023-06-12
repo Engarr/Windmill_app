@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { HiLocationMarker, HiPhone, HiOutlineMail } from 'react-icons/hi';
 import { BsFillSignpostSplitFill } from 'react-icons/bs';
 import { toast } from 'react-hot-toast';
@@ -150,6 +150,7 @@ const Contact = () => {
                 onChange={contacDataHandler}
                 defaultValue={contactData.message}
                 error={backendErrors.message}
+                text="Twoja wiaodmość:"
               />
             </div>
             <button type="button" onClick={contactHandler}>

@@ -1,5 +1,14 @@
 import apiSlice from './apiSlice';
-import { CartItemsResponse } from '../../types/types';
+import {
+  CartItemsResponse,
+  ProductType,
+  OrderDataType,
+} from '../../types/types';
+
+interface ProductArrType {
+  product: ProductType;
+  quantity: number;
+}
 
 const cartApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -49,6 +58,37 @@ const cartApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'CartFeed' }],
     }),
+    sendOrder: builder.mutation<
+      void,
+      {
+        productsArr: ProductArrType[];
+        orderData: OrderDataType;
+        status: boolean;
+        paymentMethod: string;
+        deliveryMehtod: { name: string; price: number };
+        token: string;
+      }
+    >({
+      query: ({
+        token,
+        productsArr,
+        orderData,
+        status,
+        paymentMethod,
+        deliveryMehtod,
+      }) => ({
+        url: 'cartFeed/send-order',
+        method: 'POST',
+        body: {
+          token,
+          productsArr,
+          orderData,
+          status,
+          paymentMethod,
+          deliveryMehtod,
+        },
+      }),
+    }),
   }),
 });
 export const {
@@ -57,4 +97,5 @@ export const {
   useDeleteCartProductMutation,
   useIncreaseQtyMutation,
   useDecreaseQtyMutation,
+  useSendOrderMutation,
 } = cartApiSlice;

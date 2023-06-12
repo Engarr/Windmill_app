@@ -10,7 +10,6 @@ export type ErrorsData = {
   password?: string;
   newPassword?: string;
   repeatPassword?: string;
-
   name?: string;
   price?: string;
   category?: string;
@@ -22,6 +21,29 @@ export type ErrorsData = {
   subject?: string;
   code?: string;
   user?: string;
+};
+export type ErrorOrderPageType = {
+  name?: string;
+  surename?: string;
+  companyName?: string;
+  city?: string;
+  street?: string;
+  zipCode?: string;
+  phone?: string;
+  email?: string;
+  message?: string;
+  status?: boolean;
+};
+export type OrderDataType = {
+  name: string;
+  surename: string;
+  companyName: string;
+  city: string;
+  street: string;
+  zipCode: string;
+  phone: string;
+  email: string;
+  message: string;
 };
 
 export type Products = {

@@ -61,3 +61,30 @@
 .error textarea::placeholder {
   color: transparent;
 }
+@media only screen and (max-width: 1024px) {
+  .textareaBox label {
+    position: absolute;
+    left: 0;
+    padding: 14px;
+    pointer-events: none;
+    font-size: 1em;
+    color: gray;
+    transition: 0.5s;
+  }
+  .textareaBox textarea:focus ~ .label,
+  .textarea:not(:placeholder-shown).textarea:not(:focus) ~ .label {
+    font-size: 0.8em;
+    padding: 0 5px;
+  }
+
+  .textareaBox textarea:focus {
+    border: 1px solid var(--menu-color);
+  }
+  .error textarea {
+    border: 1px solid red;
+  }
+  .error textarea ~ .label {
+    font-size: 0.8em;
+    padding: 0 3px;
+  }
+}

@@ -7,6 +7,9 @@ import { uiActions } from '../../store/ui-slice';
 
 interface PropsType {
   totalSum: number;
+  setDeliveryMehtod?: React.Dispatch<
+    React.SetStateAction<{ name: string; price: number }>
+  >;
 }
 
 interface ShippingType {
@@ -15,7 +18,7 @@ interface ShippingType {
   option: number;
 }
 
-const DeliveryMethod = ({ totalSum }: PropsType) => {
+const DeliveryMethod = ({ totalSum, setDeliveryMehtod }: PropsType) => {
   const dispatch = useDispatch();
   const selectedMethod = useSelector(
     (state: RootState) => state.ui.deliveryMethod
@@ -32,7 +35,13 @@ const DeliveryMethod = ({ totalSum }: PropsType) => {
   };
   useEffect(() => {
     setDeliveryCost(shippingCost[selectedMethod].price);
-  }, [selectedMethod]);
+    if (setDeliveryMehtod) {
+      setDeliveryMehtod({
+        name: shippingCost[selectedMethod].name,
+        price: shippingCost[selectedMethod].price,
+      });
+    }
+  }, [ShippingMethodTable, selectedMethod, setDeliveryMehtod]);
   return (
     <div className={classes.summary__container}>
       <div>

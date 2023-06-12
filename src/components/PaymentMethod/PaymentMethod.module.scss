@@ -23,4 +23,26 @@
     margin: 1em 0;
     font-size: 20px;
   }
+  a {
+    color: rgb(41, 190, 228);
+    text-decoration: none;
+  }
+  &--checkbox {
+    position: relative;
+    p {
+      position: absolute;
+      top: 40%;
+      color: red;
+    }
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .paymentMethod__container {
+    padding: 0px 5px;
+    font-size: 1.4em;
+    margin-bottom: 2em;
+    h4 {
+      font-size: 1.2em;
+    }
+  }
 }

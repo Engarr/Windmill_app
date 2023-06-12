@@ -60,3 +60,21 @@
 .error input::placeholder {
   color: transparent;
 }
+@media only screen and (max-width: 1024px) {
+  .inputBox input:focus ~ .label,
+  .input:not(:placeholder-shown).input:not(:focus) ~ .label {
+    font-size: 0.8em;
+    padding: 0 5px;
+  }
+
+  .inputBox input:focus {
+    border: 1px solid var(--menu-color);
+  }
+  .error input {
+    border: 1px solid red;
+  }
+  .error input ~ .label {
+    font-size: 0.8em;
+    padding: 0 3px;
+  }
+}
