@@ -40,6 +40,7 @@ const productsApiSlice = apiSlice.injectEndpoints({
           ids: productIds?.join(','),
         },
       }),
+      providesTags: [{ type: 'CartFeed' }, { type: 'ProductManipulate' }],
     }),
     getSearchProducts: builder.query<ProductType[], string | boolean>({
       query: (value) => `feed/search/${value}`,
@@ -84,7 +85,7 @@ const productsApiSlice = apiSlice.injectEndpoints({
             Authorization: `Bearer ${token}`,
           },
         }),
-        invalidatesTags: [{ type: 'ProductManipulate' }],
+        invalidatesTags: [{ type: 'CartFeed' }],
       }
     ),
   }),

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouteLoaderData, Link, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-hot-toast';
 import {
   useGetCartProductsQuery,
   useSendOrderMutation,
@@ -19,6 +20,7 @@ import DeliveryForm from '../../components/DeliveryForm/DeliveryForm';
 import DeliveryMethod from '../../components/DeliveryMethod/DeliveryMethod';
 import PaymentMethod from '../../components/PaymentMethod/PaymentMethod';
 import EmptyCart from '../../components/Empty/EmptyCart';
+import { cartItemAction } from '../../store/cartSlice';
 
 interface StorageItemsArrType {
   data: {
@@ -35,17 +37,18 @@ interface ProductArrType {
 const OrderPage = () => {
   const token = useRouteLoaderData('root') as string;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   let productsArr: ProductArrType[] = [];
   let totalSum = 0;
   const [orderData, setOrderData] = useState({
-    name: '',
-    surname: '',
-    companyName: '',
-    city: '',
-    street: '',
-    zipCode: '',
-    phone: '',
-    email: '',
+    name: 'dsa',
+    surname: 'dsa',
+    companyName: 'sda',
+    city: 'sad',
+    street: 'das',
+    zipCode: '12123',
+    phone: '123123123',
+    email: 'poczta@poczta.pl',
     message: '',
   });
   const [paymentMethod, setPaymentMethod] = useState<string>('Przelew bankowy');
@@ -56,15 +59,11 @@ const OrderPage = () => {
   });
   const [backendErrors, setBackendErrors] = useState<ErrorOrderPageType>({});
   // The endpoint of sending the order to the backend
-  const [
-    onSendOrder,
-    { isLoading: isLoadingSendingOrder, isSuccess: isSuccessSendedOrder },
-  ] = useSendOrderMutation();
+  const [onSendOrder, { isLoading: isLoadingSendingOrder }] =
+    useSendOrderMutation();
   // The endpoint of clearing user cart in database
-  const [
-    onClearCart,
-    { isSuccess: isClearCartSuccess, isLoading: isClearCartLoading },
-  ] = useClearCartMutation();
+  const [onClearCart, { isLoading: isClearCartLoading }] =
+    useClearCartMutation();
   // The endpoint of fetching products from user cart for registered user
   const {
     data: cartItems,
@@ -86,6 +85,7 @@ const OrderPage = () => {
     idArr.length > 0 ? idArr : undefined
   );
   // Assigning products depending on whether the user is registered or not
+
   if (token && cartItems) {
     productsArr = cartItems.prodArr;
   } else if (storageItems && storageItemsArr?.products) {
@@ -130,7 +130,6 @@ const OrderPage = () => {
         token,
       });
       const resData = response as ResponseType;
-
       if (resData.error) {
         window.scroll(0, 0);
         const errorsObj: { [key: string]: string } = {};
@@ -141,17 +140,14 @@ const OrderPage = () => {
         }
         setBackendErrors(errorsObj);
       } else if (!token) {
-        localStorage.removeItem('cartItems');
-        if (isSuccessSendedOrder) {
-          navigate('/platnosc');
-        }
+        dispatch(cartItemAction.onClearCart());
+        navigate(`/platnosc/${resData.data.orderId}`);
       } else {
         await onClearCart(token);
-        if (isClearCartSuccess) {
-          navigate('/platnosc');
-        }
+        navigate(`/platnosc/${resData.data.orderId}`);
       }
     } catch (err) {
+      toast.error('Coś poszło nie tak, spróbuj ponownie później');
       throw new Error('Coś poszło nie tak, spróbuj ponownie później');
     }
   };

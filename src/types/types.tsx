@@ -90,6 +90,7 @@ export type ResponseType = {
     email: string;
     token: string;
     userId: string;
+    orderId: string;
   };
 };
 

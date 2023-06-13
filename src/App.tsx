@@ -63,7 +63,7 @@ function App() {
         },
         { path: '/koszyk', element: <Cart /> },
         { path: '/zamowienie', element: <OrderPage /> },
-        { path: '/platnosc', element: <PaymentPage /> },
+        { path: '/platnosc/:orderId', element: <PaymentPage /> },
         {
           path: '/logout',
           action: logout,

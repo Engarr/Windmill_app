@@ -17,7 +17,7 @@ const cartApiSlice = apiSlice.injectEndpoints({
         url: `cartFeed/getCartProducts`,
         headers: { Authorization: `Bearer ${token}` },
       }),
-      providesTags: [{ type: 'CartFeed' }],
+      providesTags: [{ type: 'CartFeed' }, { type: 'ProductManipulate' }],
     }),
     sendDataToCart: builder.mutation<
       void,
@@ -103,7 +103,7 @@ const cartApiSlice = apiSlice.injectEndpoints({
         headers: { Authorization: `Bearer ${token}` },
         method: 'DELETE',
       }),
-      invalidatesTags: [{ type: 'CartFeed' }],
+      invalidatesTags: ['CartFeed', 'ProductManipulate'],
     }),
   }),
 });

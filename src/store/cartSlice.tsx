@@ -68,6 +68,10 @@ const cartItemsSlice = createSlice({
         state.totalQuantity -= existingItem.quantity;
       }
     },
+    onClearCart: (state) => {
+      state.items = [];
+      state.totalQuantity = 0;
+    },
   },
 });
 
