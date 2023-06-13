@@ -54,22 +54,18 @@ const OrderPage = () => {
     name: 'Kurier DPD',
     price: 14.99,
   });
-
   const [backendErrors, setBackendErrors] = useState<ErrorOrderPageType>({});
-
+  // The endpoint of sending the order to the backend
   const [
     onSendOrder,
     { isLoading: isLoadingSendingOrder, isSuccess: isSuccessSendedOrder },
   ] = useSendOrderMutation();
+  // The endpoint of clearing user cart in database
   const [
     onClearCart,
-    {
-      isSuccess: isClearCartSuccess,
-      isLoading: isClearCartLoading,
-      isError: isClearCartError,
-    },
+    { isSuccess: isClearCartSuccess, isLoading: isClearCartLoading },
   ] = useClearCartMutation();
-
+  // The endpoint of fetching products from user cart for registered user
   const {
     data: cartItems,
     isLoading: cartItemsLoading,
@@ -78,6 +74,7 @@ const OrderPage = () => {
     refetchOnMountOrArgChange: true,
   });
 
+  // Fetching products from database by saved products on the localt storage
   const storageItems = useSelector((state: RootState) => state.cartItems.items);
   const idArr = storageItems.map(({ productId }) => productId);
 
@@ -88,6 +85,7 @@ const OrderPage = () => {
   } = useGetProductsByIdQuery<StorageItemsArrType>(
     idArr.length > 0 ? idArr : undefined
   );
+  // Assigning products depending on whether the user is registered or not
   if (token && cartItems) {
     productsArr = cartItems.prodArr;
   } else if (storageItems && storageItemsArr?.products) {
@@ -101,7 +99,7 @@ const OrderPage = () => {
       } as ProductArrType;
     });
   }
-
+  // Calculation of the total value of the basket
   if (productsArr) {
     totalSum = productsArr.reduce((sum, { product, quantity }) => {
       const productTotal = product.price * quantity;
@@ -112,12 +110,15 @@ const OrderPage = () => {
   if (cartItemsLoading || storageItemsLoading) {
     return <Spinner message="Ładowanie..." />;
   }
+  if (productsArr.length <= 0) {
+    return <EmptyCart message="Nie posiadasz produktów w koszyku" />;
+  }
   if (cartItemsError || storageItemsArrError) {
     return (
       <EmptyCart message="Niestety nie udało się pobrać informacji o zawartości koszyka" />
     );
   }
-
+  // The function of sending an order to the database using the useSendOrderMutation endpoint
   const sendOrderHandler = async () => {
     try {
       const response = await onSendOrder({
@@ -157,9 +158,6 @@ const OrderPage = () => {
 
   if (isClearCartLoading || isLoadingSendingOrder) {
     return <Spinner message="Ładowanie..." />;
-  }
-  if (productsArr.length <= 0) {
-    return <EmptyCart message="Nie posiadasz produktów w koszyku" />;
   }
 
   return (
