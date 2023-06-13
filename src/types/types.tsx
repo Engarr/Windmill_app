@@ -131,3 +131,6 @@ export type ResetPasswordResponseType = {
     status: number;
   };
 };
+//  export type OrderType ={
+
+//  }

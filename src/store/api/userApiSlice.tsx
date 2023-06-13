@@ -133,6 +133,10 @@ const userApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+    // getOrderDetail: builder.query<, string>({
+    //   query: (id) => `feed/product/${id}`,
+    //   providesTags: [{ type: 'ProductManipulate' }],
+    // }),
   }),
 });
 

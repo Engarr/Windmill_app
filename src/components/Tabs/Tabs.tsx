@@ -37,6 +37,17 @@ const Tabs = () => {
           >
             Asortyment
           </button>
+          <button
+            className={
+              toggleState === 3
+                ? `${classes.activeTab} ${classes.button}`
+                : classes.button
+            }
+            onClick={() => toggleTab(2)}
+            type="button"
+          >
+            Zamówienia
+          </button>
         </div>
 
         <div className={classes.container__contentTabs}>

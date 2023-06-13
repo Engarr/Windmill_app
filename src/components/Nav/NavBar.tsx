@@ -40,6 +40,7 @@ const NavBar = () => {
     }, 0);
     qty = totalSum;
   }
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsClassAdded(true);

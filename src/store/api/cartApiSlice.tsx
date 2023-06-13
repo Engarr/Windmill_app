@@ -12,13 +12,6 @@ interface ProductArrType {
 
 const cartApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getCartProducts: builder.query<CartItemsResponse, string>({
-      query: (token) => ({
-        url: `cartFeed/getCartProducts`,
-        headers: { Authorization: `Bearer ${token}` },
-      }),
-      providesTags: [{ type: 'CartFeed' }, { type: 'ProductManipulate' }],
-    }),
     sendDataToCart: builder.mutation<
       void,
       { productId: string; userId: string; quantity: number }
@@ -29,6 +22,13 @@ const cartApiSlice = apiSlice.injectEndpoints({
         body: { productId, userId, quantity },
       }),
       invalidatesTags: [{ type: 'CartFeed' }],
+    }),
+    getCartProducts: builder.query<CartItemsResponse, string>({
+      query: (token) => ({
+        url: `cartFeed/getCartProducts`,
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      providesTags: [{ type: 'CartFeed' }],
     }),
     deleteCartProduct: builder.mutation<
       void,

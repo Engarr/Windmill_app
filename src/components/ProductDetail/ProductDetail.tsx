@@ -31,8 +31,7 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
   const [products, setProducts] = useState<Products[]>([]);
   const { category } = details;
   const isAuth = details.creator.toString() === userId;
-  const [addProdToCart, { isError }] = useSendDataToCartMutation();
-  const [isLoading, setIsLoading] = useState(false);
+  const [addProdToCart, { isError, isLoading }] = useSendDataToCartMutation();
   const dispatch = useDispatch();
   const IncreaseQuantityHandler = () => {
     setQuantity(quantity + 1);
@@ -77,10 +76,8 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
 
   const addItemToCartHandler = async () => {
     try {
-      setIsLoading(true);
-
       if (userId !== 'notregistered') {
-        addProdToCart({
+        await addProdToCart({
           productId: details._id,
           quantity,
           userId,
@@ -105,8 +102,6 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
           `Produkt:${details.name} sztuk: ${quantity} dodano do koszyka`
         );
       }
-
-      setIsLoading(false);
     } catch (error) {
       toast.error('Wystąpił błąd podczas dodawania produktu do koszyka.');
     }
@@ -163,9 +158,9 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
             </div>
           </div>
           <div className={classes[`product__infoWrapper--descriptionBox`]}>
-            <div>
+            {/* <div>
               <h4>Opis:</h4>
-            </div>
+            </div> */}
             <div className={classes[`product__infoWrapper--description`]}>
               <p>
                 <span>Charakterystyka:</span> {details.description}
