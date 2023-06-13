@@ -1,19 +1,19 @@
 import { useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { cartItemAction } from '../../../store/cartSlice';
 import { useGetProductsByIdQuery } from '../../../store/api/productsApiSlice';
 import Spinner from '../../Spinner/Spinner/Spinner';
 import CartProduct from '../../CartProduct/CartProduct';
-import classes from '../../../pages/Cart/Cart.module.scss';
 import store, { RootState } from '../../../store/store';
 import { ProductType } from '../../../types/types';
+import EmptyCart from '../../Empty/EmptyCart';
 
 interface StorageItemsArrType {
   data: {
     products: ProductType[];
   };
   isLoading: boolean;
+  isError: boolean;
 }
 
 const NotRegisteredCart = () => {
@@ -21,11 +21,13 @@ const NotRegisteredCart = () => {
   const storageItems = useSelector((state: RootState) => state.cartItems.items);
   const idArr = storageItems.map(({ productId }) => productId);
 
-  const { data: storageItemsArr, isLoading } =
-    useGetProductsByIdQuery<StorageItemsArrType>(
-      idArr.length > 0 ? idArr : undefined
-    );
-
+  const {
+    data: storageItemsArr,
+    isLoading,
+    isError,
+  } = useGetProductsByIdQuery<StorageItemsArrType>(
+    idArr.length > 0 ? idArr : undefined
+  );
   const newArr = useMemo(() => {
     if (storageItems && storageItemsArr?.products) {
       return storageItems.map((item) => {
@@ -65,15 +67,12 @@ const NotRegisteredCart = () => {
   let content;
   if (isLoading) {
     content = <Spinner message="Ladowanie.." />;
-  } else if (newArr && newArr.length <= 0) {
+  } else if (isError) {
     content = (
-      <div className={classes.emptyCart}>
-        <h2>Twój koszyk jest pusty</h2>
-        <Link to="/sklep">
-          <button type="button">Wróć do sklepu</button>
-        </Link>
-      </div>
+      <EmptyCart message="Niestety nie udało się pobrać informacji o zawartości koszyka" />
     );
+  } else if (newArr && newArr.length <= 0) {
+    content = <EmptyCart message="Twój koszyk jest pusty" />;
   } else if (newArr) {
     content = (
       <CartProduct

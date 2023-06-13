@@ -24,7 +24,7 @@ export type ErrorsData = {
 };
 export type ErrorOrderPageType = {
   name?: string;
-  surename?: string;
+  surname?: string;
   companyName?: string;
   city?: string;
   street?: string;
@@ -36,7 +36,7 @@ export type ErrorOrderPageType = {
 };
 export type OrderDataType = {
   name: string;
-  surename: string;
+  surname: string;
   companyName: string;
   city: string;
   street: string;

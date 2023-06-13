@@ -15,6 +15,7 @@ import OrderPage from './pages/OrderPage/OrderPage';
 import Statute from './pages/Statute/Statute';
 import Policy from './pages/Policy/Policy';
 import ResetPage from './pages/ResetPasswordPage/ResetPage';
+import PaymentPage from './pages/PaymentPage/PaymentPage';
 
 function App() {
   const router = createBrowserRouter([
@@ -62,6 +63,7 @@ function App() {
         },
         { path: '/koszyk', element: <Cart /> },
         { path: '/zamowienie', element: <OrderPage /> },
+        { path: '/platnosc', element: <PaymentPage /> },
         {
           path: '/logout',
           action: logout,

@@ -65,7 +65,7 @@ const cartApiSlice = apiSlice.injectEndpoints({
         orderData: OrderDataType;
         status: boolean;
         paymentMethod: string;
-        deliveryMehtod: { name: string; price: number };
+        deliveryMethod: { name: string; price: number };
         token: string;
       }
     >({
@@ -75,19 +75,35 @@ const cartApiSlice = apiSlice.injectEndpoints({
         orderData,
         status,
         paymentMethod,
-        deliveryMehtod,
+        deliveryMethod,
       }) => ({
         url: 'cartFeed/send-order',
         method: 'POST',
         body: {
           token,
           productsArr,
-          orderData,
+          name: orderData.name,
+          surname: orderData.surname,
+          companyName: orderData.companyName,
+          city: orderData.city,
+          street: orderData.street,
+          zipCode: orderData.zipCode,
+          phone: orderData.phone,
+          email: orderData.email,
+          message: orderData.message,
           status,
           paymentMethod,
-          deliveryMehtod,
+          deliveryMethod,
         },
       }),
+    }),
+    clearCart: builder.mutation<void, string>({
+      query: (token) => ({
+        url: `cartFeed/clearCart`,
+        headers: { Authorization: `Bearer ${token}` },
+        method: 'DELETE',
+      }),
+      invalidatesTags: [{ type: 'CartFeed' }],
     }),
   }),
 });
@@ -98,4 +114,5 @@ export const {
   useIncreaseQtyMutation,
   useDecreaseQtyMutation,
   useSendOrderMutation,
+  useClearCartMutation,
 } = cartApiSlice;

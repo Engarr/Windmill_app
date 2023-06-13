@@ -7,7 +7,7 @@ import { uiActions } from '../../store/ui-slice';
 
 interface PropsType {
   totalSum: number;
-  setDeliveryMehtod?: React.Dispatch<
+  setDeliveryMethod?: React.Dispatch<
     React.SetStateAction<{ name: string; price: number }>
   >;
 }
@@ -18,7 +18,7 @@ interface ShippingType {
   option: number;
 }
 
-const DeliveryMethod = ({ totalSum, setDeliveryMehtod }: PropsType) => {
+const DeliveryMethod = ({ totalSum, setDeliveryMethod }: PropsType) => {
   const dispatch = useDispatch();
   const selectedMethod = useSelector(
     (state: RootState) => state.ui.deliveryMethod
@@ -35,13 +35,13 @@ const DeliveryMethod = ({ totalSum, setDeliveryMehtod }: PropsType) => {
   };
   useEffect(() => {
     setDeliveryCost(shippingCost[selectedMethod].price);
-    if (setDeliveryMehtod) {
-      setDeliveryMehtod({
+    if (setDeliveryMethod) {
+      setDeliveryMethod({
         name: shippingCost[selectedMethod].name,
         price: shippingCost[selectedMethod].price,
       });
     }
-  }, [ShippingMethodTable, selectedMethod, setDeliveryMehtod]);
+  }, [ShippingMethodTable, selectedMethod, setDeliveryMethod]);
   return (
     <div className={classes.summary__container}>
       <div>
@@ -68,10 +68,9 @@ const DeliveryMethod = ({ totalSum, setDeliveryMehtod }: PropsType) => {
                         checked={selectedMethod === method.option}
                         onChange={handleDeliveryOption}
                       />
-                      <label htmlFor={method.name}>{method.name}</label>
-                      <p>
-                        <span>{method.price} zł</span>
-                      </p>
+                      <label htmlFor={method.name}>
+                        {method.name} <span>{method.price} zł</span>
+                      </label>
                     </div>
                   </li>
                 ))}

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Input from '../UI/Input/Input';
 import Textarea from '../UI/Textarea/Textarea';
 import classes from './DeliveryForm.module.scss';
@@ -5,7 +6,7 @@ import { ErrorOrderPageType } from '../../types/types';
 
 export interface OrdeDataType {
   name: string;
-  surename: string;
+  surname: string;
   companyName: string;
   city: string;
   street: string;
@@ -19,12 +20,14 @@ interface PropsType {
   setOrderData: React.Dispatch<React.SetStateAction<OrdeDataType>>;
   orderData: OrdeDataType;
   backendErrors: ErrorOrderPageType;
+  setBackendErrors: React.Dispatch<React.SetStateAction<ErrorOrderPageType>>;
 }
 
 const DeliveryForm = ({
   setOrderData,
   orderData,
   backendErrors,
+  setBackendErrors,
 }: PropsType) => {
   const inputDataHandler = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -35,6 +38,50 @@ const DeliveryForm = ({
       [name]: value,
     }));
   };
+  useEffect(() => {
+    if (orderData.name !== '') {
+      setBackendErrors((prevData) => ({
+        ...prevData,
+        name: '',
+      }));
+    }
+    if (orderData.surname !== '') {
+      setBackendErrors((prevData) => ({
+        ...prevData,
+        surname: '',
+      }));
+    }
+    if (orderData.city !== '') {
+      setBackendErrors((prevData) => ({
+        ...prevData,
+        city: '',
+      }));
+    }
+    if (orderData.street !== '') {
+      setBackendErrors((prevData) => ({
+        ...prevData,
+        street: '',
+      }));
+    }
+    if (orderData.zipCode !== '') {
+      setBackendErrors((prevData) => ({
+        ...prevData,
+        zipCode: '',
+      }));
+    }
+    if (orderData.phone !== '') {
+      setBackendErrors((prevData) => ({
+        ...prevData,
+        phone: '',
+      }));
+    }
+    if (orderData.email !== '') {
+      setBackendErrors((prevData) => ({
+        ...prevData,
+        email: '',
+      }));
+    }
+  }, [orderData, setBackendErrors]);
 
   return (
     <div className={classes.mainContainer}>
@@ -52,11 +99,11 @@ const DeliveryForm = ({
 
           <Input
             type="text"
-            data="surename"
+            data="surname"
             text="Nazwisko:"
             onChange={inputDataHandler}
-            defaultValue={orderData.surename}
-            error={backendErrors.surename}
+            defaultValue={orderData.surname}
+            error={backendErrors.surname}
           />
         </div>
         <Input

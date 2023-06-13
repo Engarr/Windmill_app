@@ -1,4 +1,4 @@
-import { useRouteLoaderData, Link } from 'react-router-dom';
+import { useRouteLoaderData } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import {
   useGetCartProductsQuery,
@@ -8,12 +8,16 @@ import {
 } from '../../../store/api/cartApiSlice';
 import Spinner from '../../Spinner/Spinner/Spinner';
 import CartProduct from '../../CartProduct/CartProduct';
-import classes from '../../../pages/Cart/Cart.module.scss';
+import EmptyCart from '../../Empty/EmptyCart';
 
 const RegisteredCart = () => {
   const token = useRouteLoaderData('root') as string;
 
-  const { data: cartItems, isLoading } = useGetCartProductsQuery(token, {
+  const {
+    data: cartItems,
+    isLoading,
+    isError,
+  } = useGetCartProductsQuery(token, {
     refetchOnMountOrArgChange: true,
   });
   const [increaseQty] = useIncreaseQtyMutation();
@@ -65,13 +69,10 @@ const RegisteredCart = () => {
   if (isLoading) {
     content = <Spinner message="Ladowanie.." />;
   } else if (productsArr && productsArr?.length <= 0) {
+    content = <EmptyCart message="Twój koszyk jest pusty" />;
+  } else if (isError) {
     content = (
-      <div className={classes.emptyCart}>
-        <h2>Twój koszyk jest pusty</h2>
-        <Link to="/sklep">
-          <button type="button">Wróć do sklepu</button>
-        </Link>
-      </div>
+      <EmptyCart message="Niestety nie udało się pobrać informacji o zawartości koszyka" />
     );
   } else if (productsArr) {
     content = (

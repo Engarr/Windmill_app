@@ -18,10 +18,13 @@ const Shop = () => {
   const [sortCriteria, setSortCriteria] = useState('recommended');
 
   // function for fetching all or category products
-  const { data: allProductsArr, isLoading: isAllProductsLoading } =
-    useGetAllProductsQuery(undefined, {
-      refetchOnMountOrArgChange: true,
-    });
+  const {
+    data: allProductsArr,
+    isLoading: isAllProductsLoading,
+    isError,
+  } = useGetAllProductsQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
   const { data: categoryProductsArr, isLoading: isCategoryProductsLoading } =
     useGetCategoryProductQuery(category);
 
@@ -45,6 +48,8 @@ const Shop = () => {
 
   if (isAllProductsLoading || isCategoryProductsLoading) {
     content = <Spinner message="Wczytywanie produktów.." />;
+  } else if (isError) {
+    content = <Empty message="Nie udało się załadować produktów" width={300} />;
   } else if (products.length > 0) {
     let sortedProducts = [...products];
 
