@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { GiTwoCoins } from 'react-icons/gi';
+import { AiFillHeart } from 'react-icons/ai';
 import { TbTruckDelivery } from 'react-icons/tb';
 import { VscCalendar } from 'react-icons/vsc';
 import { Link } from 'react-router-dom';
@@ -150,6 +151,7 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
               <p>Kategoria:</p>
               <Link to={`/sklep/${details.category}`}>{details.category}</Link>
             </div>
+
             <div>
               <p>
                 <GiTwoCoins className={classes[`product__infoWrapper--icon`]} />
@@ -158,9 +160,11 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
             </div>
           </div>
           <div className={classes[`product__infoWrapper--descriptionBox`]}>
-            {/* <div>
-              <h4>Opis:</h4>
-            </div> */}
+            <div className={classes.wishlistBox}>
+              <p>Dodaj do ulubionych:</p>
+              <AiFillHeart className={classes.wishlistBox__icon} />
+            </div>
+
             <div className={classes[`product__infoWrapper--description`]}>
               <p>
                 <span>Charakterystyka:</span> {details.description}

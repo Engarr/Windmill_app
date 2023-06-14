@@ -143,6 +143,21 @@
     }
   }
 }
+.wishlistBox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+  &__icon {
+    margin-left: 0.5em;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: color 0.3s;
+    color: rgba(0, 0, 0, 0.336);
+  }
+  &__icon:hover {
+    color: red;
+  }
+}
 .buttons {
   display: flex;
   justify-content: flex-start;
