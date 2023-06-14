@@ -133,8 +133,13 @@ const userApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
-    getOrderDetail: builder.query<void, string>({
-      query: (id) => `auth/getOrder/${id}`,
+    getOrderDetail: builder.query<void, { token: string; orderId: string }>({
+      query: ({ orderId, token }) => ({
+        url: `auth/getOrder/${orderId}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
     }),
   }),
 });
@@ -149,4 +154,5 @@ export const {
   usePutVerifyCodeMutation,
   usePutCreateNewPasswordMutation,
   usePutContactMessageMutation,
+  useGetOrderDetailQuery,
 } = userApiSlice;

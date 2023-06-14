@@ -62,6 +62,7 @@ export type ProductType = {
   name: string;
   price: number;
   _id: string;
+  quantity: number;
 };
 export type CartProductType = {
   _id: string;
@@ -131,6 +132,27 @@ export type ResetPasswordResponseType = {
     status: number;
   };
 };
-//  export type OrderType ={
-
-//  }
+export type OrderType = {
+  city: string;
+  companyName: string;
+  date: string;
+  deliveryMethod: {
+    name: string;
+    price: number;
+    _id: string;
+  };
+  email: string;
+  message: string;
+  name: string;
+  paid: boolean;
+  paymentMethod: string;
+  phone: string;
+  products: ProductType[];
+  street: string;
+  user: {
+    email: string;
+    userId: string;
+  };
+  zipCode: string;
+  _id: string;
+};

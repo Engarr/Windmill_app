@@ -41,14 +41,14 @@ const OrderPage = () => {
   let productsArr: ProductArrType[] = [];
   let totalSum = 0;
   const [orderData, setOrderData] = useState({
-    name: 'dsa',
-    surname: 'dsa',
-    companyName: 'sda',
-    city: 'sad',
-    street: 'das',
-    zipCode: '12123',
-    phone: '123123123',
-    email: 'poczta@poczta.pl',
+    name: '',
+    surname: '',
+    companyName: '',
+    city: '',
+    street: '',
+    zipCode: '',
+    phone: '',
+    email: '',
     message: '',
   });
   const [paymentMethod, setPaymentMethod] = useState<string>('Przelew bankowy');

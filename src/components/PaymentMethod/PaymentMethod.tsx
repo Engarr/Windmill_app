@@ -28,14 +28,14 @@ const PaymentMethod = ({
       <h4>Metody płatności</h4>
       <div>
         <input
-          id="Przelew bankowy"
+          id="Przelew tradycyjny"
           type="radio"
-          name="Przelew bankowy"
-          value="Przelew bankowy"
-          checked={paymentMethod === 'Przelew bankowy'}
+          name="Przelew tradycyjny"
+          value="Przelew tradycyjny"
+          checked={paymentMethod === 'Przelew tradycyjny'}
           onChange={handlePaymentOption}
         />
-        <label htmlFor="Przelew bankowy">Przelew tradycyjny</label>
+        <label htmlFor="Przelew tradycyjny">Przelew tradycyjny</label>
       </div>
       <div>
         <input
@@ -46,7 +46,7 @@ const PaymentMethod = ({
           checked={paymentMethod === 'PayU'}
           onChange={handlePaymentOption}
         />
-        <label htmlFor="PayU">Przelew PayU lub Przelewy24</label>
+        <label htmlFor="PayU">Przelew PayU</label>
       </div>
       <p>
         Przy wyborze płatności przelewem bezpośrednim prosimy o wpłatę na nasze
