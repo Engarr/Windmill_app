@@ -6,6 +6,7 @@ interface UiState {
   isCategoryMenu: boolean;
   isSearchModalVisible: boolean;
   deliveryMethod: number;
+  toggleState: number;
 }
 
 const initialState: UiState = {
@@ -14,6 +15,7 @@ const initialState: UiState = {
   isCategoryMenu: false,
   isSearchModalVisible: false,
   deliveryMethod: 0,
+  toggleState: 1,
 };
 
 const uiSlice = createSlice({
@@ -39,6 +41,9 @@ const uiSlice = createSlice({
     },
     selectDeliveryMethod: (state, action: PayloadAction<number>) => {
       return { ...state, deliveryMethod: action.payload };
+    },
+    selectToggleState: (state, action: PayloadAction<number>) => {
+      return { ...state, toggleState: action.payload };
     },
   },
 });

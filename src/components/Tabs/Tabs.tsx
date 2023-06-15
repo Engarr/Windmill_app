@@ -1,15 +1,24 @@
 import { useState } from 'react';
 import { useRouteLoaderData } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import classes from './Tabs.module.scss';
 import AccountManage from './AccountManage/AccountManage';
 import ProductsManage from './ProductsManage/ProductsManage';
+import OrderManage from './OrdersManage/OrderManage';
+import { uiActions } from '../../store/ui-slice';
+import { RootState } from '../../store/store';
 
 const Tabs = () => {
-  const [toggleState, setToggleState] = useState(1);
+  const selectedToggle = useSelector(
+    (state: RootState) => state.ui.toggleState
+  );
+  const dispatch = useDispatch();
+  const [toggleState, setToggleState] = useState<number>(selectedToggle);
   const token = useRouteLoaderData('root') as string;
 
   const toggleTab = (index: number) => {
     setToggleState(index);
+    dispatch(uiActions.selectToggleState(index));
   };
   return (
     <div className={classes.main__container}>
@@ -43,7 +52,7 @@ const Tabs = () => {
                 ? `${classes.activeTab} ${classes.button}`
                 : classes.button
             }
-            onClick={() => toggleTab(2)}
+            onClick={() => toggleTab(3)}
             type="button"
           >
             Zamówienia
@@ -68,6 +77,15 @@ const Tabs = () => {
             }
           >
             <ProductsManage token={token} />
+          </div>
+          <div
+            className={
+              toggleState === 3
+                ? `${classes.content}  ${classes.activeContent}`
+                : classes.content
+            }
+          >
+            <OrderManage token={token} />
           </div>
         </div>
       </div>
