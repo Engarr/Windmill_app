@@ -21,6 +21,9 @@ const OrderDetailPage = () => {
   if (data) {
     orderDetails = data as OrderType;
   }
+
+  const payStatusStyle = !orderDetails?.paid ? classes.unpaid : classes.paid;
+
   if (orderDetails) {
     const orderDate = new Date(orderDetails.date);
     formattedDate = orderDate.toLocaleString('pl-PL', {
@@ -111,17 +114,17 @@ const OrderDetailPage = () => {
                   <span>{orderDetails?.paymentMethod}</span>
                 </p>
               </div>
-              <div>
+              <div className={payStatusStyle}>
                 <p>
                   Status płatności:
                   <span>
-                    {orderDetails?.paid === false ? 'Nieopłacone' : 'Opłacone'}
+                    {!orderDetails?.paid ? 'Nieopłacone' : 'Opłacone'}
                   </span>
                 </p>
               </div>
-              {orderDetails?.paid === false && (
+              {!orderDetails?.paid && (
                 <div>
-                  <Link to={`/platnosc/${orderDetails._id}`}>
+                  <Link to={`/platnosc/${orderDetails?._id}`}>
                     <button type="button">Dokończ płatność</button>
                   </Link>
                 </div>

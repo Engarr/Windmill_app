@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useEffect, SetStateAction } from 'react';
 import { HashLink } from 'react-router-hash-link';
 import { NavLink } from 'react-router-dom';
 import { TfiClose } from 'react-icons/tfi';
@@ -11,6 +11,8 @@ interface PropsType {
   showMenuHandler: () => void;
   animationCss: string;
   scrollWithOffset: (e: HTMLElement) => void;
+  setActiveSection: React.Dispatch<SetStateAction<string>>;
+  activeSection: string;
 }
 
 const NavLinks = ({
@@ -18,8 +20,10 @@ const NavLinks = ({
   showMenuHandler,
   animationCss,
   scrollWithOffset,
+  setActiveSection,
+  activeSection,
 }: PropsType) => {
-  const [activeSection, setActiveSection] = useState('');
+  // const [activeSection, setActiveSection] = useState('');
 
   /// The function handleScroll is to highlight the active section on the page on which we are located
 
@@ -47,6 +51,7 @@ const NavLinks = ({
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const activeNavHandler = () => {
     setActiveSection('sklep');
@@ -153,12 +158,19 @@ const NavLinks = ({
               </li>
               <div className={classes[`nav__links--box`]}>
                 <li>
-                  <NavLink to="">
+                  <HashLink
+                    onClick={showMenuHandler}
+                    to="/#kontakt"
+                    scroll={(el) => scrollWithOffset(el)}
+                  >
                     <FaEnvelope />
-                  </NavLink>
+                  </HashLink>
                 </li>
                 <li>
-                  <NavLink to="https://www.facebook.com/profile.php?id=100001584875603">
+                  <NavLink
+                    to="https://www.facebook.com/profile.php?id=100001584875603"
+                    onClick={showMenuHandler}
+                  >
                     <FaFacebookF />
                   </NavLink>
                 </li>

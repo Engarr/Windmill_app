@@ -55,7 +55,7 @@
       display: flex;
       width: 50%;
       span {
-        margin-left: 0.5em;
+        margin-left: 0.2em;
         font-weight: bold;
       }
     }
@@ -114,6 +114,16 @@
       font-weight: bold;
       color: var(--background-color-hover);
     }
+  }
+}
+.unpaid {
+  span {
+    color: red !important;
+  }
+}
+.paid {
+  span {
+    color: rgb(19, 206, 19) !important;
   }
 }
 @media only screen and (max-width: 1024px) {

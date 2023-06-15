@@ -21,6 +21,8 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const [isClassAdded, setIsClassAdded] = useState(false);
 
+  const [activeSection, setActiveSection] = useState('');
+
   const [animationCss, setanimationCss] = useState('');
   const [searchBoxAnimation, setSearchBoxAnimation] = useState('');
   let qty;
@@ -162,17 +164,26 @@ const NavBar = () => {
         </div>
 
         <div className={`${classes['nav__box--icons']} ${styleIconsCss}`}>
-          <Link
-            to={token ? '/konto' : '/konto?mode=login'}
-            onClick={scrolToTop}
-          >
-            <div className={classes['nav__box--icons-account']}>
+          <div className={classes['nav__box--icons-account']}>
+            <Link
+              to={token ? '/konto' : '/konto?mode=login'}
+              onClick={() => {
+                scrolToTop();
+                setActiveSection('');
+              }}
+            >
               <VscAccount />
-            </div>
-          </Link>
+            </Link>
+          </div>
 
           <div className={classes['nav__box--icons-cart']}>
-            <Link to="/koszyk" onClick={scrolToTop}>
+            <Link
+              to="/koszyk"
+              onClick={() => {
+                scrolToTop();
+                setActiveSection('');
+              }}
+            >
               <GiFlour />
             </Link>
             {qtyContent}
@@ -183,13 +194,16 @@ const NavBar = () => {
               onClick={() => {
                 showSearchModalHandler();
                 scrolToTop();
+                setActiveSection('');
               }}
             >
               <BsSearch />
             </button>
           </div>
           <div className={classes['nav__box--icons-envelope']}>
-            <FaEnvelope />
+            <HashLink to="/#kontakt" scroll={(el) => scrollWithOffset(el)}>
+              <FaEnvelope />
+            </HashLink>
           </div>
           <div className={classes['nav__box--icons-fb']}>
             <Link to="https://www.facebook.com/profile.php?id=100001584875603">
@@ -223,6 +237,8 @@ const NavBar = () => {
         showMenuHandler={showMenuHandler}
         scrollWithOffset={scrollWithOffset}
         animationCss={animationCss}
+        setActiveSection={setActiveSection}
+        activeSection={activeSection}
       />
     </header>
   );
