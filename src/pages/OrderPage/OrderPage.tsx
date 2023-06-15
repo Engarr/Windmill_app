@@ -51,7 +51,8 @@ const OrderPage = () => {
     email: '',
     message: '',
   });
-  const [paymentMethod, setPaymentMethod] = useState<string>('Przelew bankowy');
+  const [paymentMethod, setPaymentMethod] =
+    useState<string>('Przelew tradycyjny');
   const [status, setStatus] = useState(false);
   const [deliveryMethod, setDeliveryMethod] = useState({
     name: 'Kurier DPD',

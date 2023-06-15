@@ -144,6 +144,7 @@ export type OrderType = {
   email: string;
   message: string;
   name: string;
+  surname: string;
   paid: boolean;
   paymentMethod: string;
   phone: string;
