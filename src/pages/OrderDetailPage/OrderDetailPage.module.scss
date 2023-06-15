@@ -39,8 +39,9 @@
 
     &--name {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
+      width: 100%;
       a {
         text-decoration: none;
         color: black;
@@ -52,6 +53,7 @@
     }
     &--price {
       display: flex;
+      width: 50%;
       span {
         margin-left: 0.5em;
         font-weight: bold;
