@@ -20,7 +20,8 @@
       transform: translate(-50%, -50%);
       border-radius: 5px;
     }
-    div {
+
+    p {
       position: absolute;
       opacity: 1;
       bottom: 0;
@@ -33,7 +34,7 @@
       transition: opacity 0.3s, transform 0.3s;
     }
   }
-  &--imgBox:hover div {
+  &--imgBox:hover p {
     opacity: 1;
     transform: translateY(0%);
   }
@@ -56,7 +57,13 @@
     }
   }
 }
-
+.spinnerBox {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+}
 @media only screen and (max-width: 1024px) {
   .product__container {
     &--imgBox {

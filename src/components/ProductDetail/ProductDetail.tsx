@@ -140,7 +140,11 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
       <div className={classes.wrapper}>
         <div className={classes.product__imageWrapper}>
           <div>
-            <img src={details.imageUrl} alt={details.name} />
+            {!details.imageUrl ? (
+              <Spinner message="" />
+            ) : (
+              <img src={details.imageUrl} alt={details.name} />
+            )}
           </div>
         </div>
         <div className={classes.product__infoWrapper}>

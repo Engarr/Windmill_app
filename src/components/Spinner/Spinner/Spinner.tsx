@@ -3,7 +3,7 @@ import { Oval } from 'react-loader-spinner';
 import classes from './Spiner.module.scss';
 
 interface PropsType {
-  message: string;
+  message?: string;
 }
 const Spinner = ({ message }: PropsType) => {
   return (
@@ -20,7 +20,7 @@ const Spinner = ({ message }: PropsType) => {
         strokeWidth={5}
         strokeWidthSecondary={3}
       />
-      <p className={classes.text}>{message}</p>
+      {message && <p className={classes.text}>{message}</p>}
     </div>
   );
 };
