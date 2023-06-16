@@ -71,7 +71,9 @@ const WishlistButton = ({ productId }: PropsType) => {
   } else if (isSuccess && !data.isOnWishlist) {
     content = (
       <>
-        <p>Dodaj do ulubionych:</p>
+        <p className={isActive === 2 ? classes.add : ''}>
+          Dodaj do ulubionych:
+        </p>
         <AiOutlineHeart
           className={`${classes.wishlistBox__icon} ${
             isActive === 2 ? classes.add : ''
@@ -86,10 +88,10 @@ const WishlistButton = ({ productId }: PropsType) => {
   } else if (isSuccess && data.isOnWishlist) {
     content = (
       <>
-        <p>Usuń z ulubionych:</p>
+        <p className={isActive === 1 ? classes.add : ''}>Usuń z ulubionych:</p>
         <AiFillHeart
           className={`${classes.wishlistBox__iconAdded} ${
-            isActive === 1 ? classes.remove : ''
+            isActive === 1 ? classes.add : ''
           }`}
           onClick={() => {
             removeFromWhislistHandler();

@@ -8,7 +8,7 @@
   &__icon {
     position: relative;
     font-size: 1.2em;
-    right: 1%;
+    right: -1%;
     cursor: pointer;
     color: rgba(0, 0, 0, 0.336);
     border-radius: 50%;
@@ -19,7 +19,7 @@
   }
   &__iconAdded {
     position: relative;
-    right: 3%;
+    right: -1%;
     font-size: 1.2em;
     cursor: pointer;
     transition: color 0.3s;
@@ -36,29 +36,15 @@
     color: rgba(0, 0, 0, 0.336);
   }
 }
-.remove {
-  animation: remove 0.3s ease-in forwards;
-}
+
 .add {
-  animation: add 0.3s ease-in forwards;
+  animation: add 0.4s linear forwards;
 }
 @keyframes add {
   0% {
-    right: 5%;
     opacity: 0;
   }
   100% {
-    right: 1%;
-    opacity: 1;
-  }
-}
-@keyframes remove {
-  0% {
-    right: -4%;
-    opacity: 0;
-  }
-  100% {
-    right: 3%;
     opacity: 1;
   }
 }
