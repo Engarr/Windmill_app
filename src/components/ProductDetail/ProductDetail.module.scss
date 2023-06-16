@@ -4,6 +4,8 @@
   justify-content: space-around;
   align-items: center;
   padding: 20px 40px;
+  opacity: 0;
+  animation: load 0.5s forwards linear;
 }
 .navigation {
   display: flex;
@@ -306,5 +308,13 @@
     &__nav {
       font-size: 1em;
     }
+  }
+}
+@keyframes load {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

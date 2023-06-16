@@ -1,0 +1,12 @@
+.userProfilWrapper {
+  opacity: 0;
+  animation: load 0.4s forwards linear;
+}
+@keyframes load {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

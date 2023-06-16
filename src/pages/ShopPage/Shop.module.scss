@@ -6,6 +6,8 @@
   align-items: center;
   padding: 0px 0px;
   z-index: 10;
+  opacity: 0;
+  animation: load 1s forwards;
 }
 .navigation {
   display: flex;
@@ -59,6 +61,14 @@
   }
 }
 
+@keyframes load {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 @media only screen and (max-width: 1024px) {
   .product__wrappper {
     padding: 100px 0px;
