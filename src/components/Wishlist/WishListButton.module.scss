@@ -10,8 +10,9 @@
     font-size: 1.2em;
     right: 1%;
     cursor: pointer;
-    transition: color 0.3s;
     color: rgba(0, 0, 0, 0.336);
+    border-radius: 50%;
+    transition: color 0.3s;
   }
   &__icon:hover {
     color: red;
@@ -43,7 +44,7 @@
 }
 @keyframes add {
   0% {
-    right: -5%;
+    right: 5%;
     opacity: 0;
   }
   100% {
@@ -53,7 +54,7 @@
 }
 @keyframes remove {
   0% {
-    right: -6%;
+    right: -4%;
     opacity: 0;
   }
   100% {

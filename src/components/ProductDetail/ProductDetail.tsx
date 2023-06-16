@@ -195,7 +195,7 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
                 className={classes[`product__infoWrapper--detailsBox-icon`]}
               />
               <p>
-                Wysyłka od <span>9,99 zł</span>
+                Wysyłka od <span>14,99 zł</span>
               </p>
             </div>
           </div>

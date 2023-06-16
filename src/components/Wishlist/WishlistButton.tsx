@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { AiFillHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { BsHeartbreak } from 'react-icons/bs';
 import { useRouteLoaderData } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
@@ -72,7 +72,7 @@ const WishlistButton = ({ productId }: PropsType) => {
     content = (
       <>
         <p>Dodaj do ulubionych:</p>
-        <AiFillHeart
+        <AiOutlineHeart
           className={`${classes.wishlistBox__icon} ${
             isActive === 2 ? classes.add : ''
           }`}
