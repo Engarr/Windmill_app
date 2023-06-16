@@ -143,6 +143,44 @@
     }
   }
 }
+.wishlistBox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 1em;
+  p {
+    width: 160px;
+  }
+  &__icon {
+    position: relative;
+    font-size: 1.2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 1%;
+    cursor: not-allowed;
+    transition: color 0.3s;
+    color: rgba(0, 0, 0, 0.336);
+    span {
+      position: absolute;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      color: black;
+      font-size: 12px;
+      padding: 2px 5px;
+      left: 100%;
+      top: 0%;
+      width: 150px;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+  }
+  &__icon:hover {
+    span {
+      opacity: 1;
+    }
+  }
+}
 
 .buttons {
   display: flex;

@@ -161,8 +161,16 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
             </div>
           </div>
           <div className={classes[`product__infoWrapper--descriptionBox`]}>
-            {userId !== 'notregistered' && (
+            {userId !== 'notregistered' ? (
               <WishlistButton productId={details._id} />
+            ) : (
+              <div className={classes.wishlistBox}>
+                <p>Dodaj do ulubionych: </p>
+                <div className={classes.wishlistBox__icon}>
+                  <AiFillHeart />
+                  <span>Musisz być zalogowany</span>
+                </div>
+              </div>
             )}
 
             <div className={classes[`product__infoWrapper--description`]}>
