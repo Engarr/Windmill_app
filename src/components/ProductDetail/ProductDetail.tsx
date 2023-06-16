@@ -17,6 +17,7 @@ import ProductManage from '../ProductManage/ProductManage';
 import { useSendDataToCartMutation } from '../../store/api/cartApiSlice';
 import { useGetCategoryProductQuery } from '../../store/api/productsApiSlice';
 import Empty from '../Empty/Empty';
+import WishlistButton from '../Wishlist/WishlistButton';
 
 interface PropsType {
   detail: {
@@ -160,15 +161,15 @@ const ProductDetail = ({ detail, idUser }: PropsType) => {
             </div>
           </div>
           <div className={classes[`product__infoWrapper--descriptionBox`]}>
-            <div className={classes.wishlistBox}>
-              <p>Dodaj do ulubionych:</p>
-              <AiFillHeart className={classes.wishlistBox__icon} />
-            </div>
+            {userId !== 'notregistered' && (
+              <WishlistButton productId={details._id} />
+            )}
 
             <div className={classes[`product__infoWrapper--description`]}>
               <p>
                 <span>Charakterystyka:</span> {details.description}
               </p>
+              W
             </div>
           </div>
 

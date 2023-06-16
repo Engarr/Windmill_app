@@ -1,0 +1,63 @@
+.wishlistBox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+  p {
+    width: 160px;
+  }
+  &__icon {
+    position: relative;
+    font-size: 1.2em;
+    right: 1%;
+    cursor: pointer;
+    transition: color 0.3s;
+    color: rgba(0, 0, 0, 0.336);
+  }
+  &__icon:hover {
+    color: red;
+  }
+  &__iconAdded {
+    position: relative;
+    right: 3%;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: color 0.3s;
+    color: red;
+  }
+  &__iconAdded:hover {
+    color: rgba(0, 0, 0, 0.336);
+  }
+  &__borken {
+    margin-left: 0.5em;
+    font-size: 1.2em;
+    cursor: not-allowed;
+    transition: color 0.3s;
+    color: rgba(0, 0, 0, 0.336);
+  }
+}
+.remove {
+  animation: remove 0.3s ease-in forwards;
+}
+.add {
+  animation: add 0.3s ease-in forwards;
+}
+@keyframes add {
+  0% {
+    right: -5%;
+    opacity: 0;
+  }
+  100% {
+    right: 1%;
+    opacity: 1;
+  }
+}
+@keyframes remove {
+  0% {
+    right: -6%;
+    opacity: 0;
+  }
+  100% {
+    right: 3%;
+    opacity: 1;
+  }
+}

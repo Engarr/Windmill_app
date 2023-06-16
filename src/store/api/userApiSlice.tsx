@@ -149,6 +149,47 @@ const userApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+    getWishlist: builder.query<void, { productId: string; token: string }>({
+      query: ({ token, productId }) => ({
+        url: `auth/getWishlist/${productId}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      providesTags: [{ type: 'WishlistAction' }],
+    }),
+    postAddToWishList: builder.mutation<
+      void,
+      { productId: string; token: string }
+    >({
+      query: ({ productId, token }) => ({
+        url: 'auth/add-to-wishlist',
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: {
+          productId,
+        },
+      }),
+      invalidatesTags: [{ type: 'WishlistAction' }],
+    }),
+    deleteFromWishList: builder.mutation<
+      void,
+      { productId: string; token: string }
+    >({
+      query: ({ productId, token }) => ({
+        url: 'auth/remove-from-wishlist',
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: {
+          productId,
+        },
+      }),
+      invalidatesTags: [{ type: 'WishlistAction' }],
+    }),
   }),
 });
 
@@ -164,4 +205,7 @@ export const {
   usePutContactMessageMutation,
   useGetOrderDetailQuery,
   useGetOrdersDetailQuery,
+  useGetWishlistQuery,
+  usePostAddToWishListMutation,
+  useDeleteFromWishListMutation,
 } = userApiSlice;
