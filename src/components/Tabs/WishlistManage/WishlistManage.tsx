@@ -44,7 +44,7 @@ const WishlistManage = ({ token }: PropsType) => {
   };
   if (isLoading) {
     content = <Spinner message="Ładowanie" />;
-  } else if (details.productDetail.length > 0) {
+  } else if (details.productDetail && details.productDetail.length > 0) {
     content = (
       <>
         <h2>Lista polibionych produktów:</h2>
@@ -93,7 +93,7 @@ const WishlistManage = ({ token }: PropsType) => {
         ))}
       </>
     );
-  } else if (details.productDetail.length <= 0) {
+  } else if (details.productDetail && details.productDetail.length <= 0) {
     content = <EmptyCart message="Nie masz polubionych produktów" />;
   } else if (isError) {
     content = (
