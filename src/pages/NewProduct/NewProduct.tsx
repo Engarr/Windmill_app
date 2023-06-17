@@ -1,4 +1,3 @@
-import React from 'react';
 import ProductForm from '../../components/AddProductForm/ProductForm';
 import { useGetUserIdQuery } from '../../store/api/userApiSlice';
 import { getAuthToken } from '../../util/auth';

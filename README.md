@@ -19,5 +19,4 @@ This is a README file for the E-commerce Store application developed in React, w
 - **Shopping Cart**: Add products to the shopping cart, update quantities, and proceed to checkout to complete the purchase.
 - **Payment Integration**: Securely process payments using popular payment gateways, ensuring a smooth and reliable transaction experience.
 - **Order Management**: View and track orders, review order history, and manage shipping details.
-- **User Reviews and Ratings**: Leave reviews and ratings for purchased products, enhancing transparency and assisting other users in their decision-making process.
 - **User Dashboard**: An user panel to manage products, categories, inventory, and user accounts.

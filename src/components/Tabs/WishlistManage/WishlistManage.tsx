@@ -23,13 +23,13 @@ interface ResponseType {
   isError: boolean;
   isSuccess: boolean;
 }
-
 const WishlistManage = ({ token }: PropsType) => {
   const {
     data: details,
     isLoading,
     isError,
   } = useGetWishlistItemsQuery<ResponseType>(token);
+
   let content;
   const [onRemoveFromWhislist] = useDeleteFromWishListMutation();
   const removeFromWhislistHandler = async (productId: string) => {
@@ -44,7 +44,7 @@ const WishlistManage = ({ token }: PropsType) => {
   };
   if (isLoading) {
     content = <Spinner message="Ładowanie" />;
-  } else if (details.productDetail && details.productDetail.length > 0) {
+  } else if (details && details.productDetail.length > 0) {
     content = (
       <>
         <h2>Lista polibionych produktów:</h2>

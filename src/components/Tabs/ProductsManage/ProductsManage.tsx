@@ -17,7 +17,11 @@ interface PropsType {
   token: string;
 }
 const ProductsManage = ({ token }: PropsType) => {
-  const { data: userProducts, isLoading } = useGetUserProductQuery(token, {
+  const {
+    data: userProducts,
+    isLoading,
+    isSuccess,
+  } = useGetUserProductQuery(token, {
     refetchOnMountOrArgChange: true,
   });
   const [searchValue, setSearchValue] = useState('');
@@ -64,7 +68,7 @@ const ProductsManage = ({ token }: PropsType) => {
 
   if (isLoading) {
     content = <Spinner message="Ładowanie produktów" />;
-  } else if (userProducts?.products) {
+  } else if (isSuccess && userProducts?.products) {
     const productsToDisplay = !searchResults
       ? userProducts.products
       : searchResults;
