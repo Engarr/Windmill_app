@@ -31,16 +31,16 @@
 }
 .button {
   position: relative;
-
   font-size: 1.6em;
   padding: 10px 0px;
   width: 150px;
   border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
   border: none;
   cursor: pointer;
   font-family: 'BenchNine', sans-serif;
   transition: background-color 0.3s;
-  background-color: rgba(141, 141, 141, 0.05);
+  background-color: rgba(141, 141, 141, 0.1);
 }
 .button::before {
   content: '';
@@ -52,7 +52,9 @@
   transition: width 0.3s;
 }
 .activeTab {
-  background-color: transparent;
+  // background-color: transparent;
+  background-color: rgba(141, 141, 141, 0.05);
+  box-shadow: 2px -2px 2px rgba(0, 0, 0, 0.1);
 }
 .activeTab::before {
   font-weight: bold;
@@ -88,5 +90,18 @@
         margin-bottom: 1em;
       }
     }
+  }
+  .button {
+    position: relative;
+    font-size: 1.4em;
+    padding: 5px 0px;
+    margin: 0.1em 0;
+    width: 150px;
+    border-top-left-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: 'BenchNine', sans-serif;
+    transition: background-color 0.3s;
+    background-color: rgba(141, 141, 141, 0.05);
   }
 }

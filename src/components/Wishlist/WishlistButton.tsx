@@ -38,7 +38,7 @@ const WishlistButton = ({ productId }: PropsType) => {
       { refetchOnMountOrArgChange: true }
     );
 
-  // funkcja dodawania produktu do listyżyczeń
+  // The function of adding a product to the wish list
   const addToWishlistHandler = async () => {
     try {
       await onAddToWhislist({
@@ -49,7 +49,7 @@ const WishlistButton = ({ productId }: PropsType) => {
       toast.error('Wystąpił błąd podczas dodawania produktu do listy życzń.');
     }
   };
-  // funkcja usuwania produktu do listyżyczeń
+  // Delete product to wish list feature
   const removeFromWhislistHandler = async () => {
     try {
       await onRemoveFromWhislist({

@@ -7,6 +7,7 @@ import ProductsManage from './ProductsManage/ProductsManage';
 import OrderManage from './OrdersManage/OrderManage';
 import { uiActions } from '../../store/ui-slice';
 import { RootState } from '../../store/store';
+import WishlistManage from './WishlistManage/WishlistManage';
 
 const Tabs = () => {
   const selectedToggle = useSelector(
@@ -57,6 +58,17 @@ const Tabs = () => {
           >
             Zamówienia
           </button>
+          <button
+            className={
+              toggleState === 4
+                ? `${classes.activeTab} ${classes.button}`
+                : classes.button
+            }
+            onClick={() => toggleTab(4)}
+            type="button"
+          >
+            Ulubione
+          </button>
         </div>
 
         <div className={classes.container__contentTabs}>
@@ -86,6 +98,15 @@ const Tabs = () => {
             }
           >
             <OrderManage token={token} />
+          </div>
+          <div
+            className={
+              toggleState === 4
+                ? `${classes.content}  ${classes.activeContent}`
+                : classes.content
+            }
+          >
+            <WishlistManage token={token} />
           </div>
         </div>
       </div>

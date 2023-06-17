@@ -149,6 +149,15 @@ const userApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+    getWishlistItems: builder.query<void, string>({
+      query: (token) => ({
+        url: `auth/getWishlist`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      providesTags: [{ type: 'WishlistAction' }],
+    }),
     getWishlist: builder.query<void, { productId: string; token: string }>({
       query: ({ token, productId }) => ({
         url: `auth/getWishlist/${productId}`,
@@ -205,6 +214,7 @@ export const {
   usePutContactMessageMutation,
   useGetOrderDetailQuery,
   useGetOrdersDetailQuery,
+  useGetWishlistItemsQuery,
   useGetWishlistQuery,
   usePostAddToWishListMutation,
   useDeleteFromWishListMutation,
