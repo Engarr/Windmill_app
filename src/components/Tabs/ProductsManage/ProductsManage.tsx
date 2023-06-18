@@ -65,7 +65,6 @@ const ProductsManage = ({ token }: PropsType) => {
       }
     }
   };
-
   if (isLoading) {
     content = <Spinner message="Ładowanie produktów" />;
   } else if (isSuccess && userProducts?.products) {
@@ -74,7 +73,7 @@ const ProductsManage = ({ token }: PropsType) => {
       : searchResults;
 
     if (searchResults?.length === 0 || userProducts?.products.length === 0) {
-      content = <p>Brak wyników dla podanej frazy wyszukiwania.</p>;
+      content = <p>Brak wyników.</p>;
     } else {
       content = (
         <>

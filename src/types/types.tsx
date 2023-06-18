@@ -21,6 +21,7 @@ export type ErrorsData = {
   subject?: string;
   code?: string;
   user?: string;
+  oldPassword?: string;
 };
 export type ErrorOrderPageType = {
   name?: string;
