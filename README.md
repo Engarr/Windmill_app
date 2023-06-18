@@ -23,7 +23,7 @@ This is a README file for the E-commerce Store application developed in React, w
 
 ## Installation
 
-1. Sklonuj repozytorium na swój lokalny komputer:
+1.Clone the repository to your local computer:
 
 ```bash
  git clone https://github.com/your-username/ecommerce-milling-store.git
@@ -59,7 +59,6 @@ npm run dev
 - JavaScript: Programming language used for client-side functionality.
 - Redux Toolkit: Simplified state management library for React applications.
 - react-router-dom: Library for routing in React applications.
-- dotenv: Library for managing environment variables.
 - react-redux: Official Redux bindings for React applications.
 - vercel: Platform for deploying web applications.
 
